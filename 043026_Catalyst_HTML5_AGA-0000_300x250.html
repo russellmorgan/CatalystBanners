@@ -18,7 +18,7 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    html, body {
+    html, body { 
       width: 100%;
       height: 100%;
       overflow: hidden;
@@ -46,58 +46,40 @@
       inset: 0;
       display: flex;
       flex-direction: column;
-      align-items: center;
+      align-items: stretch;
       justify-content: center;
       opacity: 0;
-      padding: 0 16px;
+      padding: 0;
+      margin: 0;
     }
 
-    .frame img {
+    .frame .boulders {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
       max-width: 100%;
-      max-height: 100%;
-      object-fit: contain;
+      height: auto;
+      display: block;
+      z-index:100;
     }
 
     /* Transparent wrapper — lets imgs participate directly in the frame's flex layout */
     .slide-content {
-      display: contents;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow:hidden;
+      z-index:200;
     }
 
     .full-bg {
       background: #8EBE4E;
     }
 
-    .color-block-animation {
-      position: relative;
-      width: calc(100% + 32px);
-      margin-left: -16px;
-      margin-right: -16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .color-block {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      background: #44264A;
-      z-index: 1;
-    }
-
-    .color-block-animation img {
-      position: relative;
-      z-index: 2;
-      opacity: 0;
-      visibility: hidden;
-      object-fit: contain;
-      padding-top: 10px;
-    }
-
     .legal {
-      position: absolute;
-      bottom: 2px;
       width: 100%;
       text-align: center;
       padding: 5px 8px;
@@ -105,6 +87,8 @@
       color: #44264A;
       pointer-events: none;
       white-space: nowrap;
+      position: absolute;
+      bottom: 4px;
     }
 
     #bg-exit {
@@ -121,29 +105,47 @@
       height: 16px;
       z-index: 20;
     }
+
+    .color-block {
+      width: 100%;
+      position:relative;
+      background-color: #8EBE4E;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 10px 0px;
+    }
+    .purple {
+      background-color: #44264A;
+    }
+
+    #frame-1 { opacity:0}
   </style>
 </head>
 
 <body>
   <div id="banner">
-    <div id="bg"></div>
-
+    
     <div id="frame-1" class="frame">
+      <img src="assets/Timeline300x300.gif" alt="" class="boulders">
       <div class="slide-content">
         <img src="assets/text1.png" alt="Frame 1">
       </div>
     </div>
 
     <div id="frame-2" class="frame">
+      <img src="assets/rocks-still.png" alt="" class="boulders">
       <div class="slide-content">
         <img src="assets/text2.png" alt="Frame 2">
       </div>
     </div>
 
     <div id="frame-3" class="frame">
-      <div class="color-block-animation">
-        <div class="color-block" style="background: #8EBE4E;"></div>
-        <img src="assets/text3.png" alt="Frame 3">
+      <img src="assets/rocks-still.png" alt="" class="boulders">
+      <div class="slide-content">
+        <div class="color-block">
+         <img src="assets/text3.png" alt="Frame 3">
+        </div>
       </div>
     </div>
 
@@ -171,10 +173,9 @@
       <div class="slide-content">
         <img src="assets/boulder4.png" alt="Frame 6">
         <img src="assets/txt-approach.png" alt="Frame 6">
-      </div>
-      <div class="color-block-animation">
-        <div class="color-block"></div>
-        <img src="assets/group-14709.png" alt="">
+        <div class="color-block purple">
+          <img src="assets/group-14709.png" alt="" width="70%">
+        </div>
       </div>
       <div class="legal">
         <span>LEGAL-0002</span>&nbsp;|&nbsp;Exp:&nbsp;<span class="exp-display">MM/DD/YYYY</span>
@@ -184,10 +185,9 @@
     <div id="frame-7" class="frame full-bg">
       <div class="slide-content">
         <img src="assets/cancer-lems.png" alt="End Card">
-      </div>
-      <div class="color-block-animation">
-        <div class="color-block"></div>
-        <img src="assets/group-14709.png" alt="">
+          <div class="color-block purple">
+            <img src="assets/group-14709.png" alt="" width="70%">
+        </div>
       </div>
       <div class="legal">
         <span>LEGAL-0003</span>&nbsp;|&nbsp;Exp:&nbsp;<span class="exp-display">MM/DD/YYYY</span>
@@ -207,86 +207,61 @@
     function exitHandler()  { Enabler.exit("clickTag",  clickTag);  }
     function exitHandler2() { Enabler.exit("clickTag2", clickTag2); }
 
-    // Slides imgs[0] down from above into position. If a second image is present,
-    // it fades in with a 0.2s overlap at the end of the first animation.
-    function createTopToCenterAnimation(container, options = {}) {
-      const { duration = 1, ease = 'power2.out' } = options;
-      const imgs = container.querySelectorAll('img');
+    //Frame animations — using GSAP for sequencing and easing
+    function animateFrame1() {
       const tl = gsap.timeline();
-
-      tl.fromTo(imgs[0], { y: "-100%", opacity: 0 }, { y: 0, opacity: 1, duration, ease });
-
-      if (imgs.length > 1) {
-        tl.fromTo(imgs[1], { opacity: 0 }, { opacity: 1, duration: duration * 0.5 }, ">-0.2");
-      }
-
+      tl.set("#frame-1", { opacity: 1 });
+      tl.from("#frame-1 .slide-content", { y:"-=250",duration: 0.5, ease: "power1.out" },0.5);
+      tl.to("#frame-1 .slide-content", { y:"+=250",duration: 0.5, ease: "power1.in", immediateRender: false },"+=1.5>");
+      tl.set("#frame-1", { opacity: 0},"+=0.5");
       return tl;
     }
-
-    // Slides a solid color block in from the left, then fades in the image on top of it.
-    // Expects .color-block and an img inside the container element.
-    function createColorBlockWithFadeAnimation(container, options = {}) {
-      const {
-        blockDuration = 1,
-        fadeDuration  = 0.6,
-        blockEase     = 'power2.out',
-        fadeEase      = 'power1.inOut'
-      } = options;
-
-      const block = container.querySelector('.color-block');
-      const img   = container.querySelector('img');
-
-      if (!block || !img) {
-        console.warn('[animation] block or image not found');
-        return null;
-      }
-
-      return gsap.timeline()
-        .fromTo(block, { xPercent: -100 }, { xPercent: 0, duration: blockDuration, ease: blockEase })
-        // Fade in image with a slight overlap into the end of the block slide
-        .to(img, { autoAlpha: 1, duration: fadeDuration, ease: fadeEase }, `>-${fadeDuration * 0.5}`);
-    }
-
-    // Builds a self-contained GSAP timeline for a single frame.
-    // Detects .slide-content and .color-block-animation inside the frame and sequences them.
-    // hold = total visible duration in seconds; frame hides at that absolute time.
-    function buildFrameTimeline(id, hold) {
-      const frame      = document.getElementById(id);
-      const slide      = frame.querySelector('.slide-content');
-      const colorBlock = frame.querySelector('.color-block-animation');
-      const tl         = gsap.timeline();
-
-      tl.set(frame, { opacity: 1 });
-
-      if (slide) {
-        tl.add(createTopToCenterAnimation(slide, { duration: 0.8 }), 0);
-      }
-
-      if (colorBlock) {
-        const colorBlockAnim = createColorBlockWithFadeAnimation(colorBlock, { blockDuration: 0.8, fadeDuration: 0.6 });
-        // If a slide preceded it, start after slide finishes; otherwise start at 0
-        if (colorBlockAnim) tl.add(colorBlockAnim, slide ? ">" : 0);
-      }
-
-      // Hide the frame at the hold time — this sets the child timeline's total duration
-      tl.set(frame, { opacity: 0 }, hold);
-
+    function animateFrame2() {
+      const tl = gsap.timeline();
+      tl.set("#frame-2", { opacity: 1 });
+      tl.from("#frame-2 .slide-content", { y:"-=250",duration: 0.5, ease: "power1.out" },0.5);
+      tl.to("#frame-2 .slide-content", { opacity:0,duration: 0.5, ease: "power1.in", immediateRender: false },"+=1.5>");
+      tl.set("#frame-2", { opacity: 0 },"+=0.5");
       return tl;
     }
+    function animateFrame3() {
+      const tl = gsap.timeline();
+      tl.set("#frame-3", { opacity: 1 });
+      tl.from("#frame-3 .slide-content", { x:"-=300",duration: 0.5, ease: "power1.out" },0.5);
+      tl.set("#frame-3", { delay: 3, opacity: 0 });
+      return tl;
+    }
+    function animateFrame4() {
+      const tl = gsap.timeline({defaults: { ease: "steps(1)" }});
+      tl.set("#frame-4", { duration: 0.5, opacity: 1 });
+      tl.set("#frame-4", { duration: 0.5, delay: 3, opacity: 0 });
+      return tl;
+    }
+    function animateFrame5() {
+      const tl = gsap.timeline({defaults: { ease: "steps(1)" }});
+      tl.set("#frame-5", { duration: 0.5, opacity: 1 });
+      tl.set("#frame-5", { duration: 0.5, delay: 3, opacity: 0 });
+      return tl;
+    }
+    function animateFrame6() {
+      const tl = gsap.timeline({defaults: { ease: "steps(1)" }});
+      tl.set("#frame-6", { duration: 0.5, opacity: 1 });
+      tl.set("#frame-6", { duration: 0.5, delay: 3, opacity: 0 });
+      return tl;
+    }
+    function animateFrame7() {
+      const tl = gsap.timeline({defaults: { ease: "steps(1)" }});
+      tl.set("#frame-7", { duration: 0.5, opacity: 1 });
+      tl.set("#frame-7", { duration: 0.5, delay: 3, opacity: 0 });
+      return tl;
+    }          
 
-    // Master timeline — add frame child timelines sequentially.
-    // To offset a frame's start, change ">" to e.g. "<+0.5" (0.5s after prev starts).
-    // hold values are per-frame visible duration in seconds.
+    const mainTimeline = gsap.timeline({ paused: true, repeat: -1 });
+
+    // Build master timeline
     function buildTimeline() {
-      const masterTl = gsap.timeline({ repeat: -1, repeatDelay: 0 });
-
-      masterTl.add(buildFrameTimeline('frame-1', 3.0), '>');
-      masterTl.add(buildFrameTimeline('frame-2', 3.0), '>');
-      masterTl.add(buildFrameTimeline('frame-3', 3.0), '>');
-      masterTl.add(buildFrameTimeline('frame-4', 3.0), '>');
-      masterTl.add(buildFrameTimeline('frame-5', 3.0), '>');
-      masterTl.add(buildFrameTimeline('frame-6', 3.0), '>');
-      masterTl.add(buildFrameTimeline('frame-7', 6.4), '>');
+      mainTimeline.add(animateFrame1()).add(animateFrame2().add(animateFrame3()).add(animateFrame4()).add(animateFrame5()).add(animateFrame6()).add(animateFrame7()));
+      mainTimeline.play();
     }
 
     // Wait for GCM Enabler to initialise before starting the animation
