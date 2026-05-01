@@ -41,13 +41,7 @@
       background: url(assets/rocks.jpg) center center / cover no-repeat;
     }
 
-    #frame-1,
-    #frame-2,
-    #frame-3,
-    #frame-4,
-    #frame-5,
-    #frame-6,
-    #frame-7 {
+    .frame {
       position: absolute;
       inset: 0;
       display: flex;
@@ -58,28 +52,19 @@
       padding: 0 16px;
     }
 
-    #frame-1 img,
-    #frame-2 img,
-    #frame-3 img,
-    #frame-4 img,
-    #frame-5 img,
-    #frame-6 img,
-    #frame-7 img {
+    .frame img {
       max-width: 100%;
       max-height: 100%;
       object-fit: contain;
     }
 
-    /* Optional full-screen background color for frames */
-    .full-bg {
-      background: #8EBE4E;
+    /* Transparent wrapper — lets imgs participate directly in the frame's flex layout */
+    .slide-content {
+      display: contents;
     }
 
-    .purple-bg {
-      background: #44264A;
-      width: calc(100% + 32px);
-      margin-left: -16px;
-      margin-right: -16px;
+    .full-bg {
+      background: #8EBE4E;
     }
 
     .color-block-animation {
@@ -106,51 +91,14 @@
       z-index: 2;
       opacity: 0;
       visibility: hidden;
-      max-width: 100%;
-      max-height: 100%;
       object-fit: contain;
+      padding-top: 10px;
     }
 
-    .headline {
-      color: #ffffff;
-      font-size: 22px;
-      font-weight: bold;
-      text-align: center;
-      line-height: 1.2;
-    }
-
-    .subline {
-      color: #ffffff;
-      font-size: 13px;
-      text-align: center;
-      margin-top: 8px;
-      line-height: 1.3;
-    }
-
-    #cta-bar {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 40px;
-      background: #44264A;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-    }
-
-    #cta-bar span {
-      color: #ffffff;
-      font-size: 14px;
-      font-weight: bold;
-      letter-spacing: 0.5px;
-    }
-
-    #legal {
+    .legal {
       position: absolute;
       bottom: 2px;
-      width:100%;
+      width: 100%;
       text-align: center;
       padding: 5px 8px;
       font-size: 10px;
@@ -158,7 +106,6 @@
       pointer-events: none;
       white-space: nowrap;
     }
-
 
     #bg-exit {
       position: absolute;
@@ -168,7 +115,7 @@
 
     #pi-exit {
       position: absolute;
-      bottom: 44px;
+      bottom: 4px;
       right: 4px;
       width: 80px;
       height: 16px;
@@ -181,47 +128,69 @@
   <div id="banner">
     <div id="bg"></div>
 
-    <div id="frame-1"><img src="assets/text1.png" alt="Frame 1"></div>
-    <div id="frame-2"><img src="assets/text2.png" alt="Frame 2"></div>
-    <div id="frame-3">
+    <div id="frame-1" class="frame">
+      <div class="slide-content">
+        <img src="assets/text1.png" alt="Frame 1">
+      </div>
+    </div>
+
+    <div id="frame-2" class="frame">
+      <div class="slide-content">
+        <img src="assets/text2.png" alt="Frame 2">
+      </div>
+    </div>
+
+    <div id="frame-3" class="frame">
       <div class="color-block-animation">
         <div class="color-block" style="background: #8EBE4E;"></div>
         <img src="assets/text3.png" alt="Frame 3">
       </div>
     </div>
-    <div id="frame-4" class="full-bg">
-      <img src="assets/boulder2.png" alt="Frame 4">
-      <img src="assets/text4.png" alt="Frame 4">
-        <div id="legal">
-          <span id="veeva-display">AGA-0000</span>&nbsp;|&nbsp;Exp:&nbsp;<span id="exp-display">MM/DD/YYYY</span>
+
+    <div id="frame-4" class="frame full-bg">
+      <div class="slide-content">
+        <img src="assets/boulder2.png" alt="Frame 4">
+        <img src="assets/text4.png" alt="Frame 4">
+      </div>
+      <div class="legal">
+        <span>LEGAL-0000</span>&nbsp;|&nbsp;Exp:&nbsp;<span class="exp-display">MM/DD/YYYY</span>
       </div>
     </div>
-    <div id="frame-5" class="full-bg">
-      <img src="assets/boulder3.png" alt="Frame 5">
-      <img src="assets/vgcc-test.png" alt="Frame 5">
-        <div id="legal">
-          <span id="veeva-display">AGA-0001</span>&nbsp;|&nbsp;Exp:&nbsp;<span id="exp-display">MM/DD/YYYY</span>
+
+    <div id="frame-5" class="frame full-bg">
+      <div class="slide-content">
+        <img src="assets/boulder3.png" alt="Frame 5">
+        <img src="assets/vgcc-test.png" alt="Frame 5">
+      </div>
+      <div class="legal">
+        <span>LEGAL-0001</span>&nbsp;|&nbsp;Exp:&nbsp;<span class="exp-display">MM/DD/YYYY</span>
       </div>
     </div>
-    <div id="frame-6" class="full-bg">
-      <img src="assets/boulder4.png" alt="Frame 6">
-      <img src="assets/txt-approach.png" alt="Frame 6">
+
+    <div id="frame-6" class="frame full-bg">
+      <div class="slide-content">
+        <img src="assets/boulder4.png" alt="Frame 6">
+        <img src="assets/txt-approach.png" alt="Frame 6">
+      </div>
       <div class="color-block-animation">
         <div class="color-block"></div>
         <img src="assets/group-14709.png" alt="">
       </div>
-        <div id="legal">
-          <span id="veeva-display">AGA-0002</span>&nbsp;|&nbsp;Exp:&nbsp;<span id="exp-display">MM/DD/YYYY</span>
+      <div class="legal">
+        <span>LEGAL-0002</span>&nbsp;|&nbsp;Exp:&nbsp;<span class="exp-display">MM/DD/YYYY</span>
       </div>
     </div>
-    <div id="frame-7" class="full-bg">
-      <img src="assets/cancer-lems.png" alt="End Card">
+
+    <div id="frame-7" class="frame full-bg">
+      <div class="slide-content">
+        <img src="assets/cancer-lems.png" alt="End Card">
+      </div>
       <div class="color-block-animation">
         <div class="color-block"></div>
         <img src="assets/group-14709.png" alt="">
       </div>
-        <div id="legal">
-          <span id="veeva-display">AGA-0003</span>&nbsp;|&nbsp;Exp:&nbsp;<span id="exp-display">MM/DD/YYYY</span>
+      <div class="legal">
+        <span>LEGAL-0003</span>&nbsp;|&nbsp;Exp:&nbsp;<span class="exp-display">MM/DD/YYYY</span>
       </div>
     </div>
 
@@ -230,153 +199,100 @@
   </div>
 
   <script type="text/javascript">
-    document.getElementById("veeva-display").textContent =
-      document.querySelector('meta[name="veeva-code"]').content;
-    document.getElementById("exp-display").textContent =
-      document.querySelector('meta[name="expiration-date"]').content;
+    // Populate expiration date in all .legal containers from the meta tag
+    const expDate = document.querySelector('meta[name="expiration-date"]').content;
+    document.querySelectorAll('.exp-display').forEach(el => el.textContent = expDate);
 
+    // GCM click handlers — must use Enabler.exit() per GCM spec; do not use addEventListener
     function exitHandler()  { Enabler.exit("clickTag",  clickTag);  }
     function exitHandler2() { Enabler.exit("clickTag2", clickTag2); }
 
-    function createTopToCenterAnimation(target, options = {}) {
-      // Animate element sliding down from top to center with fade-in
-      const {
-        duration = 1,
-        ease = 'power2.out'
-      } = options;
-
+    // Slides imgs[0] down from above into position. If a second image is present,
+    // it fades in with a 0.2s overlap at the end of the first animation.
+    function createTopToCenterAnimation(container, options = {}) {
+      const { duration = 1, ease = 'power2.out' } = options;
+      const imgs = container.querySelectorAll('img');
       const tl = gsap.timeline();
-      tl.fromTo(target,
-          { y: "-100%", opacity: 0 },
-          { y: 0, opacity: 1, duration, ease }
-        );
+
+      tl.fromTo(imgs[0], { y: "-100%", opacity: 0 }, { y: 0, opacity: 1, duration, ease });
+
+      if (imgs.length > 1) {
+        tl.fromTo(imgs[1], { opacity: 0 }, { opacity: 1, duration: duration * 0.5 }, ">-0.2");
+      }
 
       return tl;
     }
 
+    // Slides a solid color block in from the left, then fades in the image on top of it.
+    // Expects .color-block and an img inside the container element.
     function createColorBlockWithFadeAnimation(container, options = {}) {
-      // Extract animation config with sensible defaults
       const {
-        blockSelector = '.color-block',
-        imageSelector = 'img',
         blockDuration = 1,
-        fadeDuration = 0.6,
-        blockEase = 'power2.out',
-        fadeEase = 'power1.inOut'
+        fadeDuration  = 0.6,
+        blockEase     = 'power2.out',
+        fadeEase      = 'power1.inOut'
       } = options;
 
-      // Query DOM for animation targets
-      const block = container.querySelector(blockSelector);
-      const img = container.querySelector(imageSelector);
+      const block = container.querySelector('.color-block');
+      const img   = container.querySelector('img');
 
-      // Guard: ensure both elements exist
       if (!block || !img) {
         console.warn('[animation] block or image not found');
         return null;
       }
 
-      // Create timeline for sequenced animation
-      const tl = gsap.timeline();
-
-      // Slide colored block in from left (xPercent: -100 to 0)
-      tl.fromTo(block,
-          { xPercent: -100 },
-          { xPercent: 0, duration: blockDuration, ease: blockEase }
-        )
-        // Fade in image after block (with slight overlap: -50% of fadeDuration)
+      return gsap.timeline()
+        .fromTo(block, { xPercent: -100 }, { xPercent: 0, duration: blockDuration, ease: blockEase })
+        // Fade in image with a slight overlap into the end of the block slide
         .to(img, { autoAlpha: 1, duration: fadeDuration, ease: fadeEase }, `>-${fadeDuration * 0.5}`);
+    }
+
+    // Builds a self-contained GSAP timeline for a single frame.
+    // Detects .slide-content and .color-block-animation inside the frame and sequences them.
+    // hold = total visible duration in seconds; frame hides at that absolute time.
+    function buildFrameTimeline(id, hold) {
+      const frame      = document.getElementById(id);
+      const slide      = frame.querySelector('.slide-content');
+      const colorBlock = frame.querySelector('.color-block-animation');
+      const tl         = gsap.timeline();
+
+      tl.set(frame, { opacity: 1 });
+
+      if (slide) {
+        tl.add(createTopToCenterAnimation(slide, { duration: 0.8 }), 0);
+      }
+
+      if (colorBlock) {
+        const colorBlockAnim = createColorBlockWithFadeAnimation(colorBlock, { blockDuration: 0.8, fadeDuration: 0.6 });
+        // If a slide preceded it, start after slide finishes; otherwise start at 0
+        if (colorBlockAnim) tl.add(colorBlockAnim, slide ? ">" : 0);
+      }
+
+      // Hide the frame at the hold time — this sets the child timeline's total duration
+      tl.set(frame, { opacity: 0 }, hold);
 
       return tl;
     }
 
+    // Master timeline — add frame child timelines sequentially.
+    // To offset a frame's start, change ">" to e.g. "<+0.5" (0.5s after prev starts).
+    // hold values are per-frame visible duration in seconds.
+    function buildTimeline() {
+      const masterTl = gsap.timeline({ repeat: -1, repeatDelay: 0 });
+
+      masterTl.add(buildFrameTimeline('frame-1', 3.0), '>');
+      masterTl.add(buildFrameTimeline('frame-2', 3.0), '>');
+      masterTl.add(buildFrameTimeline('frame-3', 3.0), '>');
+      masterTl.add(buildFrameTimeline('frame-4', 3.0), '>');
+      masterTl.add(buildFrameTimeline('frame-5', 3.0), '>');
+      masterTl.add(buildFrameTimeline('frame-6', 3.0), '>');
+      masterTl.add(buildFrameTimeline('frame-7', 6.4), '>');
+    }
+
+    // Wait for GCM Enabler to initialise before starting the animation
     function init() { buildTimeline(); }
     if (Enabler.isInitialized()) { init(); }
     else { Enabler.addEventListener(studio.events.StudioEvent.INIT, init); }
-
-    function buildTimeline() {
-      var tl = gsap.timeline({ repeat: -1, repeatDelay: 0 });
-
-      tl.set("#frame-1", { opacity: 1 });
-
-      const frame1Img = document.querySelector("#frame-1 img");
-      if (frame1Img) {
-        tl.add(createTopToCenterAnimation(frame1Img, { duration: 0.8 }), "<");
-      }
-
-      tl.to("#frame-1", { duration: 3.0 }, "<")
-        .set("#frame-1", { opacity: 0 })
-        .set("#frame-2", { opacity: 1 });
-
-      const frame2Img = document.querySelector("#frame-2 img");
-      if (frame2Img) {
-        tl.add(createTopToCenterAnimation(frame2Img, { duration: 0.8 }), "<");
-      }
-
-      tl.to("#frame-2", { duration: 3.0 }, "<")
-        .set("#frame-2", { opacity: 0 })
-        .set("#frame-3", { opacity: 1 });
-
-      const frame3Container = document.querySelector("#frame-3 .color-block-animation");
-      if (frame3Container) {
-        tl.add(createColorBlockWithFadeAnimation(frame3Container, {
-          blockDuration: 0.8,
-          fadeDuration: 0.6
-        }), "<");
-      }
-
-      tl.to("#frame-3", { duration: 3.0 }, "<")
-        .set("#frame-3", { opacity: 0 })
-        .set("#frame-4", { opacity: 1 });
-
-      const frame4Imgs = document.querySelectorAll("#frame-4 img");
-      if (frame4Imgs.length) {
-        frame4Imgs.forEach((img, index) => {
-          tl.add(createTopToCenterAnimation(img, { duration: 0.8 }), index === 0 ? "<" : "<0.1");
-        });
-      }
-
-      tl.to("#frame-4", { duration: 3.0 }, "<")
-        .set("#frame-4", { opacity: 0 })
-        .set("#frame-5", { opacity: 1 });
-
-      const frame5Imgs = document.querySelectorAll("#frame-5 img");
-      if (frame5Imgs.length) {
-        frame5Imgs.forEach((img, index) => {
-          tl.add(createTopToCenterAnimation(img, { duration: 0.8 }), index === 0 ? "<" : "<0.1");
-        });
-      }
-
-      tl.to("#frame-5", { duration: 3.0 }, "<")
-        .set("#frame-5", { opacity: 0 })
-        .set("#frame-6", { opacity: 1 });
-
-      // Add color block animation for frame-6
-      const frame6Container = document.querySelector("#frame-6 .color-block-animation");
-      if (frame6Container) {
-        const colorBlockAnim = createColorBlockWithFadeAnimation(frame6Container, {
-          blockDuration: 0.8,
-          fadeDuration: 0.6
-        });
-        tl.add(colorBlockAnim, "<");
-      }
-
-      tl.to("#frame-6", { opacity: 1, duration: 3.0 }, "<")
-        .set("#frame-6", { opacity: 0 })
-        .set("#frame-7", { opacity: 1 })
-        .set("#cta-bar", { opacity: 1 }, "<");
-
-      const frame7Container = document.querySelector("#frame-7 .color-block-animation");
-      if (frame7Container) {
-        tl.add(createColorBlockWithFadeAnimation(frame7Container, {
-          blockDuration: 0.8,
-          fadeDuration: 0.6
-        }), "<");
-      }
-
-      tl.to("#frame-7", { duration: 6.4 }, "<")
-        .set("#frame-7", { opacity: 0 })
-        .set("#cta-bar", { opacity: 0 }, "<");
-    }
   </script>
 </body>
 </html>
