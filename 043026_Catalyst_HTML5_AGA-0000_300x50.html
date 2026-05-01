@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="ad.size"         content="width=300,height=50">
+  <meta name="veeva-code"      content="AGA-0000">
+  <meta name="expiration-date" content="MM/DD/YYYY">
+
+  <script type="text/javascript">
+    var clickTag  = "https://example.com";
+    var clickTag2 = "https://example.com/prescribing-information.pdf";
+  </script>
+
+  <script src="https://s0.2mdn.net/ads/studio/Enabler.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      cursor: pointer;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    #banner {
+      position: relative;
+      width:  300px;
+      height: 50px;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      background: #000000;
+    }
+
+    #bg {
+      position: absolute;
+      inset: 0;
+      background: #003366;
+    }
+
+    /* Right-side CTA pill — no room for a bottom bar at 50px tall */
+    #cta-bar {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 76px;
+      height: 34px;
+      background: #44264A;
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      z-index: 5;
+    }
+
+    #cta-bar span {
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: bold;
+      letter-spacing: 0.3px;
+    }
+
+    /* Frames leave right margin for CTA pill */
+    #frame-1,
+    #frame-2,
+    #frame-3,
+    #frame-4,
+    #frame-5,
+    #frame-6,
+    #frame-7 {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 94px; /* clear of CTA pill */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      padding: 0 10px;
+    }
+
+    #frame-1 img,
+    #frame-2 img,
+    #frame-3 img,
+    #frame-4 img,
+    #frame-5 img,
+    #frame-6 img,
+    #frame-7 img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    /* Optional full-screen background color for frames */
+    .full-bg {
+      background: #8EBE4E;
+    }
+
+    .headline {
+      color: #ffffff;
+      font-size: 12px;
+      font-weight: bold;
+      text-align: center;
+      line-height: 1.2;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+    }
+
+    /* No room for subline at 50px — hidden */
+    .subline { display: none; }
+
+    #legal {
+      position: absolute;
+      bottom: 1px;
+      left: 4px;
+      font-size: 6px;
+      color: rgba(255,255,255,0.01);
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    #bg-exit {
+      position: absolute;
+      inset: 0;
+      z-index: 10;
+    }
+
+    /* PI exit sits over the CTA pill zone (secondary link) */
+    #pi-exit {
+      position: absolute;
+      top: 2px;
+      right: 8px;
+      width: 76px;
+      height: 14px;
+      z-index: 20;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="banner">
+    <div id="bg"></div>
+
+    <div id="frame-1"><img src="assets/frame-1.png" alt="Frame 1"></div>
+    <div id="frame-2"><img src="assets/frame-2.png" alt="Frame 2"></div>
+    <div id="frame-3"><img src="assets/frame-3.png" alt="Frame 3"></div>
+    <div id="frame-4"><img src="assets/frame-4.png" alt="Frame 4"></div>
+    <div id="frame-5"><img src="assets/frame-5.png" alt="Frame 5"></div>
+    <div id="frame-6"><img src="assets/frame-6.png" alt="Frame 6"></div>
+    <div id="frame-7"><img src="assets/frame-7.png" alt="End Card"></div>
+
+    <div id="cta-bar"><span>Learn More</span></div>
+
+    <div id="legal">
+      <span id="veeva-display">AGA-0000</span>&nbsp;|&nbsp;Exp:&nbsp;<span id="exp-display">MM/DD/YYYY</span>
+    </div>
+
+    <div id="bg-exit" onclick="exitHandler()"></div>
+    <div id="pi-exit" onclick="exitHandler2()"></div>
+  </div>
+
+  <script type="text/javascript">
+    document.getElementById("veeva-display").textContent =
+      document.querySelector('meta[name="veeva-code"]').content;
+    document.getElementById("exp-display").textContent =
+      document.querySelector('meta[name="expiration-date"]').content;
+
+    function exitHandler()  { Enabler.exit("clickTag",  clickTag);  }
+    function exitHandler2() { Enabler.exit("clickTag2", clickTag2); }
+
+    function init() { buildTimeline(); }
+    if (Enabler.isInitialized()) { init(); }
+    else { Enabler.addEventListener(studio.events.StudioEvent.INIT, init); }
+
+    function buildTimeline() {
+      var tl = gsap.timeline({ repeat: -1, repeatDelay: 0 });
+
+      tl.set("#frame-1", { opacity: 1 })
+        .to("#frame-1", { opacity: 1, duration: 3.0 })
+        .set("#frame-1", { opacity: 0 })
+        .set("#frame-2", { opacity: 1 })
+        .to("#frame-2", { opacity: 1, duration: 3.0 })
+        .set("#frame-2", { opacity: 0 })
+        .set("#frame-3", { opacity: 1 })
+        .to("#frame-3", { opacity: 1, duration: 3.0 })
+        .set("#frame-3", { opacity: 0 })
+        .set("#frame-4", { opacity: 1 })
+        .to("#frame-4", { opacity: 1, duration: 3.0 })
+        .set("#frame-4", { opacity: 0 })
+        .set("#frame-5", { opacity: 1 })
+        .to("#frame-5", { opacity: 1, duration: 3.0 })
+        .set("#frame-5", { opacity: 0 })
+        .set("#frame-6", { opacity: 1 })
+        .to("#frame-6", { opacity: 1, duration: 3.0 })
+        .set("#frame-6", { opacity: 0 })
+        .set("#frame-7", { opacity: 1 })
+        .set("#cta-bar", { opacity: 1 }, "<")
+        .to("#frame-7", { opacity: 1, duration: 6.4 })
+        .set("#frame-7", { opacity: 0 })
+        .set("#cta-bar", { opacity: 0 }, "<");
+    }
+  </script>
+</body>
+</html>
