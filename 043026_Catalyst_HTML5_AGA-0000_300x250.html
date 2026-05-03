@@ -198,6 +198,26 @@
     <div id="pi-exit" onclick="exitHandler2()"></div>
   </div>
 
+  <!-- DEV ONLY: remove this entire block before final delivery -->
+  <style>
+    #dev-controls { margin-top: 20px; margin-left: 20px }
+    #dev-play-pause {
+      padding: 6px 18px;
+      font-family: Arial, sans-serif;
+      font-size: 13px;
+      cursor: pointer;
+      background: #44264A;
+      color: #fff;
+      border: none;
+      border-radius: 0px;
+    }
+    #dev-play-pause:hover { background: #5a3562; }
+  </style>
+  <div id="dev-controls">
+    <button id="dev-play-pause" onclick="devTogglePlayback()">Pause</button>
+  </div>
+  <!-- END DEV ONLY -->
+
   <script type="text/javascript">
     // Populate expiration date in all .legal containers from the meta tag
     const expDate = document.querySelector('meta[name="expiration-date"]').content;
@@ -263,6 +283,19 @@
       mainTimeline.add(animateFrame1()).add(animateFrame2().add(animateFrame3()).add(animateFrame4()).add(animateFrame5()).add(animateFrame6()).add(animateFrame7()));
       mainTimeline.play();
     }
+
+    // DEV ONLY: remove this function before final delivery
+    function devTogglePlayback() {
+      const btn = document.getElementById("dev-play-pause");
+      if (mainTimeline.paused()) {
+        mainTimeline.play();
+        btn.textContent = "Pause";
+      } else {
+        mainTimeline.pause();
+        btn.textContent = "Play";
+      }
+    }
+    // END DEV ONLY
 
     // Wait for GCM Enabler to initialise before starting the animation
     function init() { buildTimeline(); }
