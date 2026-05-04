@@ -125,6 +125,9 @@
       }
       .magnify img {
         position: absolute;
+        left:50%;
+        transform: translateX(-50%);
+        z-index: 100;
       }
     </style>
   </head>
@@ -137,7 +140,7 @@
           <div class="color-block purple" style="height:250px">
             <div class="magnify">
               <img src="img/magnify.svg">
-              <img src="img/maskgroup.png">
+              <img src="img/maskgroup.png" style="transform: translateX(-85%) translateY(5px); z-index:50">
             </div>
             <img src="img/frame2txt.svg">
           </div>
