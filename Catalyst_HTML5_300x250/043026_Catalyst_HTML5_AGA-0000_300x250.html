@@ -126,21 +126,21 @@
         <div class="color-block init" id="frame3" style="opacity:1;position: absolute; inset:0; height:140px; left:-600px; margin:auto;">
           <img src="img/text3.png" style="transform:translateY(5px)">
           <div id="frame4" class="color-block" style="position: absolute; inset:0; top:0px; margin:auto;">
-            <img src="img/boulder2.png" id="rock1" class="init">
+            <img src="img/boulder2.png" id="rock1">
             <img src="img/text4.png" id="rock1txt">
           </div>
           <div id="frame5" class="color-block" style="position: absolute; inset:0; top:0px; margin:auto;">
-            <img src="img/boulder3.png" id="rock2" class="init">
+            <img src="img/boulder3.png" id="rock2">
             <img src="img/vgcc-test.png" id="rock2txt">
           </div>
           <div id="frame6" class="color-block" style="position: absolute; inset:0; top:0px; margin:auto;">
-            <img src="img/boulder4.png" id="rock3" class="init" style="margin-top:-30px">
+            <img src="img/boulder4.png" id="rock3" style="margin-top:-30px">
             <img src="img/txt-approach.png" id="rock3txt" style="margin-top:-10px">
             <div class="purple" style="width: 100%; padding-top:10px;transform: translateX(-100%);" id="frame6banner"><img src="img/learn300.png" class="img-block"></div>
           </div>
         </div>
         <div class="legal">
-          <img src="img/legal1.svg" style="display:inline-block">
+          <img src="img/legal1.svg">
           <img src="img/legal2.svg">
           <img src="img/legal3.svg">
           <img src="img/legal4.svg">
@@ -151,7 +151,7 @@
     <div id="pi-exit" onclick="exitHandler2()"></div>
   </div>
   <!-- for dev -->
-  <div style="position: absolute; bottom: 4px; right: 4px; z-index: 20;">version 0.4</div>
+  <div style="position: absolute; bottom: 4px; right: 4px; z-index: 20;">version 0.5</div>
   <script type="text/javascript">
 
     // GCM click handlers — must use Enabler.exit() per GCM spec; do not use addEventListener
@@ -168,42 +168,43 @@
       tl.to("#text1", { opacity: 0, y:"+=100%", duration: 0.5, ease: "power1.inOut"}, "+=2");
 
       tl.to("#text2", { opacity: 1, y:"100%", duration: 0.5, ease: "power1.inOut" });
-      tl.to("#text2", { opacity: 0, y:"+=100%", duration: 0.5, ease: "power1.inOut" }, "+=2");
+      tl.to("#text2", { opacity: 0, y:"+=100%", duration: 0.5, ease: "power1.inOut" }, "+=3");
 
       tl.to("#frame3", { opacity: 1, x:300, duration: 0.5, ease: "power1.inOut" });
       tl.to("#frame3", { height:300, duration: 0.5, ease: "power1.inOut" },"+=2");
       tl.to("#frame3 > img:nth-child(1)", { opacity:0, duration: 0.5, ease: "power1.inOut"});
 
       tl.from("#frame4", { y:-300,duration: 0.5, ease: "power1.inOut"});
-      tl.to("#frame4 .init", { opacity: 1, duration: 0.15 }, "+=0.2");
-      tl.to("#frame4", { y:300, duration: 0.5, ease: "power1.inOut" }, "+=2");
+      tl.from("#rock1", { y:-300, duration: 0.5, ease: "power1.inOut" });
+      tl.to("#frame4", { y:300, duration: 0.5, ease: "power1.inOut" }, "+=3");
 
       tl.from("#frame5", { y:-300,duration: 0.5, ease: "power1.inOut" });
-      tl.to("#frame5 .init", { opacity: 1, duration: 0.15 }, "+=0.2");
-      tl.to("#frame5", { y:300, duration: 0.5, ease: "power1.inOut"}, "+=2");
+      tl.from("#rock2", { y:-300, duration: 0.5, ease: "power1.inOut"  });
+      tl.to("#frame5", { y:300, duration: 0.5, ease: "power1.inOut"}, "+=3");
 
       tl.from("#frame6", { y:-300,duration: 0.5, ease: "power1.inOut"});
-      tl.to("#frame6 .init", { opacity: 1, duration: 0.15 }, "+=0.2");
-      tl.to("#frame6banner", { x:0, duration: 0.5, ease: "power1.inOut" }, "+=1");
+      tl.from("#rock3", { y:-300, duration: 0.5, ease: "power1.inOut" });
+      tl.to("#frame6banner", { x:0, duration: 0.5, ease: "power1.inOut" }, "+=0.5");
 
       return tl;  
     }
 
     function legalSequence() {
       const tl = gsap.timeline();
+      tl.set(".legal img:nth-child(1)", { display: "inline-block" },0.5);
       tl.set(".legal img:nth-child(1)", { display: "none" },2.5);
-      tl.set(".legal img:nth-child(2)", { display: "inline-block" },10.5);
-      tl.set(".legal img:nth-child(2)", { display: "none" },"+=1.5");
-      tl.set(".legal img:nth-child(3)", { display: "inline-block" },"+=2");
-      tl.set(".legal img:nth-child(3)", { display: "none" },"+=1.5");
-      tl.set(".legal img:nth-child(4)", { display: "inline-block" },"+=2");
+      tl.set(".legal img:nth-child(2)", { display: "inline-block" },11);
+      tl.set(".legal img:nth-child(2)", { display: "none" },14.5);
+      tl.set(".legal img:nth-child(3)", { display: "inline-block" },15.5);
+      tl.set(".legal img:nth-child(3)", { display: "none" },19);
+      tl.set(".legal img:nth-child(4)", { display: "inline-block" },20);
       return tl;
     }
     const mainTimeline = gsap.timeline({ paused: true, repeat: 0, repeatDelay: 2 });
 
     // Build master timeline
     function buildTimeline() {
-      mainTimeline.add(animationSequence).add(legalSequence, "<"); // Start legal sequence at the same time as the first frame animation
+      mainTimeline.add(animationSequence).add(legalSequence, "<");
       mainTimeline.play();
     }
 
