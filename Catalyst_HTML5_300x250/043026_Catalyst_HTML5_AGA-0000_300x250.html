@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="ad.size"         content="width=300,height=250">
+  <meta name="veeva-code"      content="AGA-0000">
+  <meta name="expiration-date" content="MM/DD/YYYY">
+
+  <script type="text/javascript">
+    var clickTag  = "https://example.com";
+    var clickTag2 = "https://example.com/prescribing-information.pdf";
+  </script>
+
+  <script src="https://s0.2mdn.net/ads/studio/Enabler.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body { 
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      cursor: pointer;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    #banner {
+      position: relative;
+      width:  300px;
+      height: 250px;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      background: #000000;
+    }
+
+    .frame {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: center;
+      opacity: 1;
+      padding: 0;
+      margin: 0;
+    }
+
+    .frame .boulders {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      max-width: 100%;
+      height: auto;
+      display: block;
+      z-index:100;
+    }
+
+    /* Transparent wrapper — lets imgs participate directly in the frame's flex layout */
+    .slide-content {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index:200;
+    }
+
+    #bg-exit {
+      position: absolute;
+      inset: 0;
+      z-index: 10;
+    }
+
+    #pi-exit {
+      position: absolute;
+      bottom: 4px;
+      right: 4px;
+      width: 80px;
+      height: 16px;
+      z-index: 20;
+    }
+
+    .color-block {
+      width: 100%;
+      position:relative;
+      background-color: #8EBE4E;
+      width: 100%;
+      display:flex;
+      flex-direction: column;
+      align-items:center;
+      justify-content:center
+    }
+    .purple {
+      background-color: #44264A;
+    }
+    .init {
+      opacity:0
+    }
+    .img-block {
+      display:block;
+      margin:auto
+    }
+    .legal {
+      position:absolute;
+      transform: translateY(100px);
+      width:100%;
+      text-align: center;
+    }
+    .legal img {
+      display: none;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div id="banner">
+    
+    <div class="frame">
+      <img src="img/Timeline300x300.gif" alt="" class="boulders" style="display:none">
+      <div class="slide-content">
+        <img src="img/weighing.png" class="init" id="text1" style="position: absolute; inset:0; top:-300px;margin:auto;">
+        <img src="img/weakness.png" class="init" id="text2" style="position: absolute; inset:0; top:-300px; margin:auto;">
+        <div class="color-block init" id="frame3" style="opacity:1;position: absolute; inset:0; height:140px; left:-600px; margin:auto;">
+          <img src="img/text3.png" style="transform:translateY(5px)">
+          <div id="frame4" class="color-block" style="position: absolute; inset:0; top:0px; margin:auto;">
+            <img src="img/boulder2.png" id="rock1">
+            <img src="img/text4.png" id="rock1txt">
+          </div>
+          <div id="frame5" class="color-block" style="position: absolute; inset:0; top:0px; margin:auto;">
+            <img src="img/boulder3.png" id="rock1">
+            <img src="img/vgcc-test.png" id="rock1txt" class=""init">
+          </div>
+          <div id="frame6" class="color-block" style="position: absolute; inset:0; top:0px; margin:auto;">
+            <img src="img/boulder4.png" id="rock1" style="margin-top:-30px">
+            <img src="img/txt-approach.png" id="rock1txt" style="margin-top:-10px">
+            <div class="purple" style="width: 100%; padding-top:10px;transform: translateX(-100%);" id="frame6banner"><img src="img/learn300.png" class="img-block"></div>
+          </div>
+        </div>
+        <div class="legal">
+          <img src="img/legal1.svg" style="display:inline-block">
+          <img src="img/legal2.svg">
+          <img src="img/legal3.svg">
+          <img src="img/legal4.svg">
+        </div>
+      </div>
+    </div>
+
+
+
+    <div id="bg-exit" onclick="exitHandler()"></div>
+    <div id="pi-exit" onclick="exitHandler2()"></div>
+  </div>
+
+  <script type="text/javascript">
+
+    // GCM click handlers — must use Enabler.exit() per GCM spec; do not use addEventListener
+    function exitHandler()  { if (typeof Enabler !== 'undefined') { Enabler.exit("clickTag",  clickTag); } }
+    function exitHandler2() { if (typeof Enabler !== 'undefined') { Enabler.exit("clickTag2", clickTag2); } }
+
+    // Frame animations — using GSAP for sequencing and easing
+  
+
+    function animationSequence() {
+      const tl = gsap.timeline();
+      
+      tl.to("#text1", { opacity: 1, y:"100%", duration: 0.5, ease: "power1.inOut", 
+        onComplete: () => document.querySelector(".boulders").style.display = "block" });
+
+      tl.to("#text1", { 
+        opacity: 0, 
+        y:"+=100%", duration: 0.5,
+        ease: "power1.inOut",
+        onStart: () => document.querySelector(".legal img:nth-child(1)").style.display = "none"
+      }, "+=2");
+
+      tl.to("#text2", { opacity: 1, y:"100%", duration: 0.5, ease: "power1.inOut" });
+      tl.to("#text2", { opacity: 0, y:"+=100%", duration: 0.5, ease: "power1.inOut" }, "+=2");
+
+      tl.to("#frame3", { opacity: 1, x:300, duration: 0.5, ease: "power1.inOut" });
+      tl.to("#frame3", { height:300, duration: 0.5, ease: "power1.inOut", onComplete: () => document.querySelector(".legal img:nth-child(2)").style.display = "inline-block" },"+=2");
+      tl.to("#frame3 > img:nth-child(1)", { opacity:0, duration: 0.5, ease: "power1.inOut"});
+
+      tl.from("#frame4", { y:-300,duration: 0.5, ease: "power1.inOut"});
+      tl.to("#frame4", { y:300, duration: 0.5, ease: "power1.inOut", onStart: ()=> document.querySelector(".legal img:nth-child(2)").style.display = "none" }, "+=2");
+
+      tl.from("#frame5", { y:-300,duration: 0.5, ease: "power1.inOut", onStart: ()=> document.querySelector(".legal img:nth-child(3)").style.display = "inline-block" });
+      tl.to("#frame5", { y:300, duration: 0.5, ease: "power1.inOut", onStart: ()=> document.querySelector(".legal img:nth-child(3)").style.display = "none" }, "+=2");
+
+      tl.from("#frame6", { y:-300,duration: 0.5, ease: "power1.inOut", onComplete: ()=> document.querySelector(".legal img:nth-child(4)").style.display = "inline-block" });
+      tl.to("#frame6banner", { x:0, duration: 0.5, ease: "power1.inOut" }, "+=1");
+
+      return tl;  
+    }
+
+    const mainTimeline = gsap.timeline({ paused: true, repeat: 0, repeatDelay: 2 });
+
+    // Build master timeline
+    function buildTimeline() {
+      mainTimeline.add(animationSequence);
+      mainTimeline.play();
+    }
+
+
+    // Wait for GCM Enabler to initialise before starting the animation
+    function init() { buildTimeline(); }
+    if (typeof Enabler !== 'undefined' && Enabler.isInitialized()) { init(); }
+    else if (typeof Enabler !== 'undefined') { Enabler.addEventListener(studio.events.StudioEvent.INIT, init); }
+    else { setTimeout(init, 100); }  // Fallback for local testing
+  </script>
+</body>
+</html>
