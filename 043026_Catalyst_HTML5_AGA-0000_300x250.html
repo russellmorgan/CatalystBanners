@@ -120,31 +120,31 @@
   <div id="banner">
     
     <div class="frame">
-      <img src="assets/Timeline300x300.gif" alt="" class="boulders" style="display:none">
+      <img src="img/Timeline300x300.gif" alt="" class="boulders" style="display:none">
       <div class="slide-content">
-        <img src="assets/weighing.png" class="init" id="text1" style="position: absolute; inset:0; top:-300px;margin:auto;">
-        <img src="assets/weakness.png" class="init" id="text2" style="position: absolute; inset:0; top:-300px; margin:auto;">
+        <img src="img/weighing.png" class="init" id="text1" style="position: absolute; inset:0; top:-300px;margin:auto;">
+        <img src="img/weakness.png" class="init" id="text2" style="position: absolute; inset:0; top:-300px; margin:auto;">
         <div class="color-block init" id="frame3" style="opacity:1;position: absolute; inset:0; height:140px; left:-600px; margin:auto;">
-          <img src="assets/text3.png" style="transform:translateY(5px)">
+          <img src="img/text3.png" style="transform:translateY(5px)">
           <div id="frame4" class="color-block" style="position: absolute; inset:0; top:0px; margin:auto;">
-            <img src="assets/boulder2.png" id="rock1">
-            <img src="assets/text4.png" id="rock1txt">
+            <img src="img/boulder2.png" id="rock1">
+            <img src="img/text4.png" id="rock1txt">
           </div>
           <div id="frame5" class="color-block" style="position: absolute; inset:0; top:0px; margin:auto;">
-            <img src="assets/boulder3.png" id="rock1">
-            <img src="assets/vgcc-test.png" id="rock1txt" class=""init">
+            <img src="img/boulder3.png" id="rock1">
+            <img src="img/vgcc-test.png" id="rock1txt" class=""init">
           </div>
           <div id="frame6" class="color-block" style="position: absolute; inset:0; top:0px; margin:auto;">
-            <img src="assets/boulder4.png" id="rock1" style="margin-top:-30px">
-            <img src="assets/txt-approach.png" id="rock1txt" style="margin-top:-10px">
-            <div class="purple" style="width: 100%; padding-top:10px;transform: translateX(-100%);" id="frame6banner"><img src="assets/learn300.png" class="img-block"></div>
+            <img src="img/boulder4.png" id="rock1" style="margin-top:-30px">
+            <img src="img/txt-approach.png" id="rock1txt" style="margin-top:-10px">
+            <div class="purple" style="width: 100%; padding-top:10px;transform: translateX(-100%);" id="frame6banner"><img src="img/learn300.png" class="img-block"></div>
           </div>
         </div>
         <div class="legal">
-          <img src="assets/legal1.svg" style="display:inline-block">
-          <img src="assets/legal2.svg">
-          <img src="assets/legal3.svg">
-          <img src="assets/legal4.svg">
+          <img src="img/legal1.svg" style="display:inline-block">
+          <img src="img/legal2.svg">
+          <img src="img/legal3.svg">
+          <img src="img/legal4.svg">
         </div>
       </div>
     </div>
@@ -167,7 +167,6 @@
     function animationSequence() {
       const tl = gsap.timeline();
       
-
       tl.to("#text1", { opacity: 1, y:"100%", duration: 0.5, ease: "power1.inOut", 
         onComplete: () => document.querySelector(".boulders").style.display = "block" });
 

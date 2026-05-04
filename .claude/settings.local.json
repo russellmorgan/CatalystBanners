@@ -8,7 +8,9 @@
       "Bash(mv \"Cancer-Associated LEMS with SCLC Move toward a new approach.png\" \"cancer-lems.png\")",
       "Bash(python3 -m http.server 8000)",
       "Bash(curl -s http://localhost:8000)",
-      "mcp__ide__getDiagnostics"
+      "mcp__ide__getDiagnostics",
+      "Bash(Get-ChildItem \"C:\\\\Users\\\\Russell\\\\Documents\\\\GitHub\\\\CatalystBanners\\\\assets\" -File)",
+      "Bash(Select-Object Name)"
     ]
   }
 }
