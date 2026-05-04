@@ -117,10 +117,9 @@
 </head>
 
 <body>
-  <div id="banner">
-    
+  <div id="banner">  
     <div class="frame">
-      <img src="img/Timeline300x300.gif" alt="" class="boulders" style="display:none">
+      <img src="img/Timeline300x300.gif" alt="" class="boulders">
       <div class="slide-content">
         <img src="img/weighing.png" class="init" id="text1" style="position: absolute; inset:0; top:-300px;margin:auto;">
         <img src="img/weakness.png" class="init" id="text2" style="position: absolute; inset:0; top:-300px; margin:auto;">
@@ -148,13 +147,11 @@
         </div>
       </div>
     </div>
-
-
-
     <div id="bg-exit" onclick="exitHandler()"></div>
     <div id="pi-exit" onclick="exitHandler2()"></div>
   </div>
-
+  <!-- for dev -->
+  <div style="position: absolute; bottom: 4px; right: 4px; z-index: 20;">version 0.1</div>
   <script type="text/javascript">
 
     // GCM click handlers — must use Enabler.exit() per GCM spec; do not use addEventListener
@@ -167,8 +164,7 @@
     function animationSequence() {
       const tl = gsap.timeline();
       
-      tl.to("#text1", { opacity: 1, y:"100%", duration: 0.5, ease: "power1.inOut", 
-        onComplete: () => document.querySelector(".boulders").style.display = "block" });
+      tl.to("#text1", { opacity: 1, y:"100%", duration: 0.5, ease: "power1.inOut"});
 
       tl.to("#text1", { 
         opacity: 0, 
