@@ -7,7 +7,8 @@
       "Bash(mv \"Boulder_4.png\" \"boulder4.png\")",
       "Bash(mv \"Cancer-Associated LEMS with SCLC Move toward a new approach.png\" \"cancer-lems.png\")",
       "Bash(python3 -m http.server 8000)",
-      "Bash(curl -s http://localhost:8000)"
+      "Bash(curl -s http://localhost:8000)",
+      "mcp__ide__getDiagnostics"
     ]
   }
 }
