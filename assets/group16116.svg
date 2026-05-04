@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="211.312" height="135.227" viewBox="0 0 211.312 135.227">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_5659" data-name="Rectangle 5659" width="211.312" height="135.227" fill="#8ebe4e"/>
+    </clipPath>
+    <clipPath id="clip-path-2">
+      <ellipse id="Ellipse_1" data-name="Ellipse 1" cx="56.5" cy="56" rx="56.5" ry="56" transform="translate(-0.418 -0.059)" fill="#fff" stroke="#707070" stroke-width="1"/>
+    </clipPath>
+    <pattern id="pattern" preserveAspectRatio="xMidYMid slice" width="100%" height="100%" viewBox="0 0 3140 2011">
+      <image width="3140" height="2011" xlink:href="Group%2016116-image.jpg"/>
+    </pattern>
+  </defs>
+  <g id="Group_16116" data-name="Group 16116" transform="translate(-114.806 -27.031)">
+    <g id="Group_14726" data-name="Group 14726" transform="translate(114.806 27.031)">
+      <g id="Group_15892" data-name="Group 15892" transform="translate(0 0)" clip-path="url(#clip-path)">
+        <path id="Path_82249" data-name="Path 82249" d="M210.312,125.522h0c2.525-6.223.109-13.133-5.369-15.356L157.222,90.8c-2.38-.966-5.216.45-6.314,3.155l-5.2,12.808c-1.1,2.7-.05,5.7,2.33,6.662l47.719,19.365c5.48,2.223,12.028-1.048,14.551-7.269M4.977,42.2A67.6,67.6,0,0,1,132.293,87.252l12.314,5L140,103.6l-12.312-5A67.6,67.6,0,0,1,4.977,42.2m11.971,4.857a54.679,54.679,0,1,1,30.1,71.227,54.677,54.677,0,0,1-30.1-71.227" transform="translate(0 -0.001)" fill="#8ebe4e" fill-rule="evenodd"/>
+        <path id="Path_82250" data-name="Path 82250" d="M20.172,34.841a22.4,22.4,0,1,0,22.4-22.4,22.4,22.4,0,0,0-22.4,22.4" transform="translate(25.677 13.961)" fill="#8ebe4e"/>
+        <path id="Path_82251" data-name="Path 82251" d="M76.7,40.729a38.621,38.621,0,0,0-11.835-5.421,51.62,51.62,0,0,0-13.717-1.782,51.6,51.6,0,0,0-13.717,1.782A38.576,38.576,0,0,0,25.6,40.726a28.738,28.738,0,0,0-8.553,9.1A26.656,26.656,0,0,0,13.455,61.98c-.007.13-.011,1.293-.016,3.1.873.936,1.78,1.843,2.716,2.709a51.458,51.458,0,0,0,69.977,0c.932-.861,1.841-1.768,2.718-2.709,0-1.807-.009-2.966-.016-3.1a26.678,26.678,0,0,0-3.584-12.158,28.818,28.818,0,0,0-8.553-9.1" transform="translate(17.106 42.674)" fill="#8ebe4e"/>
+      </g>
+    </g>
+    <g id="Mask_Group_2" data-name="Mask Group 2" transform="translate(126.19 38.059)" clip-path="url(#clip-path-2)">
+      <rect id="Final_Stone_Woman" width="513" height="351" transform="translate(-272.418 -38.059)" fill="url(#pattern)"/>
+    </g>
+  </g>
+</svg>
