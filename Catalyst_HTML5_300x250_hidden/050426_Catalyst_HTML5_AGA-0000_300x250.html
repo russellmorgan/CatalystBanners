@@ -147,8 +147,8 @@
         z-index: 100;
       }
       .magnify-face {
-        width: 58px;
-        height: 58px;
+        width: 61px;
+        height: 61px;
         border-radius: 50%;
         overflow: hidden;
         position: absolute;
@@ -264,10 +264,11 @@
         tl.to(".woman, .magnify-face", { opacity: 0, duration: 0.4 });
 
         // Magnifying glass scales up to reveal text
-        tl.to(".magnify", { scale:4.6, top:50, left:95, duration: 1, ease: "power2.inOut" });
+        tl.to(".magnify > img", { rotate:180, duration: 1, ease: "power2.inOut" });
+        tl.to(".magnify", { scale:4.9, top:50, left:-100, duration: 1, ease: "power2.inOut" },"<");
         tl.to("#frame3txt", { opacity: 1, scale: 1, duration: 1, ease: "back.inOut(1.25)"}, "-=0.5");
         tl.to("#frame3txt", { opacity:0, duration: 0.25},"+=3");
-        tl.to(".magnify", { scale:10, left:200, duration: 0.5, ease: "power1.in" });
+        tl.to(".magnify", { scale:10, left:-200, duration: 0.5, ease: "power1.in" });
         
         // frame 4 comes in under the expanding magnify
         tl.to("#frame4", { opacity: 1, duration: 0.5 },"-=0.25");
@@ -290,7 +291,7 @@
         tl.set(".legal img:nth-child(2)", { display: "none" }, "+=2.75");
         
         tl.set(".legal img:nth-child(3)", { display: "inline-block" }, "+=2");
-        tl.set(".legal img:nth-child(3)", { display: "none" }, "+=2");
+        tl.set(".legal img:nth-child(3)", { display: "none" }, "+=2.1");
         
         tl.set(".legal img:nth-child(4)", { display: "inline-block" }, "+=2.5");
         return tl;
