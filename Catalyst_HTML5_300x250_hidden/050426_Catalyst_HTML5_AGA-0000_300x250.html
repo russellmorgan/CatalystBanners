@@ -43,13 +43,10 @@
       .frame {
         position: absolute;
         inset: 0;
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-        justify-content: center;
         opacity: 1;
         padding: 0;
         margin: 0;
+        z-index:200;
       }
 
       .frame .woman {
@@ -62,7 +59,7 @@
         height: auto;
         display: block;
         z-index: 100;
-        transform: scale(1.6) translateY(30px) translateX(-20px);
+        transform: scale(1.7) translateY(30px) translateX(-20px);
       }
 
       /* Transparent wrapper — lets imgs participate directly in the frame's flex layout */
@@ -92,12 +89,14 @@
       .color-block {
         width: 100%;
         height:250px;
-        position: relative;
+        position: absolute;
         background-color: #8ebe4e;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        opacity:0;
+        z-index:200;
       }
       .purple {
         background-color: #44264a;
@@ -137,21 +136,31 @@
     <div id="banner">
       <div class="frame">
         <img src="img/woman-bed.jpg" alt="" class="woman" />
-        <div class="slide-content">
-          <div class="color-block purple" style="display: none;">
-            <div class="magnify">
-              <img src="img/magnify.svg">
-              <img src="img/maskgroup.png" style="transform: translateX(-85%) translateY(5px); z-index:50">
-            </div>
-            <img src="img/frame2txt.svg">
+
+        <div class="color-block purple" id="frame2">
+          <div class="magnify">
+            <img src="img/magnify.svg">
+            <img src="img/maskgroup.png" style="transform: translateX(-85%) translateY(5px); z-index:50">
           </div>
-          <div class="color-block">woot</div>
-          <div class="legal">
-            <img src="img/legal1.svg" />
-            <img src="img/legal2.svg" />
-            <img src="img/legal3.svg" />
-            <img src="img/legal4.svg" />
+          <img src="img/frame2txt.svg" id="frame2txt">
+        </div>
+        <div class="color-block" id="frame4">
+          <img src="img/beaker.svg" style="height: 73px; width:53px; margin-bottom:10px">
+          <img src="img/frame4txt.svg">
+        </div>
+        <div class="color-block" id="frame5" style="justify-content: flex-start; padding-top:10px">
+          <img src="img/lightbulb.svg" style="height: 84px; width:81px; margin-bottom:10px">
+          <img src="img/frame5txt.svg">
+          <div class="purple" style="width: 100%; margin-top:20px;padding-top:10px; padding-bottom:10px; text-align: center; transform: translateX(0px);">
+            <img src="img/frame5txt_banner.svg">
           </div>
+        </div>
+        
+        <div class="legal">
+          <img src="img/legal1.svg" />
+          <img src="img/legal2.svg" />
+          <img src="img/legal3.svg" />
+          <img src="img/legal4.svg" />
         </div>
       </div>
       <div id="bg-exit" onclick="exitHandler()"></div>
@@ -159,7 +168,7 @@
     </div>
     <!-- for dev -->
     <div style="position: absolute; bottom: 4px; right: 4px; z-index: 20">
-      version 0.3
+      version 0.1
     </div>
     <script type="text/javascript">
       // GCM click handlers — must use Enabler.exit() per GCM spec; do not use addEventListener
@@ -178,7 +187,16 @@
 
       function animationSequence() {
         const tl = gsap.timeline();
-
+        tl.to(".woman", {scale:1.58, duration: 2, ease: "linear"});
+        tl.to("#frame2", { opacity: 1, duration: 0.5 }, "-=0.25");
+        tl.from(".magnify", { scale: 0, duration: 0.5, ease: "back.out(1.5)"},"-=0.25");
+        tl.from("#frame2txt", { scale:0, duration: 0.5, ease: "back.out(1.5)"});
+        tl.to("#frame2txt", { scale:0, duration: 0.5, ease: "back.in(1.5)"},"+=2");
+        tl.to(".magnify img:nth-child(2)", { opacity:0, duration: 0.25});
+        tl.to(".magnify", { scale:4.6, top:50, left:95, duration: 1, ease: "power2.inOut" });
+        
+        tl.to("#frame4", { opacity: 1, duration: 0.5 },"+=2");
+        tl.to("#frame5", { opacity: 1, duration: 0.5 },"+=2");
         return tl;
       }
 
@@ -200,8 +218,8 @@
 
       // Build master timeline
       function buildTimeline() {
-        mainTimeline.add(animationSequence).add(legalSequence, "<"); // Start legal sequence at the same time as the first frame animation
-        //mainTimeline.play();
+        mainTimeline.add(animationSequence);
+        mainTimeline.play();
       }
 
       // Wait for GCM Enabler to initialise before starting the animation
