@@ -229,7 +229,7 @@
         const tl = gsap.timeline();
 
         // Frame 1: hold
-        tl.to(".woman", { duration: 1 });
+        tl.to(".woman", { duration: 0.5 });
 
         // Mask circle fades in — purple fills everything outside, woman's face shows through
         tl.to("#mask-circle", { opacity: 1, duration: 0.5 });
@@ -291,7 +291,7 @@
         tl.set(".legal img:nth-child(2)", { display: "none" }, "+=2.75");
         
         tl.set(".legal img:nth-child(3)", { display: "inline-block" }, "+=2");
-        tl.set(".legal img:nth-child(3)", { display: "none" }, "+=2.1");
+        tl.set(".legal img:nth-child(3)", { display: "none" }, "+=2.1res");
         
         tl.set(".legal img:nth-child(4)", { display: "inline-block" }, "+=2.5");
         return tl;
