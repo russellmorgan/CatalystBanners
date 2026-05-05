@@ -177,6 +177,7 @@
             </div>
           </div>
           <img src="img/frame2txt.svg" id="frame2txt">
+          <img src="img/frame3txt.svg" style="position: absolute; margin-top:-10%;transform: scale(0) translate(-50%, -50%); opacity:0" id="frame3txt">
         </div>
         <div class="color-block" id="frame4">
           <img src="img/beaker.svg" style="height: 73px; width:53px; margin-bottom:10px">
@@ -252,11 +253,14 @@
         tl.to(".magnify", { opacity: 1, duration: 0.5, ease: "power2.inOut" }, "-=0.25");
 
         // Text pops in
-        tl.from("#frame2txt", { scale: 0, duration: 0.5, ease: "back.out(1.5)" });
-        tl.to("#frame2txt", { scale:0, duration: 0.5, ease: "back.in(1.5)"},"+=2");
+        tl.from("#frame2txt", { scale: 0, duration: 0.5, ease: "back.out(1.25)" });
+        tl.to("#frame2txt", { scale:0, duration: 0.5, ease: "back.in(1.25)"},"+=2");
         tl.to(".magnify img:nth-child(2)", { opacity:0, duration: 0.25});
         tl.to(".woman, .magnify-face", { opacity: 0, duration: 0.4 });
+
+        // Magnifying glass scales up to reveal text
         tl.to(".magnify", { scale:4.6, top:50, left:95, duration: 1, ease: "power2.inOut" });
+        tl.to("#frame3txt", { opacity: 1, scale: 1, duration: 1, ease: "back.inOut(1.25)"}, "-=0.5");
         
         tl.to("#frame4", { opacity: 1, duration: 0.5 },"+=2");
         tl.to("#frame5", { opacity: 1, duration: 0.5 },"+=2");
