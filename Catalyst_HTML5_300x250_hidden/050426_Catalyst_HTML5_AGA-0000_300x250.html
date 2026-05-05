@@ -250,19 +250,22 @@
         tl.to("#frame2", { opacity: 1, scale:1, duration: 0.5 });
 
         // Magnifying glass pops in over the spot where the circle landed
-        tl.to(".magnify", { opacity: 1, duration: 0.5, ease: "power2.inOut" }, "-=0.25");
+        tl.to(".magnify", { opacity: 1, duration: 0.5, ease: "power1.inOut" }, "-=0.25");
 
         // Text pops in
         tl.from("#frame2txt", { scale: 0, duration: 0.5, ease: "back.out(1.25)" });
-        tl.to("#frame2txt", { scale:0, duration: 0.5, ease: "back.in(1.25)"},"+=2");
+        tl.to("#frame2txt", { scale:0, duration: 0.5, ease: "back.in(1.25)"},"+=3");
         tl.to(".magnify img:nth-child(2)", { opacity:0, duration: 0.25});
         tl.to(".woman, .magnify-face", { opacity: 0, duration: 0.4 });
 
         // Magnifying glass scales up to reveal text
-        tl.to(".magnify", { scale:4.6, top:50, left:95, duration: 1, ease: "power2.inOut" });
+        tl.to(".magnify", { scale:4.6, top:50, left:95, duration: 1, ease: "power1.inOut" });
         tl.to("#frame3txt", { opacity: 1, scale: 1, duration: 1, ease: "back.inOut(1.25)"}, "-=0.5");
+        tl.to("#frame3txt", { opacity:0, duration: 0.25},"+=3");
+        tl.to(".magnify", { scale:10, left:200, duration: 0.5, ease: "power1.in" });
         
-        tl.to("#frame4", { opacity: 1, duration: 0.5 },"+=2");
+        // frame 4 comes in under the expanding magnify
+        tl.to("#frame4", { opacity: 1, duration: 0.5 },"-=0.25");
         tl.to("#frame5", { opacity: 1, duration: 0.5 },"+=2");
         return tl;
       }
