@@ -109,12 +109,17 @@
       }
       .legal {
         position: absolute;
-        transform: translateY(220px);
+        transform: translateY(225px);
         width: 100%;
         text-align: center;
+        z-index: 300;
       }
       .legal img {
         display: none;
+        position: relative
+      }
+      #legal2 {
+        transform: translateY(-15px);
       }
       #mask-circle {
         position: absolute;
@@ -180,20 +185,20 @@
           <img src="img/frame3txt.svg" style="position: absolute; margin-top:-10%;transform: scale(0) translate(-50%, -50%); opacity:0" id="frame3txt">
         </div>
         <div class="color-block" id="frame4">
-          <img src="img/beaker.svg" style="height: 73px; width:53px; margin-bottom:10px">
-          <img src="img/frame4txt.svg">
+          <img src="img/beaker.svg" style="height: 73px; width:53px; margin-bottom:10px" id="beaker">
+          <img src="img/frame4txt.svg" id="frame4txt">
         </div>
         <div class="color-block" id="frame5" style="justify-content: flex-start; padding-top:10px">
-          <img src="img/lightbulb.svg" style="height: 84px; width:81px; margin-bottom:10px">
-          <img src="img/frame5txt.svg">
-          <div class="purple" style="width: 100%; margin-top:20px;padding-top:10px; padding-bottom:10px; text-align: center; transform: translateX(0px);">
+          <img src="img/lightbulb.svg" style="height: 84px; width:81px; margin-bottom:10px" id="lightbulb">
+          <img src="img/frame5txt.svg" id="frame5txt">
+          <div class="purple" id="purple" style="width: 100%; margin-top:20px;padding-top:10px; padding-bottom:10px; text-align: center; transform: translateX(0px);">
             <img src="img/frame5txt_banner.svg">
           </div>
         </div>
         
         <div class="legal">
           <img src="img/legal1.svg" />
-          <img src="img/legal2.svg" />
+          <img src="img/legal2.svg" id="legal2" />
           <img src="img/legal3.svg" />
           <img src="img/legal4.svg" />
         </div>
@@ -235,12 +240,12 @@
           height: 64,
           top: 34,
           left: 98,
-          duration: 1.2,
+          duration: 1,
           ease: "power2.inOut"
         }, "shrink");
         tl.to(".woman", {
           scale: 0.9,
-          duration: 1.2,
+          duration: 1,
           top: "-=16",
           left: "-=36",
           ease: "power2.inOut"
@@ -253,31 +258,41 @@
         tl.to(".magnify", { opacity: 1, duration: 0.5, ease: "power1.inOut" }, "-=0.25");
 
         // Text pops in
-        tl.from("#frame2txt", { scale: 0, duration: 0.5, ease: "back.out(1.25)" });
-        tl.to("#frame2txt", { scale:0, duration: 0.5, ease: "back.in(1.25)"},"+=3");
+        tl.from("#frame2txt", { scale: 0, duration: 0.5, ease: "back.out(1.5)" });
+        tl.to("#frame2txt", { scale:0, duration: 0.5, ease: "back.in(1.5)"},"+=3");
         tl.to(".magnify img:nth-child(2)", { opacity:0, duration: 0.25});
         tl.to(".woman, .magnify-face", { opacity: 0, duration: 0.4 });
 
         // Magnifying glass scales up to reveal text
-        tl.to(".magnify", { scale:4.6, top:50, left:95, duration: 1, ease: "power1.inOut" });
+        tl.to(".magnify", { scale:4.6, top:50, left:95, duration: 1, ease: "power2.inOut" });
         tl.to("#frame3txt", { opacity: 1, scale: 1, duration: 1, ease: "back.inOut(1.25)"}, "-=0.5");
         tl.to("#frame3txt", { opacity:0, duration: 0.25},"+=3");
         tl.to(".magnify", { scale:10, left:200, duration: 0.5, ease: "power1.in" });
         
         // frame 4 comes in under the expanding magnify
         tl.to("#frame4", { opacity: 1, duration: 0.5 },"-=0.25");
+        tl.from("#beaker", { scale: 0, duration: 0.5, ease: "back.out(1.25)" });
+        tl.from("#frame4txt", { scale: 0, duration: 0.5, ease: "back.out(1.25)" }, "-=0.25");
         tl.to("#frame5", { opacity: 1, duration: 0.5 },"+=2");
+        tl.from("#lightbulb", { scale: 0, duration: 0.5, ease: "back.out(1.25)" });
+        tl.from("#frame5txt", { scale: 0, duration: 0.5, ease: "back.out(1.25)" }, "-=0.25");
+        tl.from("#purple", { x:-300,duration: 0.5, ease: "power1.inOut"});
+        tl.from("#purple img", { opacity:0 ,duration: 0.5, ease: "power2.inOut"}, "+=0.25");
         return tl;
       }
 
       function legalSequence() {
         const tl = gsap.timeline();
-        tl.set(".legal img:nth-child(1)", { display: "none" }, 2.5);
-        tl.set(".legal img:nth-child(2)", { display: "inline-block" }, 10.5);
-        tl.set(".legal img:nth-child(2)", { display: "none" }, "+=1.5");
+        tl.set(".legal img:nth-child(1)", { display: "inline-block" }, 3.75);
+        tl.set(".legal img:nth-child(1)", { display: "none" }, 6.5);
+
+        tl.set(".legal img:nth-child(2)", { display: "inline-block" }, 9.5);
+        tl.set(".legal img:nth-child(2)", { display: "none" }, "+=2.75");
+        
         tl.set(".legal img:nth-child(3)", { display: "inline-block" }, "+=2");
-        tl.set(".legal img:nth-child(3)", { display: "none" }, "+=1.5");
-        tl.set(".legal img:nth-child(4)", { display: "inline-block" }, "+=2");
+        tl.set(".legal img:nth-child(3)", { display: "none" }, "+=2");
+        
+        tl.set(".legal img:nth-child(4)", { display: "inline-block" }, "+=2.5");
         return tl;
       }
       const mainTimeline = gsap.timeline({
@@ -288,8 +303,8 @@
 
       // Build master timeline
       function buildTimeline() {
-        mainTimeline.add(animationSequence);
-        mainTimeline.play();
+        mainTimeline.add(animationSequence).add(legalSequence, "<");
+        mainTimeline.play();  
       }
 
       // Wait for GCM Enabler to initialise before starting the animation
