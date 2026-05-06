@@ -12,5 +12,11 @@
       "Bash(Get-ChildItem \"C:\\\\Users\\\\Russell\\\\Documents\\\\GitHub\\\\CatalystBanners\\\\assets\" -File)",
       "Bash(Select-Object Name)"
     ]
+  },
+  "skillOverrides": {
+    "uefn-verse-basics": "name-only"
+  },
+  "enabledPlugins": {
+    "gsap-skills@gsap-skills": true
   }
 }

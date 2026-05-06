@@ -59,6 +59,7 @@
         height: auto;
         display: block;
         z-index: 100;
+        will-change: transform, opacity;
       }
 
       /* Transparent wrapper — lets imgs participate directly in the frame's flex layout */
@@ -96,6 +97,7 @@
         justify-content: center;
         opacity:0;
         z-index:200;
+        will-change: opacity;
       }
       .purple {
         background-color: #44264a;
@@ -132,13 +134,15 @@
         height: 240px;
         top: 5;
         left: 30px;
+        will-change: transform, opacity;
       }
 
       .magnify {
         position: relative;
         margin-bottom:15px;
         margin-top:-30px;
-        height:72px
+        height:72px;
+        will-change: transform;
       }
       .magnify img {
         position: absolute;
@@ -238,16 +242,16 @@
         tl.to("#mask-circle", {
           width: 64,
           height: 64,
-          top: 34,
-          left: 98,
+          x: 68,
+          y: 29,
           duration: 1,
           ease: "power2.inOut"
         }, "shrink");
         tl.to(".woman", {
           scale: 0.9,
+          y: "-=16",
+          x: "-=36",
           duration: 1,
-          top: "-=16",
-          left: "-=36",
           ease: "power2.inOut"
         }, "shrink");
 
@@ -265,10 +269,10 @@
 
         // Magnifying glass scales up to reveal text
         tl.to(".magnify > img", { rotate:180, duration: 1, ease: "power2.inOut" });
-        tl.to(".magnify", { scale:4.9, top:50, left:-100, duration: 1, ease: "power2.inOut" },"<");
+        tl.to(".magnify", { scale:4.9, y: 50, x: -100, duration: 1, ease: "power2.inOut" },"<");
         tl.to("#frame3txt", { opacity: 1, scale: 1, duration: 1, ease: "back.inOut(1.25)"}, "-=0.5");
         tl.to("#frame3txt", { opacity:0, duration: 0.25},"+=3");
-        tl.to(".magnify", { scale:10, left:-200, duration: 0.5, ease: "power1.in" });
+        tl.to(".magnify", { scale:10, x: -200, duration: 0.5, ease: "power1.in" });
         
         // frame 4 comes in under the expanding magnify
         tl.to("#frame4", { opacity: 1, duration: 0.5 },"-=0.25");
@@ -297,9 +301,7 @@
         return tl;
       }
       const mainTimeline = gsap.timeline({
-        paused: true,
-        repeat: 0,
-        repeatDelay: 2,
+        paused: true
       });
 
       // Build master timeline
