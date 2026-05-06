@@ -118,6 +118,12 @@
     #text1, #text2 {
       will-change: transform;
     }
+    #frame4, #frame5 {
+      margin-top:-10%;
+    }
+    #frame6 {
+      margin-top:-15%;
+    }
 
   </style>
 </head>
@@ -127,22 +133,24 @@
     <div class="frame">
       <img src="img/Timeline300x300.gif" alt="" class="boulders">
       <div class="slide-content">
-        <img src="img/weighing.png" class="init" id="text1" style="position: absolute; inset:0; top:-300px;margin:auto;">
-        <img src="img/weakness.png" class="init" id="text2" style="position: absolute; inset:0; top:-300px; margin:auto;">
+        <img src="img/slide1txt.svg" class="init" id="text1" style="position: absolute; inset:0; top:-300px;margin:auto;">
+        <img src="img/slide2txt.svg" class="init" id="text2" style="position: absolute; inset:0; top:-300px; margin:auto;">
         <div class="color-block init" id="frame3" style="opacity:1;position: absolute; inset:0; height:140px; left:-600px; margin:auto;">
-          <img src="img/text3.png" style="transform:translateY(5px)">
-          <div id="frame4" class="color-block" style="position: absolute; inset:0; top:0px; margin:auto;">
+          <img src="img/slide3txt.svg">
+          <div id="frame4" class="color-block" style="position: absolute; inset:0;">
             <img src="img/boulder2.png" id="rock1">
-            <img src="img/text4.png" id="rock1txt">
+            <img src="img/slide4txt.svg" id="rock1txt">
           </div>
-          <div id="frame5" class="color-block" style="position: absolute; inset:0; top:0px; margin:auto;">
+          <div id="frame5" class="color-block" style="position: absolute; inset:0">
             <img src="img/boulder3.png" id="rock2">
-            <img src="img/vgcc-test.png" id="rock2txt">
+            <img src="img/slide5txt.svg" id="rock2txt">
           </div>
-          <div id="frame6" class="color-block" style="position: absolute; inset:0; top:0px; margin:auto;">
-            <img src="img/boulder4.png" id="rock3" style="margin-top:-30px">
-            <img src="img/txt-approach.png" id="rock3txt" style="margin-top:-10px">
-            <div class="purple" style="width: 100%; padding-top:10px;transform: translateX(-100%);" id="frame6banner"><img src="img/learn300.png" class="img-block"></div>
+          <div id="frame6" class="color-block" style="position: absolute; inset:0">
+            <img src="img/boulder4.png" id="rock3">
+            <img src="img/slide6txt.svg" id="rock3txt" style="margin-top:-10px; margin-bottom:15px">
+            <div class="purple" style="width: 100%; padding:10px;transform: translateX(-100%);" id="frame6banner">
+              <img src="img/slide6txt_banner.svg" class="img-block">
+            </div>
           </div>
         </div>
         <div class="legal">
@@ -175,14 +183,14 @@
     function animationSequence() {
       const tl = gsap.timeline();
       
-      tl.to("#text1", { opacity: 1, y:"100%", duration: 0.5, ease: "power1.inOut"});
-      tl.to("#text1", { opacity: 0, y:"+=100%", duration: 0.5, ease: "power1.inOut"}, "+=2");
+      tl.to("#text1", { opacity: 1, y:"75%", duration: 0.5, ease: "back.out(1.5)"});
+      tl.to("#text1", { opacity: 0, y:"+=100%", duration: 0.5, ease: "back.out(1.5)"}, "+=2");
 
-      tl.to("#text2", { opacity: 1, y:"100%", duration: 0.5, ease: "power1.inOut" });
-      tl.to("#text2", { opacity: 0, y:"+=100%", duration: 0.5, ease: "power1.inOut" }, "+=3");
+      tl.to("#text2", { opacity: 1, y:"75%", duration: 0.5, ease: "back.out(1.5)" });
+      tl.to("#text2", { opacity: 0, y:"+=100%", duration: 0.5, ease: "back.out(1.5)" }, "+=3");
 
-      tl.to("#frame3", { opacity: 1, x:300, duration: 0.5, ease: "power1.inOut" });
-      tl.to("#frame3", { height:300, duration: 0.5, ease: "power1.inOut" },"+=2");
+      tl.to("#frame3", { opacity: 1, x:300, duration: 0.5, ease: "power1.out" });
+      tl.to("#frame3", { height:300, duration: 0.5, ease: "power1.in" },"+=2");
       tl.to("#frame3 > img:nth-child(1)", { opacity:0, duration: 0.5, ease: "power1.inOut"});
 
       addRockAnimation(tl, "#frame4", "#rock1", 3);
