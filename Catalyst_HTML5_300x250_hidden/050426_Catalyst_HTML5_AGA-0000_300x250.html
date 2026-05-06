@@ -142,7 +142,6 @@
         margin-bottom:15px;
         margin-top:-30px;
         height:72px;
-        will-change: transform;
       }
       .magnify img {
         position: absolute;
@@ -269,7 +268,7 @@
 
         // Magnifying glass scales up to reveal text
         tl.to(".magnify > img", { rotate:180, duration: 1, ease: "power2.inOut" });
-        tl.to(".magnify", { scale:4.9, y: 50, x: -100, duration: 1, ease: "power2.inOut" },"<");
+        tl.to(".magnify", { scale:5, y: 50, x: -100, duration: 1, ease: "power2.inOut", force3D: false },"<");
         tl.to("#frame3txt", { opacity: 1, scale: 1, duration: 1, ease: "back.inOut(1.25)"}, "-=0.5");
         tl.to("#frame3txt", { opacity:0, duration: 0.25},"+=3");
         tl.to(".magnify", { scale:10, x: -200, duration: 0.5, ease: "power1.in" });
