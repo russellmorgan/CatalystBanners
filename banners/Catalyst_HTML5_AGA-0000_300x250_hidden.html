@@ -164,45 +164,42 @@
   <body>
     <div id="banner">
       <div class="frame">
-        <img src="img/woman-bed.jpg" alt="" class="woman" />
+        <img src="img/hidden/woman-bed.jpg" alt="" class="woman" />
         <div id="mask-circle"></div>
 
         <div class="color-block purple" id="frame2">
           <div class="magnify">
-            <img src="img/magnify.svg">
+            <img src="img/hidden/magnify.svg">
             <div class="magnify-face">
-              <img src="img/woman-bed.jpg" alt="">
+              <img src="img/hidden/woman-bed.jpg" alt="">
             </div>
           </div>
-          <img src="img/frame2txt.svg" id="frame2txt">
-          <img src="img/frame3txt.svg" id="frame3txt">
+          <img src="img/hidden/frame2txt.svg" id="frame2txt">
+          <img src="img/hidden/frame3txt.svg" id="frame3txt">
         </div>
         <div class="color-block" id="frame4">
-          <img src="img/beaker.svg" style="height: 73px; width:53px; margin-bottom:20px" id="beaker">
-          <img src="img/frame4txt.svg" id="frame4txt">
+          <img src="img/hidden/beaker.svg" style="height: 73px; width:53px; margin-bottom:20px" id="beaker">
+          <img src="img/hidden/frame4txt.svg" id="frame4txt">
         </div>
         <div class="color-block" id="frame5" style="justify-content: flex-start; padding-top:10px">
-          <img src="img/lightbulb.svg" style="height: 84px; width:81px; margin-bottom:10px" id="lightbulb">
-          <img src="img/frame5txt.svg" id="frame5txt">
+          <img src="img/hidden/lightbulb.svg" style="height: 84px; width:81px; margin-bottom:10px" id="lightbulb">
+          <img src="img/hidden/frame5txt.svg" id="frame5txt">
           <div class="purple" id="purple" style="width: 100%; margin-top:20px; padding-top:10px; padding-bottom:5px; text-align: center;">
-            <img src="img/frame5txt_banner.svg">
+            <img src="img/hidden/frame5txt_banner.svg">
           </div>
         </div>
         
         <div class="legal">
-          <img src="img/legal1.svg" />
-          <img src="img/legal2.svg" id="legal2" style="bottom:5px" />
-          <img src="img/legal3.svg" style="bottom:-5px"/>
-          <img src="img/legal4.svg" style="bottom:-5px"/>
+          <img src="img/hidden/legal1.svg" />
+          <img src="img/hidden/legal2.svg" id="legal2" style="bottom:5px" />
+          <img src="img/hidden/legal3.svg" style="bottom:-5px"/>
+          <img src="img/hidden/legal4.svg" style="bottom:-5px"/>
         </div>
       </div>
       <div id="bg-exit" onclick="exitHandler()"></div>
       <div id="pi-exit" onclick="exitHandler2()"></div>
     </div>
-    <!-- for dev -->
-    <div style="position: absolute; bottom: 4px; right: 4px; z-index: 20">
-      version 0.2
-    </div>
+
     <script type="text/javascript">
       // GCM click handlers — must use Enabler.exit() per GCM spec; do not use addEventListener
       function exitHandler() {
@@ -222,7 +219,7 @@
         const tl = gsap.timeline();
 
         // Frame 1: hold
-        tl.to(".woman", { scale:1.73, yoyo: true, repeat:1, duration: 1, ease: "linear" });
+        tl.to(".woman", { scale:1.73, duration: 1, ease: "power2.out" });
 
         // Mask circle fades in — purple fills everything outside, woman's face shows through
         tl.to("#mask-circle", { opacity: 1, duration: 0.5 });
