@@ -62,15 +62,6 @@
         will-change: transform, opacity;
       }
 
-      /* Transparent wrapper — lets imgs participate directly in the frame's flex layout */
-      .slide-content {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        z-index: 200;
-      }
-
       #bg-exit {
         position: absolute;
         inset: 0;
@@ -102,13 +93,6 @@
       .purple {
         background-color: #44264a;
       }
-      .init {
-        opacity: 0;
-      }
-      .img-block {
-        display: block;
-        margin: auto;
-      }
       .legal {
         position: absolute;
         transform: translateY(225px);
@@ -132,9 +116,16 @@
         z-index: 150;
         width: 240px;
         height: 240px;
-        top: 5;
+        top: 5px;
         left: 30px;
         will-change: transform, opacity;
+      }
+
+      #frame3txt {
+        position: absolute;
+        margin-top: -10%;
+        transform: scale(0) translate(-50%, -50%);
+        opacity: 0;
       }
 
       .magnify {
@@ -185,7 +176,7 @@
             </div>
           </div>
           <img src="img/frame2txt.svg" id="frame2txt">
-          <img src="img/frame3txt.svg" style="position: absolute; margin-top:-10%;transform: scale(0) translate(-50%, -50%); opacity:0" id="frame3txt">
+          <img src="img/frame3txt.svg" id="frame3txt">
         </div>
         <div class="color-block" id="frame4">
           <img src="img/beaker.svg" style="height: 73px; width:53px; margin-bottom:10px" id="beaker">
@@ -194,7 +185,7 @@
         <div class="color-block" id="frame5" style="justify-content: flex-start; padding-top:10px">
           <img src="img/lightbulb.svg" style="height: 84px; width:81px; margin-bottom:10px" id="lightbulb">
           <img src="img/frame5txt.svg" id="frame5txt">
-          <div class="purple" id="purple" style="width: 100%; margin-top:20px;padding-top:10px; padding-bottom:10px; text-align: center; transform: translateX(0px);">
+          <div class="purple" id="purple" style="width: 100%; margin-top:20px; padding-top:10px; padding-bottom:10px; text-align: center;">
             <img src="img/frame5txt_banner.svg">
           </div>
         </div>
@@ -255,7 +246,7 @@
         }, "shrink");
 
         // Frame2 purple block takes over (mask circle is now the same size as the magnify circle)
-        tl.to("#frame2", { opacity: 1, scale:1, duration: 0.5 });
+        tl.to("#frame2", { opacity: 1, duration: 0.5 });
 
         // Magnifying glass pops in over the spot where the circle landed
         tl.to(".magnify", { opacity: 1, duration: 0.5, ease: "power1.inOut" }, "-=0.25");
@@ -267,11 +258,11 @@
         tl.to(".woman, .magnify-face", { opacity: 0, duration: 0.4 });
 
         // Magnifying glass scales up to reveal text
-        tl.to(".magnify > img", { rotate:180, duration: 1, ease: "power2.inOut" });
+        tl.to(".magnify > img", { rotate:180, duration: 1, ease: "power2.inOut", force3D: false });
         tl.to(".magnify", { scale:5, y: 50, x: -100, duration: 1, ease: "power2.inOut", force3D: false },"<");
         tl.to("#frame3txt", { opacity: 1, scale: 1, duration: 1, ease: "back.inOut(1.25)"}, "-=0.5");
         tl.to("#frame3txt", { opacity:0, duration: 0.25},"+=3");
-        tl.to(".magnify", { scale:10, x: -200, duration: 0.5, ease: "power1.in" });
+        tl.to(".magnify", { scale:10, x: -200, duration: 0.5, ease: "power1.in", force3D: false });
         
         // frame 4 comes in under the expanding magnify
         tl.to("#frame4", { opacity: 1, duration: 0.5 },"-=0.25");
@@ -294,7 +285,7 @@
         tl.set(".legal img:nth-child(2)", { display: "none" }, "+=2.75");
         
         tl.set(".legal img:nth-child(3)", { display: "inline-block" }, "+=2");
-        tl.set(".legal img:nth-child(3)", { display: "none" }, "+=2.1res");
+        tl.set(".legal img:nth-child(3)", { display: "none" }, "+=2.1");
         
         tl.set(".legal img:nth-child(4)", { display: "inline-block" }, "+=2.5");
         return tl;
