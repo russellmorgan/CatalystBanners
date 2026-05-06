@@ -113,6 +113,12 @@
       display: none;
     }
 
+    .boulders,
+    #frame4, #frame5, #frame6,
+    #text1, #text2 {
+      will-change: transform;
+    }
+
   </style>
 </head>
 
@@ -159,7 +165,12 @@
     function exitHandler2() { if (typeof Enabler !== 'undefined') { Enabler.exit("clickTag2", clickTag2); } }
 
     // Frame animations — using GSAP for sequencing and easing
-  
+
+    function addRockAnimation(tl, frameId, rockId, exitDelay) {
+      tl.from(frameId, { y: -300, duration: 0.5, ease: "power1.inOut" });
+      tl.from(rockId, { y: -300, duration: 0.5, ease: "power1.inOut" });
+      tl.to(frameId, { y: 300, duration: 0.5, ease: "power1.inOut" }, `+=${exitDelay}`);
+    }
 
     function animationSequence() {
       const tl = gsap.timeline();
@@ -174,13 +185,8 @@
       tl.to("#frame3", { height:300, duration: 0.5, ease: "power1.inOut" },"+=2");
       tl.to("#frame3 > img:nth-child(1)", { opacity:0, duration: 0.5, ease: "power1.inOut"});
 
-      tl.from("#frame4", { y:-300,duration: 0.5, ease: "power1.inOut"});
-      tl.from("#rock1", { y:-300, duration: 0.5, ease: "power1.inOut" });
-      tl.to("#frame4", { y:300, duration: 0.5, ease: "power1.inOut" }, "+=3");
-
-      tl.from("#frame5", { y:-300,duration: 0.5, ease: "power1.inOut" });
-      tl.from("#rock2", { y:-300, duration: 0.5, ease: "power1.inOut"  });
-      tl.to("#frame5", { y:300, duration: 0.5, ease: "power1.inOut"}, "+=3");
+      addRockAnimation(tl, "#frame4", "#rock1", 3);
+      addRockAnimation(tl, "#frame5", "#rock2", 3);
 
       tl.from("#frame6", { y:-300,duration: 0.5, ease: "power1.inOut"});
       tl.from("#rock3", { y:-300, duration: 0.5, ease: "power1.inOut" });
