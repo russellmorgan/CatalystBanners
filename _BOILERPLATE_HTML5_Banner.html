@@ -255,7 +255,7 @@
       return tl;
     }          
 
-    const mainTimeline = gsap.timeline({ paused: true, repeat: -1 });
+    var mainTimeline = gsap.timeline({ paused: true, repeat: -1 });
 
     // Build master timeline
     function buildTimeline() {
@@ -268,5 +268,6 @@
     if (Enabler.isInitialized()) { init(); }
     else { Enabler.addEventListener(studio.events.StudioEvent.INIT, init); }
   </script>
+  <script src="assets/debug-panel.js"></script>
 </body>
 </html>

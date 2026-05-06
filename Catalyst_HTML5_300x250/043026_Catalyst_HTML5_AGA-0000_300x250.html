@@ -206,11 +206,11 @@
       tl.set(".legal img:nth-child(4)", { display: "inline-block" },21.5);
       return tl;
     }
-    const mainTimeline = gsap.timeline({ paused: true, repeat: 0, repeatDelay: 2 });
+    var mainTimeline = gsap.timeline({ paused: true, repeat: 0, repeatDelay: 2 });
 
     // Build master timeline
     function buildTimeline() {
-      mainTimeline.add(animationSequence).add(legalSequence, "<");
+      mainTimeline.add(animationSequence()).add(legalSequence(), "<");
       mainTimeline.play();
     }
 
@@ -221,5 +221,6 @@
     else if (typeof Enabler !== 'undefined') { Enabler.addEventListener(studio.events.StudioEvent.INIT, init); }
     else { setTimeout(init, 100); }  // Fallback for local testing
   </script>
+  <script src="../assets/debug-panel.js"></script>
 </body>
 </html>
