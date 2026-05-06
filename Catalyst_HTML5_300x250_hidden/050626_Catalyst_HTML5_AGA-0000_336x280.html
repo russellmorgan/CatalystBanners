@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="ad.size" content="width=300,height=250" />
+    <meta name="ad.size" content="width=336,height=280" />
     <meta name="veeva-code" content="AGA-0000" />
     <meta name="expiration-date" content="MM/DD/YYYY" />
 
@@ -33,8 +33,8 @@
 
       #banner {
         position: relative;
-        width: 300px;
-        height: 250px;
+        width: 336px;
+        height: 280px;
         overflow: hidden;
         font-family: Arial, sans-serif;
         background: #000000;
@@ -79,15 +79,15 @@
 
       .color-block {
         width: 100%;
-        height:250px;
+        height: 280px;
         position: absolute;
         background-color: #8ebe4e;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        opacity:0;
-        z-index:200;
+        opacity: 0;
+        z-index: 200;
         will-change: opacity;
       }
       .purple {
@@ -95,16 +95,18 @@
       }
       .legal {
         position: absolute;
-        bottom:10px;
+        transform: translateY(252px);
         width: 100%;
         text-align: center;
         z-index: 300;
       }
       .legal img {
         display: none;
-        position: relative
+        position: relative;
       }
-
+      #legal2 {
+        transform: translateY(-15px);
+      }
       #mask-circle {
         position: absolute;
         border-radius: 50%;
@@ -112,10 +114,10 @@
         box-shadow: 0 0 0 600px #44264a;
         opacity: 0;
         z-index: 150;
-        width: 240px;
-        height: 240px;
-        top: 5px;
-        left: 30px;
+        width: 269px;
+        height: 269px;
+        top: 6px;
+        left: 34px;
         will-change: transform, opacity;
       }
 
@@ -128,27 +130,26 @@
 
       .magnify {
         position: relative;
-        margin-bottom:15px;
-        margin-top:-30px;
-        height:72px;
+        margin-bottom: 17px;
+        margin-top: -34px;
+        height: 81px;
       }
       .magnify img {
         position: absolute;
-        left:50%;
+        left: 50%;
         transform: translateX(-50%);
         z-index: 100;
       }
       .magnify-face {
-        width: 61px;
-        height: 61px;
+        width: 68px;
+        height: 68px;
         border-radius: 50%;
         overflow: hidden;
         position: absolute;
         left: 50%;
         transform: translateX(-85%) translateY(5px);
         z-index: 50;
-        opacity:1;
-        filter: blur(14px);
+        opacity: 1;
       }
       .magnify-face img {
         width: 100%;
@@ -178,22 +179,22 @@
           <img src="img/frame3txt.svg" id="frame3txt">
         </div>
         <div class="color-block" id="frame4">
-          <img src="img/beaker.svg" style="height: 73px; width:53px; margin-bottom:20px" id="beaker">
+          <img src="img/beaker.svg" style="height: 73px; width:53px; margin-bottom:10px" id="beaker">
           <img src="img/frame4txt.svg" id="frame4txt">
         </div>
         <div class="color-block" id="frame5" style="justify-content: flex-start; padding-top:10px">
           <img src="img/lightbulb.svg" style="height: 84px; width:81px; margin-bottom:10px" id="lightbulb">
           <img src="img/frame5txt.svg" id="frame5txt">
-          <div class="purple" id="purple" style="width: 100%; margin-top:20px; padding-top:10px; padding-bottom:5px; text-align: center;">
+          <div class="purple" id="purple" style="width: 100%; margin-top:20px; padding-top:10px; padding-bottom:10px; text-align: center;">
             <img src="img/frame5txt_banner.svg">
           </div>
         </div>
-        
+
         <div class="legal">
           <img src="img/legal1.svg" />
-          <img src="img/legal2.svg" id="legal2" style="bottom:5px" />
-          <img src="img/legal3.svg" style="bottom:-5px"/>
-          <img src="img/legal4.svg" style="bottom:-5px"/>
+          <img src="img/legal2.svg" id="legal2" />
+          <img src="img/legal3.svg" />
+          <img src="img/legal4.svg" />
         </div>
       </div>
       <div id="bg-exit" onclick="exitHandler()"></div>
@@ -201,7 +202,7 @@
     </div>
     <!-- for dev -->
     <div style="position: absolute; bottom: 4px; right: 4px; z-index: 20">
-      version 0.2
+      version 0.1
     </div>
     <script type="text/javascript">
       // GCM click handlers — must use Enabler.exit() per GCM spec; do not use addEventListener
@@ -222,25 +223,24 @@
         const tl = gsap.timeline();
 
         // Frame 1: hold
-        tl.to(".woman", { scale:1.73, yoyo: true, repeat:1, duration: 1, ease: "linear" });
+        tl.to(".woman", { duration: 1 });
 
         // Mask circle fades in — purple fills everything outside, woman's face shows through
         tl.to("#mask-circle", { opacity: 1, duration: 0.5 });
 
         // Both the circle and the woman scale down together — same label keeps them in sync
         tl.to("#mask-circle", {
-          width: 64,
-          height: 64,
-          x: 68,
-          y: 29,
+          width: 72,
+          height: 72,
+          x: 76,
+          y: 33,
           duration: 1,
           ease: "power2.inOut"
         }, "shrink");
         tl.to(".woman", {
           scale: 0.9,
-          y: "-=16",
-          x: "-=36",
-          filter: "blur(14px)",
+          y: "-=18",
+          x: "-=40",
           duration: 1,
           ease: "power2.inOut"
         }, "shrink");
@@ -250,7 +250,6 @@
 
         // Magnifying glass pops in over the spot where the circle landed
         tl.to(".magnify", { opacity: 1, duration: 0.5, ease: "power1.inOut" }, "-=0.25");
-        tl.to(".magnify-face", { filter: "blur(0px)", duration: 0.3, ease: "power1.inOut" }, "<");
 
         // Text pops in
         tl.from("#frame2txt", { scale: 0, duration: 0.5, ease: "back.out(1.5)" });
@@ -260,11 +259,11 @@
 
         // Magnifying glass scales up to reveal text
         tl.to(".magnify > img", { rotate:180, duration: 1, ease: "power2.inOut", force3D: false });
-        tl.to(".magnify", { scale:5, y: 50, x: -100, duration: 1, ease: "power2.inOut", force3D: false },"<");
+        tl.to(".magnify", { scale:5, y: 56, x: -112, duration: 1, ease: "power2.inOut", force3D: false },"<");
         tl.to("#frame3txt", { opacity: 1, scale: 1, duration: 1, ease: "back.inOut(1.25)"}, "-=0.5");
         tl.to("#frame3txt", { opacity:0, duration: 0.25},"+=3");
-        tl.to(".magnify", { scale:10, x: -200, duration: 0.5, ease: "power1.in", force3D: false });
-        
+        tl.to(".magnify", { scale:10, x: -224, duration: 0.5, ease: "power1.in", force3D: false });
+
         // frame 4 comes in under the expanding magnify
         tl.to("#frame4", { opacity: 1, duration: 0.5 },"-=0.25");
         tl.from("#beaker", { scale: 0, duration: 0.5, ease: "back.out(1.25)" });
@@ -272,22 +271,22 @@
         tl.to("#frame5", { opacity: 1, duration: 0.5 },"+=2");
         tl.from("#lightbulb", { scale: 0, duration: 0.5, ease: "back.out(1.25)" });
         tl.from("#frame5txt", { scale: 0, duration: 0.5, ease: "back.out(1.25)" }, "-=0.25");
-        tl.from("#purple", { x:-300,duration: 0.5, ease: "power1.inOut"});
-        tl.from("#purple img", { opacity:0 ,duration: 0.5, ease: "power2.inOut"}, "+=0.25");
+        tl.from("#purple", { x:-300, duration: 0.5, ease: "power1.inOut"});
+        tl.from("#purple img", { opacity:0, duration: 0.5, ease: "power2.inOut"}, "+=0.25");
         return tl;
       }
 
       function legalSequence() {
         const tl = gsap.timeline();
-        tl.set(".legal img:nth-child(1)", { display: "inline-block" }, 4.75);
-        tl.set(".legal img:nth-child(1)", { display: "none" }, 7.75);
+        tl.set(".legal img:nth-child(1)", { display: "inline-block" }, 3.75);
+        tl.set(".legal img:nth-child(1)", { display: "none" }, 6.5);
 
-        tl.set(".legal img:nth-child(2)", { display: "inline-block" }, 10.1);
-        tl.set(".legal img:nth-child(2)", { display: "none" }, "13.3");
-        
+        tl.set(".legal img:nth-child(2)", { display: "inline-block" }, 9.5);
+        tl.set(".legal img:nth-child(2)", { display: "none" }, "+=2.75");
+
         tl.set(".legal img:nth-child(3)", { display: "inline-block" }, "+=2");
         tl.set(".legal img:nth-child(3)", { display: "none" }, "+=2.1");
-        
+
         tl.set(".legal img:nth-child(4)", { display: "inline-block" }, "+=2.5");
         return tl;
       }
@@ -298,7 +297,7 @@
       // Build master timeline
       function buildTimeline() {
         mainTimeline.add(animationSequence()).add(legalSequence(), "<");
-        mainTimeline.play();  
+        mainTimeline.play();
       }
 
       // Wait for GCM Enabler to initialise before starting the animation
@@ -306,7 +305,7 @@
         buildTimeline();
       }
       // Set woman's initial state immediately so there's no flash of unstyled content
-      gsap.set(".woman", { scale: 1.7, y: 30, x: -20 });
+      gsap.set(".woman", { scale: 1.7, y: 34, x: -22 });
 
       if (typeof Enabler !== "undefined" && Enabler.isInitialized()) {
         init();
