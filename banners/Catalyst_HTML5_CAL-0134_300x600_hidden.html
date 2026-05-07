@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="ad.size" content="width=300,height=250" />
-    <meta name="veeva-code" content="CAL-0133" />
+    <meta name="ad.size" content="width=300,height=600" />
+    <meta name="veeva-code" content="CAL-0134" />
     <meta name="expiration-date" content="MM/DD/YYYY" />
 
     <script type="text/javascript">
@@ -33,7 +33,7 @@
       #banner {
         position: relative;
         width: 300px;
-        height: 250px;
+        height: 600px;
         overflow: hidden;
         font-family: Arial, sans-serif;
         background: #000000;
@@ -78,7 +78,7 @@
 
       .color-block {
         width: 100%;
-        height:250px;
+        height:600px;
         position: absolute;
         background-color: #8ebe4e;
         display: flex;
@@ -110,11 +110,12 @@
         /* purple box-shadow fills everything outside the circle */
         box-shadow: 0 0 0 600px #44264a;
         opacity: 0;
+        overflow:hidden;
         z-index: 150;
-        width: 240px;
-        height: 240px;
-        top: 5px;
-        left: 30px;
+        width: 280px;
+        height: 280px;
+        top: 50px;
+        left: 10px;
         will-change: transform, opacity;
       }
 
@@ -127,24 +128,25 @@
 
       .magnify {
         position: relative;
-        margin-bottom:15px;
-        margin-top:-30px;
-        height:72px;
+        height:112px;
+        width:112px;
       }
       .magnify img {
         position: absolute;
         left:50%;
-        transform: translateX(-50%);
+        transform: translateX(-41%) translateY(-70px);
         z-index: 100;
+        height:100%;
+        width:auto
       }
       .magnify-face {
-        width: 61px;
-        height: 61px;
+        width: 100px;
+        height: 100px;
         border-radius: 50%;
         overflow: hidden;
         position: absolute;
         left: 50%;
-        transform: translateX(-85%) translateY(5px);
+        transform: translateX(-66%) translateY(-70px);
         z-index: 50;
         opacity:1;
         filter: blur(14px);
@@ -163,7 +165,7 @@
   <body>
     <div id="banner">
       <div class="frame">
-        <img src="img/hidden/stone_woman.jpg" alt="" class="woman" />
+        <img src="img/hidden/woman-tall-hidden.jpg" alt="" class="woman" />
         <div id="mask-circle"></div>
 
         <div class="color-block purple" id="frame2">
@@ -173,21 +175,21 @@
               <img src="img/hidden/woman-bed.jpg" alt="">
             </div>
           </div>
-          <img src="img/hidden/frame2txt.svg" id="frame2txt">
-          <img src="img/hidden/frame3txt.svg" id="frame3txt">
+          <img src="img/tall/slide2txt_tall_hidden.svg" id="frame2txt">
+          <img src="img/tall/slide3txt_tall_hidden.svg" id="frame3txt">
         </div>
         <div class="color-block" id="frame4">
-          <img src="img/hidden/beaker.svg" style="height: 73px; width:53px; margin-bottom:20px" id="beaker">
-          <img src="img/hidden/frame4txt.svg" id="frame4txt">
+          <img src="img/hidden/beaker.svg" style="height: 112px; width:auto; margin-bottom:20px" id="beaker">
+          <img src="img/tall/slide4txt_tall_hidden.svg" id="frame4txt">
         </div>
-        <div class="color-block" id="frame5" style="justify-content: flex-start; padding-top:20px">
-          <img src="img/hidden/lightbulb.svg" style="height: 84px; width:81px; margin-bottom:10px" id="lightbulb">
-          <img src="img/hidden/frame5txt.svg" id="frame5txt">
-          <div class="purple" id="purple" style="width: 100%; margin-top:10px; padding-top:15px; padding-bottom:10px; text-align: center;">
-            <img src="img/hidden/frame5txt_banner.svg">
+        <div class="color-block" id="frame5" style="justify-content: flex-start; padding-top:60px">
+          <img src="img/hidden/lightbulb.svg" style="height: 120px; width:auto; margin-bottom:10px" id="lightbulb">
+          <img src="img/tall/slide5txt_tall_hidden.svg" id="frame5txt">
+          <div class="purple" id="purple" style="width: 100%; margin-top:15px; padding-top:15px; padding-bottom:15px; text-align: center;">
+            <img src="img/tall/slide5txt_tall_hidden_banner.svg">
           </div>
         </div>
-        
+
         <div class="legal">
           <img src="img/hidden/legal1.svg" />
           <img src="img/hidden/legal2.svg" id="legal2" style="bottom:5px" />
@@ -212,24 +214,24 @@
         const tl = gsap.timeline();
 
         // Frame 1: hold
-        tl.to(".woman", { scale:1.65, x:"-=20px", duration: 2, ease: "power2.inOut", force3D: true });
+        tl.to(".woman", { scale:1, x:"-=10px", duration: 2, ease: "power2.inOut", force3D: true });
 
         // Mask circle fades in — purple fills everything outside, woman's face shows through
         tl.to("#mask-circle", { opacity: 1, duration: 0.5 });
 
         // Both the circle and the woman scale down together — same label keeps them in sync
         tl.to("#mask-circle", {
-          width: 64,
-          height: 64,
+          width: 100,
+          height: 100,
           x: 68,
-          y: 29,
+          y: 5,
           duration: 1,
           ease: "power2.inOut"
         }, "shrink");
         tl.to(".woman", {
-          scale: 0.9,
-          y: "-=16",
-          x: "-=36",
+          scale: 0.8,
+          y: "-=60",
+          x: "-=5",
           filter: "blur(14px)",
           duration: 1,
           ease: "power2.inOut"
@@ -250,11 +252,11 @@
 
         // Magnifying glass scales up to reveal text
         tl.to(".magnify > img", { rotate:180, duration: 1, ease: "power2.inOut", force3D: false });
-        tl.to(".magnify", { scale:5, y: 50, x: -100, duration: 1, ease: "power2.inOut", force3D: false },"<");
+        tl.to(".magnify", { scale:4, y: 390, x: -185, duration: 1, ease: "power2.inOut", force3D: false },"<");
         tl.to("#frame3txt", { opacity: 1, scale: 1, duration: 1, ease: "back.inOut(1.25)"}, "-=0.5");
         tl.to("#frame3txt", { opacity:0, duration: 0.25},"+=3");
-        tl.to(".magnify", { scale:10, x: -200, duration: 0.5, ease: "power1.in", force3D: false });
-        
+        tl.to(".magnify > img", { scale:8, x: "-150%", y:0, duration: 0.5, ease: "power1.in", force3D: false });
+
         // frame 4 comes in under the expanding magnify
         tl.to("#frame4", { opacity: 1, duration: 0.5 },"-=0.25");
         tl.from("#beaker", { scale: 0, duration: 0.5, ease: "back.out(1.25)" });
@@ -274,10 +276,10 @@
 
         tl.set(".legal img:nth-child(2)", { display: "inline-block" }, 10.1);
         tl.set(".legal img:nth-child(2)", { display: "none" }, "13.3");
-        
+
         tl.set(".legal img:nth-child(3)", { display: "inline-block" }, "+=2");
         tl.set(".legal img:nth-child(3)", { display: "none" }, "+=2.1");
-        
+
         tl.set(".legal img:nth-child(4)", { display: "inline-block" }, "+=2.5");
         return tl;
       }
@@ -288,7 +290,7 @@
       // Build master timeline
       function buildTimeline() {
         mainTimeline.add(animationSequence()).add(legalSequence(), "<");
-        mainTimeline.play();  
+        mainTimeline.play();
       }
 
       // Wait for GCM Enabler to initialise before starting the animation
@@ -296,7 +298,7 @@
         buildTimeline();
       }
       // Set woman's initial state immediately so there's no flash of unstyled content
-      gsap.set(".woman", { scale: 1.7, y: 30, x: -20 });
+      gsap.set(".woman", { scale: 1.1, y: 0, x: 10 });
 
       if (typeof Enabler !== "undefined" && Enabler.isInitialized()) {
         init();
