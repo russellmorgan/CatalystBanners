@@ -146,7 +146,7 @@
         overflow: hidden;
         position: absolute;
         left: 50%;
-        transform: translateX(-85%) translateY(5px);
+        transform: translateX(-80%) translateY(0px);
         z-index: 50;
         opacity: 1;
         filter: blur(14px);
@@ -165,7 +165,7 @@
   <body>
     <div id="banner">
       <div class="frame">
-        <img src="img/hidden/woman-bed.jpg" alt="" class="woman" />
+        <img src="img/hidden/stone_woman.jpg" alt="" class="woman" />
         <div id="mask-circle"></div>
 
         <div class="color-block purple" id="frame2">
@@ -182,10 +182,10 @@
           <img src="img/hidden/beaker.svg" style="height: 73px; width:53px; margin-bottom:10px" id="beaker">
           <img src="img/hidden/frame4txt.svg" id="frame4txt">
         </div>
-        <div class="color-block" id="frame5" style="justify-content: flex-start; padding-top:10px">
+        <div class="color-block" id="frame5" style="justify-content: flex-start; padding-top:20px">
           <img src="img/hidden/lightbulb.svg" style="height: 84px; width:81px; margin-bottom:10px" id="lightbulb">
           <img src="img/hidden/frame5txt.svg" id="frame5txt">
-          <div class="purple" id="purple" style="width: 100%; margin-top:20px; padding-top:10px; padding-bottom:10px; text-align: center;">
+          <div class="purple" id="purple" style="width: 100%; margin-top:10px; padding-top:15px; padding-bottom:10px; text-align: center;">
             <img src="img/hidden/frame5txt_banner.svg">
           </div>
         </div>
@@ -214,7 +214,7 @@
         const tl = gsap.timeline();
 
         // Frame 1: hold
-        tl.to(".woman", { scale:1.73, yoyo: true, repeat:1, duration: 1, ease: "linear" });
+        tl.to(".woman", { scale:1.65, x:"-=20px", duration: 2, ease: "power2.inOut", force3D: true });
 
         // Mask circle fades in — purple fills everything outside, woman's face shows through
         tl.to("#mask-circle", { opacity: 1, duration: 0.5 });
@@ -223,8 +223,8 @@
         tl.to("#mask-circle", {
           width: 72,
           height: 72,
-          x: 76,
-          y: 33,
+          x: 77,
+          y: 28,
           duration: 1,
           ease: "power2.inOut"
         }, "shrink");
@@ -252,7 +252,7 @@
 
         // Magnifying glass scales up to reveal text
         tl.to(".magnify > img", { rotate:180, duration: 1, ease: "power2.inOut", force3D: false });
-        tl.to(".magnify", { scale:5, y: 56, x: -112, duration: 1, ease: "power2.inOut", force3D: false },"<");
+        tl.to(".magnify", { scale:5.2, y: 85, x: -108, duration: 1, ease: "power2.inOut", force3D: false },"<");
         tl.to("#frame3txt", { opacity: 1, scale: 1, duration: 1, ease: "back.inOut(1.25)"}, "-=0.5");
         tl.to("#frame3txt", { opacity:0, duration: 0.25},"+=3");
         tl.to(".magnify", { scale:10, x: -224, duration: 0.5, ease: "power1.in", force3D: false });
@@ -264,22 +264,22 @@
         tl.to("#frame5", { opacity: 1, duration: 0.5 },"+=2");
         tl.from("#lightbulb", { scale: 0, duration: 0.5, ease: "back.out(1.25)" });
         tl.from("#frame5txt", { scale: 0, duration: 0.5, ease: "back.out(1.25)" }, "-=0.25");
-        tl.from("#purple", { x:-300, duration: 0.5, ease: "power1.inOut"});
+        tl.from("#purple", { x:-336, duration: 0.5, ease: "power1.inOut"});
         tl.from("#purple img", { opacity:0, duration: 0.5, ease: "power2.inOut"}, "+=0.25");
         return tl;
       }
 
       function legalSequence() {
         const tl = gsap.timeline();
-        tl.set(".legal img:nth-child(1)", { display: "inline-block" }, 3.75);
-        tl.set(".legal img:nth-child(1)", { display: "none" }, 6.5);
+        tl.set(".legal img:nth-child(1)", { display: "inline-block" }, 4.75);
+        tl.set(".legal img:nth-child(1)", { display: "none" }, 7.75);
 
-        tl.set(".legal img:nth-child(2)", { display: "inline-block" }, 9.5);
-        tl.set(".legal img:nth-child(2)", { display: "none" }, "+=2.75");
-
+        tl.set(".legal img:nth-child(2)", { display: "inline-block" }, 10.1);
+        tl.set(".legal img:nth-child(2)", { display: "none" }, "13.3");
+        
         tl.set(".legal img:nth-child(3)", { display: "inline-block" }, "+=2");
         tl.set(".legal img:nth-child(3)", { display: "none" }, "+=2.1");
-
+        
         tl.set(".legal img:nth-child(4)", { display: "inline-block" }, "+=2.5");
         return tl;
       }
