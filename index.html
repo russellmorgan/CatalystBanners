@@ -7,31 +7,46 @@
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            max-width: 800px;
+            max-width: 1400px;
             margin: 40px auto;
             padding: 20px;
             background-color: #f5f5f5;
         }
+        .cards-container {
+            display: flex;
+            gap: 30px;
+            justify-content: space-between;
+        }
+        .card {
+            flex: 1;
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
         h1 {
             color: #333;
-            border-bottom: 1px solid #333;
-            margin-bottom: 40px;
+            border-bottom: 2px solid #333;
+            margin-bottom: 25px;
             padding-bottom: 10px;
+            font-size: 18px;
         }
         ul {
             list-style: none;
             padding: 0;
+            margin: 0;
         }
         li {
-            margin: 12px 0;
+            margin: 10px 0;
         }
         a {
             color: #007bff;
             text-decoration: none;
-            font-size: 16px;
+            font-size: 14px;
             padding: 8px 12px;
             border-radius: 4px;
             transition: background-color 0.2s;
+            display: block;
         }
         a:hover {
             background-color: #e7f3ff;
@@ -40,34 +55,41 @@
     </style>
 </head>
 <body>
-    <h1>Catalyst HTML5 Display Banners</h1>
-    <ul>
-        <li><a href="banners/Catalyst_HTML5_AGA-0000_300x250.html">300x250 (Medium Rectangle)</a></li>
-        <li><a href="banners/Catalyst_HTML5_AGA-0000_300x250_hidden.html">300x250 (Medium Rectangle) hidden</a></li>
-        <li><hr></li>
-        <li><a href="banners/Catalyst_HTML5_AGA-0000_336x280.html">336x280 (Large Rectangle)</a></li>
-        <li><a href="banners/Catalyst_HTML5_AGA-0000_336x280_hidden.html">336x280 (Large Rectangle) hidden</a></li>
-        <li><hr></li>
-        <li><a href="banners/Catalyst_HTML5_AGA-0000_300x600.html">300x600 (Tall)</a></li>
-        <li><a href="banners/Catalyst_HTML5_CAL-0134_300x600_hidden.html">300x600 (Tall) hidden</a></li>
-        <li><hr></li>
-        <li><a href="banners/Catalyst_HTML5_AGA-0000_728x90.html">728x90 (Leaderboard)</a></li>
-        <li><a href="banners/Catalyst_HTML5_AGA-0000_728x90_hidden.html">728x90 (Leaderboard) hidden</a></li>
-    </ul>
-    <h1 style="margin-top:80px;">Catalyst Static Display Banners</h1>
-    <ul>
-        <li><a href="statics/320x50_Hiding_Mobile.png">320x50_Hiding_Mobile.png</a></li>
-        <li><a href="statics/300x50_Hiding Mobile 2.png">300x50_Hiding Mobile 2.png</a></li>
-        <li><a href="statics/728x90_Approach_Static.png">728x90_Approach_Static.png</a></li>
-        <li><a href="statics/300x250_Hiding_Static.png">300x250_Hiding_Static.png</a></li>
-        <li><a href="statics/336x280_Approach_Static.png">336x280_Approach_Static.png</a></li>
-        <li><a href="statics/320x50_Approach_Mobile.png">320x50_Approach_Mobile.png</a></li>
-        <li><a href="statics/300x600_Hiding_Static.png">300x600_Hiding_Static.png</a></li>
-        <li><a href="statics/336x280_Hiding_Static.png">336x280_Hiding_Static.png</a></li>
-        <li><a href="statics/300x600_Approach_Static.png">300x600_Approach_Static.png</a></li>
-        <li><a href="statics/300x50_Approach_Mobile 2.png">300x50_Approach_Mobile 2.png</a></li>
-        <li><a href="statics/728x90_Hiding_Static.png">728x90_Hiding_Static.png</a></li>
-        <li><a href="statics/300x250_Approach_Static.png">300x250_Approach_Static.png</a></li>
-    </ul>
+    <div class="cards-container">
+        <div class="card">
+            <h1>Approach & Regular Versions</h1>
+            <ul>
+                <li><strong>HTML5 Banners</strong></li>
+                <li><a href="banners/Catalyst_HTML5_AGA-0000_300x250.html">300x250</a></li>
+                <li><a href="banners/Catalyst_HTML5_AGA-0000_336x280.html">336x280</a></li>
+                <li><a href="banners/Catalyst_HTML5_AGA-0000_300x600.html">300x600</a></li>
+                <li><a href="banners/Catalyst_HTML5_AGA-0000_728x90.html">728x90</a></li>
+                <li style="margin-top: 15px;"><strong>Static Assets</strong></li>
+                <li><a href="statics/300x50_Approach_Mobile 2.png">300x50 Approach</a></li>
+                <li><a href="statics/320x50_Approach_Mobile.png">320x50 Approach</a></li>
+                <li><a href="statics/300x250_Approach_Static.png">300x250 Approach</a></li>
+                <li><a href="statics/336x280_Approach_Static.png">336x280 Approach</a></li>
+                <li><a href="statics/728x90_Approach_Static.png">728x90 Approach</a></li>
+                <li><a href="statics/300x600_Approach_Static.png">300x600 Approach</a></li>
+            </ul>
+        </div>
+        <div class="card">
+            <h1>Hidden Versions</h1>
+            <ul>
+                <li><strong>HTML5 Banners</strong></li>
+                <li><a href="banners/Catalyst_HTML5_AGA-0000_300x250_hidden.html">300x250 hidden</a></li>
+                <li><a href="banners/Catalyst_HTML5_AGA-0000_336x280_hidden.html">336x280 hidden</a></li>
+                <li><a href="banners/Catalyst_HTML5_CAL-0134_300x600_hidden.html">300x600 hidden</a></li>
+                <li><a href="banners/Catalyst_HTML5_AGA-0000_728x90_hidden.html">728x90 hidden</a></li>
+                <li style="margin-top: 15px;"><strong>Static Assets</strong></li>
+                <li><a href="statics/300x50_Hiding Mobile 2.png">300x50 hidden</a></li>
+                <li><a href="statics/320x50_Hiding_Mobile.png">320x50 hidden</a></li>
+                <li><a href="statics/300x250_Hiding_Static.png">300x250 hidden</a></li>
+                <li><a href="statics/336x280_Hiding_Static.png">336x280 hidden</a></li>
+                <li><a href="statics/728x90_Hiding_Static.png">728x90 hidden</a></li>
+                <li><a href="statics/300x600_Hiding_Static.png">300x600 hidden</a></li>
+            </ul>
+        </div>
+    </div>
 </body>
 </html>
