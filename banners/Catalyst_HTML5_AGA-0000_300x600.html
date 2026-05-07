@@ -8,8 +8,7 @@
   <meta name="expiration-date" content="MM/DD/YYYY">
 
   <script type="text/javascript">
-    var clickTag  = "https://example.com";
-    var clickTag2 = "https://example.com/prescribing-information.pdf";
+    var clickTag  = "https://www.CancerAssociatedLEMS.com";
   </script>
 
   <script src="https://s0.2mdn.net/ads/studio/Enabler.js"></script>
@@ -183,7 +182,6 @@
         </div>
     </div>
     <div id="bg-exit" onclick="exitHandler()"></div>
-    <div id="pi-exit" onclick="exitHandler2()"></div>
   </div>
   <!-- for dev -->
   <div style="position: absolute; bottom: 4px; right: 4px; z-index: 20;">version 0.5</div>
@@ -191,7 +189,6 @@
 
     // GCM click handlers — must use Enabler.exit() per GCM spec; do not use addEventListener
     function exitHandler()  { if (typeof Enabler !== 'undefined') { Enabler.exit("clickTag",  clickTag); } }
-    function exitHandler2() { if (typeof Enabler !== 'undefined') { Enabler.exit("clickTag2", clickTag2); } }
 
     // Frame animations — using GSAP for sequencing and easing
 
