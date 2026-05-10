@@ -127,26 +127,24 @@
             }
 
             .magnify {
-                position: relative;
+                position: absolute;
+                top: 50px;
+                left: 73px;
                 height: 112px;
                 width: 112px;
             }
             .magnify img {
                 position: absolute;
-                left: 50%;
-                transform: translateX(-41%) translateY(-70px);
                 z-index: 100;
                 height: 100%;
                 width: auto;
             }
             .magnify-face {
-                width: 100px;
-                height: 100px;
+                width: 100%;
+                height: 100%;
                 border-radius: 50%;
                 overflow: hidden;
                 position: absolute;
-                left: 50%;
-                transform: translateX(-66%) translateY(-70px);
                 z-index: 50;
                 opacity: 1;
             }
@@ -154,9 +152,8 @@
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
-                object-position: 90% 25%;
-                transform: scale(2.8);
-                transform-origin: 65% 10%;
+                transform: scale(1.35) translateY(54px);
+                overflow: visible;
             }
         </style>
     </head>
@@ -175,7 +172,10 @@
                     <div class="magnify">
                         <img src="img/hidden/magnify.svg" />
                         <div class="magnify-face">
-                            <img src="img/hidden/woman-bed.jpg" alt="" />
+                            <img
+                                src="img/hidden/woman-tall-hidden.jpg"
+                                alt=""
+                            />
                         </div>
                     </div>
                     <img
@@ -282,9 +282,9 @@
                 tl.to(
                     ".woman",
                     {
-                        scale: 0.8,
-                        y: "-=60",
-                        x: "-=5",
+                        scale: 0.5,
+                        y: "-=122",
+                        x: "-=22",
                         duration: 1,
                         ease: "power2.inOut",
                     },
@@ -323,6 +323,7 @@
                 // Magnifying glass scales up to reveal text
                 tl.to(".magnify > img", {
                     rotate: 180,
+                    left: "-=52%",
                     duration: 1,
                     ease: "power2.inOut",
                     force3D: false,
@@ -331,8 +332,7 @@
                     ".magnify",
                     {
                         scale: 4,
-                        y: 390,
-                        x: -185,
+                        y: 180,
                         duration: 1,
                         ease: "power2.inOut",
                         force3D: false,
