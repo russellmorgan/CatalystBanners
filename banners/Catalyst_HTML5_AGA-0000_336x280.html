@@ -6,6 +6,7 @@
   <meta name="ad.size"         content="width=336,height=280">
   <meta name="veeva-code"      content="CAL-0132">
   <meta name="expiration-date" content="MM/DD/YYYY">
+  <title> </title>
 
   <script type="text/javascript">
     var clickTag  = "https://www.CancerAssociatedLEMS.com";
@@ -166,8 +167,7 @@
     <div id="bg-exit" onclick="exitHandler()"></div>
   </div>
   <!-- for dev -->
-  <div style="position: absolute; bottom: 4px; right: 4px; z-index: 20;">version 0.1</div>
-  <script type="text/javascript">
+<script type="text/javascript">
 
     // GCM click handlers — must use Enabler.exit() per GCM spec; do not use addEventListener
     function exitHandler()  { if (typeof Enabler !== 'undefined') { Enabler.exit("clickTag",  clickTag); } else { window.open(clickTag, '_blank'); } }
