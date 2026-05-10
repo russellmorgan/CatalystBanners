@@ -19,6 +19,7 @@
     "uefn-verse-basics": "name-only"
   },
   "enabledPlugins": {
-    "gsap-skills@gsap-skills": true
+    "gsap-skills@gsap-skills": true,
+    "impeccable@claude-plugins-official": true
   }
 }

@@ -152,9 +152,9 @@
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
-                object-position: 90% 25%;
-                transform: scale(2.8);
-                transform-origin: 65% 10%;
+                object-position: 100% 25%;
+                transform: scale(2.9);
+                transform-origin: 63% 13%;
             }
         </style>
     </head>
@@ -169,7 +169,7 @@
                     <div class="magnify">
                         <img src="img/hidden/magnify.svg" />
                         <div class="magnify-face">
-                            <img src="img/hidden/woman-bed.jpg" alt="" />
+                            <img src="img/hidden/stone_woman.jpg" alt="" />
                         </div>
                     </div>
                     <img src="img/hidden/frame2txt.svg" id="frame2txt" />
@@ -239,7 +239,6 @@
                 // Frame 1: hold
                 tl.to(".woman", {
                     scale: 1.65,
-                    x: "-=20px",
                     duration: 2,
                     ease: "power2.inOut",
                     force3D: true,
@@ -255,7 +254,7 @@
                         width: 64,
                         height: 64,
                         x: 68,
-                        y: 29,
+                        y: 20,
                         duration: 1,
                         ease: "power2.inOut",
                     },
@@ -264,8 +263,8 @@
                 tl.to(
                     ".woman",
                     {
-                        scale: 0.9,
-                        y: "-=16",
+                        scale: 0.95,
+                        y: "-=21",
                         x: "-=36",
                         duration: 1,
                         ease: "power2.inOut",
@@ -302,10 +301,6 @@
                     { scale: 0, duration: 0.5, ease: "back.in(1.5)" },
                     "+=5",
                 );
-                tl.to(".magnify img:nth-child(2)", {
-                    opacity: 0,
-                    duration: 0.25,
-                });
                 tl.to(".woman, .magnify-face", { opacity: 0, duration: 0.4 });
 
                 // Magnifying glass scales up to reveal text
