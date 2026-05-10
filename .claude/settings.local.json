@@ -19,7 +19,6 @@
     "uefn-verse-basics": "name-only"
   },
   "enabledPlugins": {
-    "gsap-skills@gsap-skills": true,
-    "frontend-design@claude-plugins-official": true
+    "gsap-skills@gsap-skills": true
   }
 }
