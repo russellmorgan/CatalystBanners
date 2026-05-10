@@ -223,7 +223,7 @@
             function exitHandler() {
                 if (typeof Enabler !== "undefined") {
                     Enabler.exit("clickTag", clickTag);
-                }
+                } else { window.open(clickTag, '_blank'); }
             }
 
             // Frame animations — using GSAP for sequencing and easing
