@@ -193,12 +193,16 @@
 
             #frame5 {
                 justify-content: flex-start;
-                padding-left: 30px;
+                padding-left: 60px;
             }
             #frame5 #lightbulb {
                 height: 70px;
                 width: auto;
                 margin-right: 15px;
+                margin-top: -5px;
+            }
+            #frame5txt {
+                margin-top: -5px;
             }
 
             #purple {
@@ -430,7 +434,11 @@
                 });
                 tl.from(
                     "#frame5txt",
-                    { scale: 0, duration: 0.5, ease: "back.out(1)" },
+                    {
+                        scale: 0,
+                        duration: 0.5,
+                        ease: "back.out(1)",
+                    },
                     "-=0.25",
                 );
                 tl.from("#purple", {
