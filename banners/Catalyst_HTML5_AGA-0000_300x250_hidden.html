@@ -65,7 +65,7 @@
             #bg-exit {
                 position: absolute;
                 inset: 0;
-                z-index: 10;
+                z-index: 1000;
             }
 
             #pi-exit {
@@ -74,7 +74,7 @@
                 right: 4px;
                 width: 80px;
                 height: 16px;
-                z-index: 20;
+                z-index: 1001;
             }
 
             .color-block {
@@ -227,7 +227,7 @@
         <script type="text/javascript">
             // GCM click handlers — must use Enabler.exit() per GCM spec; do not use addEventListener
             function exitHandler() {
-                if (typeof Enabler !== "undefined") {
+                if (typeof Enabler !== "undefined" && Enabler.isInitialized()) {
                     Enabler.exit("clickTag", clickTag);
                 } else { window.open(clickTag, '_blank'); }
             }

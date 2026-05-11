@@ -75,7 +75,7 @@
             #bg-exit {
                 position: absolute;
                 inset: 0;
-                z-index: 10;
+                z-index: 1000;
             }
 
             .color-block {
@@ -103,9 +103,10 @@
                 text-align: right;
                 z-index: 300;
                 display: flex;
-                align-items: center;
+                align-items: flex-end;
                 justify-content: flex-end;
                 padding-right: 20px;
+                padding-bottom: 15px;
                 pointer-events: none;
             }
             .legal img {
@@ -299,9 +300,11 @@
         <script type="text/javascript">
             // GCM click handlers — must use Enabler.exit() per GCM spec; do not use addEventListener
             function exitHandler() {
-                if (typeof Enabler !== "undefined") {
+                if (typeof Enabler !== "undefined" && Enabler.isInitialized()) {
                     Enabler.exit("clickTag", clickTag);
-                } else { window.open(clickTag, '_blank'); }
+                } else {
+                    window.open(clickTag, "_blank");
+                }
             }
 
             function animationSequence() {
