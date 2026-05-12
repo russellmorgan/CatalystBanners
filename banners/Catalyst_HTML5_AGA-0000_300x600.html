@@ -80,15 +80,6 @@
       z-index: 1000;
     }
 
-    #pi-exit {
-      position: absolute;
-      bottom: 4px;
-      right: 4px;
-      width: 80px;
-      height: 16px;
-      z-index: 1001;
-    }
-
     .color-block {
       width: 100%;
       position:absolute;
@@ -218,7 +209,7 @@
       tl.to("#rock3txt", { y:600,duration: 0.5, ease: "power1.inOut"});
       tl.to("#rock3", { y:600, duration: 0.5, ease: "power1.inOut" });
       tl.set("#frame6banner", { y:600});
-      tl.to("#frame6banner", { x:0, duration: 0.5, ease: "power1.inOut" }, "+=0.5");
+      tl.to("#frame6banner", { x:0, y:0, duration: 0.5, ease: "power1.inOut" }, "+=0.5");
 
       return tl;  
     }
@@ -234,7 +225,7 @@
       tl.set(".legal img:nth-child(4)", { display: "inline-block" },21.5);
       return tl;
     }
-    var mainTimeline = gsap.timeline({ paused: true, repeat: 0, repeatDelay: 2 });
+    var mainTimeline = gsap.timeline({ paused: true });
 
     // Build master timeline
     function buildTimeline() {

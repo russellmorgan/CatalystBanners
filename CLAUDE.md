@@ -17,14 +17,6 @@ Each banner is a self-contained HTML5 creative with:
 - **Frame-based layout** with 6 frames at 3s each, plus a 7th end card frame (6.4s) with CTA bar
 - **Enabler.js from Google** for GCM integration and click exit handling
 
-### Frame Animation Pattern
-
-The animation uses a GSAP timeline with:
-- 0.4s fade-in, N-second hold, 0.4s fade-out per frame
-- Frame 7 (end card) holds 6.4s instead of 3s and animates in the CTA bar
-- Timeline repeats infinitely with `repeat: -1`
-- All 7 frames can be toggled to 6 frames by commenting out frame-7 and adjusting hold times
-
 ### Click Handlers
 
 Two exit points are standard:
@@ -98,16 +90,9 @@ All banners must pass the **[Google HTML5 Validator](https://h5validator.appspot
 
 ### Asset File Paths
 
-- All images/assets must be in the `assets/` folder and referenced as `src="assets/filename.png"`
 - Supported formats: PNG, JPG, GIF, SVG, and video (GIF/MP4 for animations)
 - Total .zip size limit: 10 MB (all files combined)
 - Individual static image files: < 150 KB
-
-### Animation Duration
-
-- Standard duration: **30 seconds**, looping infinitely
-- Prefer 7 frames (6 @ 3s each + 1 end card @ 6.4s)
-- Can be reduced to 6 frames by adjusting hold times and disabling frame-7
 
 ## Handoff Requirements
 
@@ -127,17 +112,6 @@ Per client instructions (see `client-instructions.md`), handoff deliverables mus
 - **GSAP 3 Docs**: [GSAP Timeline](https://greensock.com/docs/v3/GSAP/Timeline)
 - **GCM HTML5 Validator**: https://h5validator.appspot.com/dcm/asset
 
-## Development Workflow
-
-### Starting a New Banner
-
-1. **Duplicate the boilerplate**: `_BOILERPLATE_HTML5_Banner.html` → `MMDDYY_Catalyst_Description_HTML5_VeevaCode_SIZExSIZE.html`
-2. **Update meta tags**: `ad.size`, `veeva-code`, `expiration-date`
-3. **Update click tags**: Replace `clickTag` and `clickTag2` with actual destination URLs
-4. **Adjust dimensions**: Update CSS `#banner` width/height to match `ad.size`
-5. **Add frame images**: Place 7 images in `assets/` folder and reference them in frame divs
-6. **Test in GCM validator**: Upload to https://h5validator.appspot.com/dcm/asset and verify no errors
-
 ### Customizing for Size Variants
 
 When creating a new size variant:
@@ -153,63 +127,6 @@ Since these are GCM creatives, local testing is limited to:
 - **Visual inspection**: Open the HTML file in a browser; check frame transitions, alignment, and text placement
 - **GCM validation**: Always validate with the [HTML5 validator](https://h5validator.appspot.com/dcm/asset) before handoff
 - **Enabler simulation**: Enabler.js requires GCM context, so `Enabler.exit()` calls won't work locally; focus on frame animation and visual layout
-
-### Using Global Animations
-
-The project includes a **reusable animation library** in `assets/animations.js`:
-
-#### Color Block with Fade Animation
-
-Animates a solid block of color sliding in from the left, then fades in nested content.
-
-**HTML structure:**
-```html
-<div class="color-block-animation">
-  <div class="color-block"></div>
-  <img src="assets/frame.png" alt="Content" />
-</div>
-```
-
-**CSS setup:**
-```css
-.color-block {
-  width: 100px;
-  height: 100%;
-  background: #ff6600;
-  transform: translateX(-100%);  /* Start off-screen left */
-}
-
-img {
-  opacity: 0;
-  visibility: hidden;  /* Use autoAlpha for fade-in */
-}
-```
-
-**JavaScript:**
-```javascript
-import { createColorBlockWithFadeAnimation } from 'assets/animations.js';
-
-const container = document.querySelector('.color-block-animation');
-const animation = createColorBlockWithFadeAnimation(container, {
-  blockDuration: 1.2,    // Block slide duration (seconds)
-  fadeDuration: 0.8,     // Image fade duration (seconds)
-  blockEase: 'power3.out',
-  fadeEase: 'power1.inOut'
-});
-
-// Add to main timeline
-tl.add(animation, 'labelName');  // Add at a label
-// Or play standalone
-// animation.play();
-```
-
-### Common Edits
-
-- **Change frame hold duration**: Modify the duration parameter in `buildTimeline()` (e.g., `3.0` → `2.5`)
-- **Add text overlay**: Uncomment `<p class="headline">Text</p>` in frame and adjust z-index if needed
-- **Change CTA text**: Edit `<span>Learn More</span>` in `#cta-bar`
-- **Adjust colors**: Update hex colors in CSS (e.g., `background: #ff6600` for CTA bar)
-- **Change animation easing**: Modify `ease: "power2.inOut"` to other GSAP easings
 
 ## Important Notes
 

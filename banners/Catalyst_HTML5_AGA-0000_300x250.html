@@ -74,20 +74,10 @@
       z-index: 1000;
     }
 
-    #pi-exit {
-      position: absolute;
-      bottom: 4px;
-      right: 4px;
-      width: 80px;
-      height: 16px;
-      z-index: 1001;
-    }
-
     .color-block {
       width: 100%;
       position:relative;
       background-color: #8EBE4E;
-      width: 100%;
       display:flex;
       flex-direction: column;
       align-items:center;
@@ -173,7 +163,7 @@
     function addRockAnimation(tl, frameId, rockId, exitDelay) {
       tl.from(frameId, { y: -300, duration: 0.5, ease: "power1.inOut" });
       tl.from(rockId, { y: -300, duration: 0.5, ease: "power1.inOut" });
-      tl.to(frameId, { y: 300, duration: 0.5, ease: "power1.inOut" }, `+=${exitDelay}`);
+      tl.to([frameId, rockId], { y: 300, duration: 0.5, ease: "power1.inOut" }, `+=${exitDelay}`);
     }
 
     function animationSequence() {
@@ -210,7 +200,7 @@
       tl.set(".legal img:nth-child(4)", { display: "inline-block" },21.5);
       return tl;
     }
-    var mainTimeline = gsap.timeline({ paused: true, repeat: 0, repeatDelay: 2 });
+    var mainTimeline = gsap.timeline({ paused: true });
 
     // Build master timeline
     function buildTimeline() {
