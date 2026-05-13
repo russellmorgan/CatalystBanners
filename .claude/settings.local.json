@@ -12,7 +12,8 @@
       "Bash(Get-ChildItem \"C:\\\\Users\\\\Russell\\\\Documents\\\\GitHub\\\\CatalystBanners\\\\assets\" -File)",
       "Bash(Select-Object Name)",
       "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\Russell\\\\Documents\\\\GitHub\\\\CatalystBanners\" -Recurse -Include \"*.html\")",
-      "Bash(Select-Object -ExpandProperty FullName)"
+      "Bash(Select-Object -ExpandProperty FullName)",
+      "Bash(grep -vE \"^\\\\s*$\")"
     ]
   },
   "skillOverrides": {
