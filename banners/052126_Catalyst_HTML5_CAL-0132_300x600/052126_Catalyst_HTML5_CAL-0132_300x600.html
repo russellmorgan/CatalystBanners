@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="ad.size" content="width=300,height=600" />
+        <meta name="veeva-code" content="CAL-0132" />
+        <meta name="expiration-date" content="MM/DD/YYYY" />
+        <title> </title>
+
+        <script type="text/javascript">
+            var clickTag = "https://www.CancerAssociatedLEMS.com";
+        </script>
+
+        <script src="https://s0.2mdn.net/ads/studio/Enabler.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            html,
+            body {
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+                cursor: pointer;
+                -webkit-font-smoothing: antialiased;
+            }
+
+            #banner {
+                position: relative;
+                width: 300px;
+                height: 600px;
+                overflow: hidden;
+                font-family: Arial, sans-serif;
+                background: #000000;
+            }
+
+            .frame {
+                position: absolute;
+                inset: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: stretch;
+                justify-content: center;
+                opacity: 1;
+                padding: 0;
+                margin: 0;
+            }
+
+            .frame .boulders {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                max-width: 100%;
+                height: 100%;
+                display: block;
+                z-index: 100;
+                object-fit: cover;
+            }
+
+            /* Transparent wrapper — lets imgs participate directly in the frame's flex layout */
+            .slide-content {
+                position: absolute;
+                inset: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: stretch;
+                justify-content: center;
+                opacity: 1;
+                padding: 0;
+                margin: 0;
+                z-index: 200;
+            }
+
+            #bg-exit {
+                position: absolute;
+                inset: 0;
+                z-index: 1000;
+            }
+
+            .color-block {
+                width: 100%;
+                position: absolute;
+                background-color: #8ebe4e;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+            .purple {
+                background-color: #44264a;
+            }
+            .init {
+                opacity: 0;
+            }
+            .img-block {
+                display: block;
+                margin: auto;
+            }
+            .legal {
+                position: absolute;
+                bottom: 10px;
+                width: 100%;
+                text-align: center;
+                height: auto;
+                margin: auto;
+                z-index: 300;
+            }
+            .legal img {
+                display: none;
+            }
+
+            .boulders,
+            #frame4,
+            #frame5,
+            #frame6,
+            #text1,
+            #text2 {
+                will-change: transform;
+            }
+            #frame3 {
+                padding: 30px 0;
+                left: -300px;
+            }
+            .rock-anim {
+                position: relative;
+                width: 100%;
+                text-align: center;
+                top: -600px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="banner">
+            <div class="frame">
+                <img src="img/tall/rock_tall.gif" alt="" class="boulders" />
+                <div class="slide-content">
+                    <img
+                        src="img/tall/slide1txt_tall.svg"
+                        id="text1"
+                        style="
+                            position: absolute;
+                            inset: 0;
+                            top: -900px;
+                            margin: auto;
+                        "
+                    />
+                    <img
+                        src="img/tall/slide2txt_tall.svg"
+                        id="text2"
+                        style="
+                            position: absolute;
+                            inset: 0;
+                            top: -900px;
+                            margin: auto;
+                        "
+                    />
+                </div>
+                <div class="slide-content">
+                    <div class="color-block init" id="frame3">
+                        <img src="img/tall/slide3txt_tall.svg" />
+                    </div>
+                </div>
+                <div class="slide-content">
+                    <div id="frame4" class="rock-anim">
+                        <img src="img/tall/boulder2.png" id="rock1" />
+                        <img src="img/tall/slide4txt_tall.svg" id="rock1txt" />
+                    </div>
+                </div>
+                <div class="slide-content">
+                    <div id="frame5" class="rock-anim">
+                        <img src="img/tall/boulder3.png" id="rock2" />
+                        <img src="img/tall/slide5txt_tall.svg" id="rock2txt" />
+                    </div>
+                </div>
+                <div class="slide-content">
+                    <div id="frame6" class="rock-anim">
+                        <img src="img/tall/boulder4.png" id="rock3" />
+                        <img
+                            src="img/tall/slide6txt_tall.svg"
+                            id="rock3txt"
+                            style="margin-bottom: 15px"
+                        />
+                        <div
+                            class="purple"
+                            style="
+                                width: 100%;
+                                padding-top: 15px;
+                                padding-bottom: 10px;
+                                transform: translateX(-100%);
+                            "
+                            id="frame6banner"
+                        >
+                            <img src="img/tall/slide6txt_tall_banner.svg" />
+                        </div>
+                    </div>
+                </div>
+                <div class="legal">
+                    <img src="img/legal1.svg" />
+                    <img src="img/legal2.svg" />
+                    <img src="img/legal3.svg" />
+                    <img src="img/legal4.svg" />
+                </div>
+            </div>
+            <div id="bg-exit" onclick="exitHandler()"></div>
+        </div>
+        <!-- for dev -->
+        <script type="text/javascript">
+            // GCM click handlers — must use Enabler.exit() per GCM spec; do not use addEventListener
+            function exitHandler() {
+                if (typeof Enabler !== "undefined" && Enabler.isInitialized()) {
+                    Enabler.exit("clickTag", clickTag);
+                } else {
+                    window.open(clickTag, "_blank");
+                }
+            }
+
+            // Frame animations — using GSAP for sequencing and easing
+
+            function addRockAnimation(
+                tl,
+                frameId,
+                rockTextId,
+                rockId,
+                exitDelay,
+            ) {
+                tl.set(frameId, { y: 0 });
+                tl.to(rockTextId, {
+                    y: 600,
+                    duration: 0.5,
+                    ease: "power1.inOut",
+                });
+                tl.to(rockId, { y: 580, duration: 0.5, ease: "power1.inOut" });
+                tl.to(
+                    [rockTextId, rockId],
+                    { y: 1200, duration: 0.5, ease: "power1.inOut" },
+                    `+=${exitDelay}`,
+                );
+            }
+
+            function animationSequence() {
+                const tl = gsap.timeline();
+
+                tl.to("#text1", {
+                    opacity: 1,
+                    y: "+=450",
+                    duration: 0.5,
+                    ease: "back.out(1.5)",
+                });
+                tl.to(
+                    "#text1",
+                    {
+                        opacity: 0,
+                        y: "+=100%",
+                        duration: 0.5,
+                        ease: "back.out(1.5)",
+                    },
+                    "+=2",
+                );
+
+                tl.to("#text2", {
+                    opacity: 1,
+                    y: "+=450",
+                    duration: 0.5,
+                    ease: "back.out(1.5)",
+                });
+                tl.to(
+                    "#text2",
+                    {
+                        opacity: 0,
+                        y: "+=100%",
+                        duration: 0.5,
+                        ease: "back.out(1.5)",
+                    },
+                    "+=3",
+                );
+
+                tl.to("#frame3", {
+                    opacity: 1,
+                    x: 300,
+                    duration: 0.5,
+                    ease: "power1.out",
+                });
+                tl.to(
+                    "#frame3",
+                    { height: 600, duration: 0.5, ease: "power1.in" },
+                    "+=2",
+                );
+                tl.to("#frame3 > img:nth-child(1)", {
+                    opacity: 0,
+                    duration: 0.5,
+                    ease: "power1.inOut",
+                });
+
+                addRockAnimation(tl, "#frame4", "#rock1txt", "#rock1", 3);
+                addRockAnimation(tl, "#frame5", "#rock2txt", "#rock2", 3);
+
+                tl.to("#rock3txt", {
+                    y: 600,
+                    duration: 0.5,
+                    ease: "power1.inOut",
+                });
+                tl.to("#rock3", {
+                    y: 600,
+                    duration: 0.5,
+                    ease: "power1.inOut",
+                });
+                tl.set("#frame6banner", { y: 600 });
+                tl.to(
+                    "#frame6banner",
+                    { x: 0, duration: 0.5, ease: "power1.inOut" },
+                    "+=0.5",
+                );
+
+                return tl;
+            }
+
+            function legalSequence() {
+                const tl = gsap.timeline();
+                tl.set(
+                    ".legal img:nth-child(1)",
+                    { display: "inline-block" },
+                    0.5,
+                );
+                tl.set(".legal img:nth-child(1)", { display: "none" }, 2.5);
+                tl.set(
+                    ".legal img:nth-child(2)",
+                    { display: "inline-block" },
+                    11,
+                );
+                tl.set(".legal img:nth-child(2)", { display: "none" }, 14.5);
+                tl.set(
+                    ".legal img:nth-child(3)",
+                    { display: "inline-block" },
+                    15.5,
+                );
+                tl.set(".legal img:nth-child(3)", { display: "none" }, 19);
+                tl.set(
+                    ".legal img:nth-child(4)",
+                    { display: "inline-block" },
+                    21.5,
+                );
+                return tl;
+            }
+            var mainTimeline = gsap.timeline({ paused: true });
+
+            // Build master timeline
+            function buildTimeline() {
+                mainTimeline.add(animationSequence()).add(legalSequence(), "<");
+                mainTimeline.play();
+            }
+
+            // Wait for GCM Enabler to initialise before starting the animation
+            function init() {
+                buildTimeline();
+            }
+            if (typeof Enabler !== "undefined" && Enabler.isInitialized()) {
+                init();
+            } else if (typeof Enabler !== "undefined") {
+                Enabler.addEventListener(studio.events.StudioEvent.INIT, init);
+            } else {
+                setTimeout(init, 100);
+            } // Fallback for local testing
+        </script>
+        <script src="../assets/debug-panel.js"></script>
+    </body>
+</html>
