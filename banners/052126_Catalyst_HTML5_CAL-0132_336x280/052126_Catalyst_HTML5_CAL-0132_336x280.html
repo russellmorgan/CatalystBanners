@@ -167,7 +167,8 @@
     function addRockAnimation(tl, frameId, rockId, exitDelay) {
       tl.from(frameId, { y: -300, duration: 0.5, ease: "power1.inOut" });
       tl.from(rockId, { y: -300, duration: 0.5, ease: "power1.inOut" });
-      tl.to([frameId, rockId], { y: 300, duration: 0.5, ease: "power1.inOut" }, `+=${exitDelay}`);
+      tl.to(frameId, { y: 300, duration: 0.5, ease: "power1.inOut" }, `+=${exitDelay}`);
+      tl.to(rockId,  { y: 300, duration: 0.5, ease: "power1.inOut" });
     }
 
     function animationSequence() {
