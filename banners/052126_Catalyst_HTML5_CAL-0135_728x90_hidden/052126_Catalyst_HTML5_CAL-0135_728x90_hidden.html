@@ -487,7 +487,7 @@
                 buildTimeline();
             }
             // Set woman's initial state immediately so there's no flash of unstyled content
-            gsap.set(".woman", { scale: 1.2; y: 0, x: 0 });
+            gsap.set(".woman", { scale: 1.2, y: 0, x: 0 });
 
             if (typeof Enabler !== "undefined" && Enabler.isInitialized()) {
                 init();
