@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="ad.size"         content="width=300,height=250">
   <meta name="veeva-code"      content="CAL-0132">
-  <meta name="expiration-date" content="MM/DD/YYYY">
+  <meta name="expiration-date" content="05/21/2027">
   <title> </title>
 
   <script type="text/javascript">
@@ -213,8 +213,8 @@
     function init() { buildTimeline(); }
     if (typeof Enabler !== 'undefined' && Enabler.isInitialized()) { init(); }
     else if (typeof Enabler !== 'undefined') { Enabler.addEventListener(studio.events.StudioEvent.INIT, init); }
-    else { setTimeout(init, 100); }  // Fallback for local testing
+    else { setTimeout(init, 100); }
   </script>
-  <script src="../assets/debug-panel.js"></script>
+
 </body>
 </html>
