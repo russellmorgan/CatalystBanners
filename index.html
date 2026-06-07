@@ -18,6 +18,7 @@
                 display: flex;
                 gap: 30px;
                 justify-content: space-between;
+                align-items: flex-start;
             }
             .card {
                 flex: 1;
@@ -32,6 +33,38 @@
                 margin-bottom: 25px;
                 padding-bottom: 10px;
                 font-size: 18px;
+                cursor: pointer;
+                user-select: none;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            h1::after {
+                content: "▲";
+                font-size: 12px;
+                color: #999;
+                transition: transform 0.25s;
+            }
+            .card.collapsed h1::after {
+                transform: rotate(180deg);
+            }
+            .card ul {
+                overflow: hidden;
+                max-height: 600px;
+                transition: max-height 0.3s ease, opacity 0.25s ease;
+                opacity: 1;
+            }
+            .card.collapsed ul {
+                max-height: 0;
+                opacity: 0;
+            }
+            .card h1 {
+                margin-bottom: 25px;
+                transition: margin-bottom 0.3s ease;
+            }
+            .card.collapsed h1 {
+                margin-bottom: 0;
+                border-bottom-color: transparent;
             }
             ul {
                 list-style: none;
@@ -64,7 +97,7 @@
     </head>
     <body>
         <div class="cards-container">
-            <div class="card">
+            <div class="card collapsed">
                 <h1>"Approach"</h1>
                 <ul>
                     <li><strong>HTML5 Banners</strong></li>
@@ -123,7 +156,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="card">
+            <div class="card collapsed">
                 <h1>"Hiding"</h1>
                 <ul>
                     <li><strong>HTML5 Banners</strong></li>
@@ -187,5 +220,12 @@
                 </ul>
             </div>
         </div>
+        <script>
+            document.querySelectorAll('.card h1').forEach(function(h1) {
+                h1.addEventListener('click', function() {
+                    h1.closest('.card').classList.toggle('collapsed');
+                });
+            });
+        </script>
     </body>
 </html>
