@@ -48,15 +48,6 @@
     // GCM click handlers — must use Enabler.exit() per GCM spec; do not use addEventListener
     function exitHandler()  { if (typeof Enabler !== 'undefined' && Enabler.isInitialized()) { Enabler.exit("clickTag",  clickTag); } else { window.open(clickTag, '_blank'); } }
 
-    // Frame animations — using GSAP for sequencing and easing
-
-    function addRockAnimation(tl, frameId, rockId, exitDelay) {
-      tl.from(frameId, { y: -300, duration: 0.5, ease: "power1.inOut" });
-      tl.from(rockId, { y: -300, duration: 0.5, ease: "power1.inOut" });
-      tl.to(frameId, { y: 300, duration: 0.5, ease: "power1.inOut" }, `+=${exitDelay}`);
-      tl.to(rockId,  { y: 300, duration: 0.5, ease: "power1.inOut" });
-    }
-
     function animationSequence() {
       const tl = gsap.timeline();
 
