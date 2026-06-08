@@ -101,14 +101,15 @@
     </div>
 
     <div id="frame2" class="frame flex" style="justify-content: flex-end">
-      <div class="bar" style="transform: translateY(-20px);">
+      <div class="bar"style="position:relative;top:-20px">
         <img src="img/unturned/300x250_unturned_frame2_txt1.svg" alt="">
       </div>
-      <img src="img/unturned/300x250_unturned_legal2.svg" alt="">
+      <img src="img/unturned/300x250_unturned_legal2.svg" id="legal2" style="transform:translateY(-5px);opacity:0">
     </div>
 
     <div class="frame" id="frame3">
-      <img src="img/unturned/300x250_unturned_frame3_txt1.svg" style="margin:auto;transform:translate3d(0px,-300px,0);opacity:0">
+      <img src="img/unturned/300x250_unturned_frame3_txt1.svg" id="frame3txt" style="margin:auto;transform:translate3d(0px,-300px,0);opacity:0">
+      <div style="position: absolute; bottom: 5px; width: 100%; text-align: center;" id="legal3"><img src="img/unturned/300x250_unturned_legal3.svg" style="display: inline-block;"></div>
     </div>
 
     <div id="frame4" class="frame flex">
@@ -140,14 +141,19 @@
       tl.to("#frame2",{opacity:1});
       tl.to("#frame2 .bar",{x:0,duration:0.5,ease: "power4.out"});
       tl.to("#frame2 .bar img",{opacity:1},"+=0.2");
+      tl.to("#legal2",{opacity:1});
       tl.to("#frame2 .bar img",{opacity:0},"+=2");
+      tl.to("#legal2",{opacity:0});
       tl.to("#frame2 .bar",{scale:6,duration:0.8,ease: "power4.out"});
+      
 
       //frame 3
       tl.to("#frame3",{opacity:1});
       tl.set("#frame2 .bar",{scale:1});
-      tl.to("#frame3 img",{y:50,opacity:1,duration:1,ease: "back.inOut(1.5)"});
-      tl.to("#frame3 img",{y:300,opacity:0,duration:1,ease: "back.inOut(1.5)"},"+=2");
+      tl.to("#frame3txt",{y:50,opacity:1,duration:1,ease: "back.inOut(1.5)"});
+      tl.to("#legal3",{opacity:1});
+      tl.to("#frame3txt",{y:300,opacity:0,duration:1,ease: "back.inOut(1.5)"},"+=2");
+      tl.to("#legal3",{opacity:0},"<");
 
       //frame 4
       tl.to("#frame4",{opacity:1});
