@@ -59,11 +59,11 @@
     .bar {
       display:flex;
       flex-direction: row;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
       background:var(--green);
       width: 100%;
-      padding: 12px 0px;
+      padding: 12px 0px 12px 0px;
       transform: translate3d(-300px, 0px, 0);
     }
     .bar img {
@@ -100,8 +100,8 @@
         <img src="img/unturned/300x250_unturned_legal1.svg" id="f1-legal" style="opacity: 0;">
     </div>
 
-    <div id="frame2" class="frame flex" style="justify-content: flex-end;padding-bottom:15px">
-      <div class="bar">
+    <div id="frame2" class="frame flex" style="justify-content: flex-end">
+      <div class="bar" style="transform: translateY(-20px);">
         <img src="img/unturned/300x250_unturned_frame2_txt1.svg" alt="">
       </div>
       <img src="img/unturned/300x250_unturned_legal2.svg" alt="">
@@ -111,8 +111,13 @@
       <img src="img/unturned/300x250_unturned_frame3_txt1.svg" style="margin:auto;transform:translate3d(0px,-300px,0);opacity:0">
     </div>
 
-    <div id="frame4" class="frame">
-      hey
+    <div id="frame4" class="frame flex">
+      <img src="img/unturned/300x250_unturned_frame4_txt1.svg" style="opacity: 0; transform:translateY(10px)">
+      <div class="bar">
+        <img src="img/unturned/boulder.png" alt="">
+        <img src="img/unturned/300x250_unturned_frame4_txt2.svg" alt="">
+      </div>
+      <img src="img/unturned/300x250_unturned_legal4.svg" alt="">
     </div>
 
     <div id="bg-exit" onclick="exitHandler()"></div>
@@ -136,7 +141,7 @@
       tl.to("#frame2 .bar",{x:0,duration:0.5,ease: "power4.out"});
       tl.to("#frame2 .bar img",{opacity:1},"+=0.2");
       tl.to("#frame2 .bar img",{opacity:0},"+=2");
-      tl.to("#frame2 .bar",{scale:5,duration:1,ease: "power4.out"});
+      tl.to("#frame2 .bar",{scale:6,duration:0.8,ease: "power4.out"});
 
       //frame 3
       tl.to("#frame3",{opacity:1});
@@ -146,7 +151,9 @@
 
       //frame 4
       tl.to("#frame4",{opacity:1});
-      
+      tl.to("#frame4 > img",{opacity:1,duration:0.5});
+      tl.to("#frame4 .bar",{x:0,duration:0.5,ease:"power4.inOut"});
+      tl.to("#frame4 .bar img",{opacity:1},"+=0.2");
       return tl;  
     }
 
