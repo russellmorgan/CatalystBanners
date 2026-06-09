@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="ad.size"         content="width=300,height=250">
-  <meta name="veeva-code"      content="CAL-1234">
+  <meta name="veeva-code"      content="CAL-0139">
   <meta name="expiration-date" content="01/01/2028">
   <title> </title>
 
@@ -110,7 +110,7 @@
     <div class="frame" id="frame1">
       <img src="img/uncover/300x250_uncover_frame1_txt1.svg" id="f1-headline" style="opacity: 0;">
       <img src="img/SCLC_Rock.png" alt="rock" id="rock" style="transform: translateY(-150%);">
-      <img src="img/uncover/legal1.svg" id="f1-legal" style="opacity: 1;">
+      <img src="img/uncover/legal1.svg" id="f1-legal" style="opacity: 0;">
     </div>
 
     <div class="frame flex" id="frame2">
@@ -161,8 +161,9 @@
       //frame 1
       tl.to("#f1-headline",{opacity:1,duration:0.25});
       tl.to("#rock",{y:12,duration:0.8,ease: "back.inOut(1.5)"},"+=0.25");
+      tl.to("#f1-legal",{opacity:1});
       tl.to("#rock",{y:250,opacity:0,duration:0.8,ease: "back.inOut(1.5)"},"+=2");
-      tl.to("#f1-legal",{opacity:0,duration:0.2},"<");
+      tl.to("#f1-legal",{opacity:0},"<");
       tl.to("#f1-headline",{opacity:0,duration:0.2},"<");
 
       //frame 2
@@ -175,7 +176,7 @@
       tl.from("#legal2",{opacity:0});
 
       //frame 3
-      tl.to("#frame2",{opacity:0,duration:0.25},"+=3");
+      tl.to("#frame2",{opacity:0,duration:0.25},"+=5");
       tl.to("#frame3",{opacity:1});
       tl.to("#frame_txt1",{y:50, duration:0.8,ease: "back.inOut(1.5)"});
       tl.to("#legal3",{opacity:1});
