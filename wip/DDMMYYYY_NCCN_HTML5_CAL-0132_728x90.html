@@ -1,0 +1,204 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="ad.size"         content="width=728,height=90">
+  <meta name="veeva-code"      content="CAL-0137">
+  <meta name="expiration-date" content="01/01/2028">
+  <title> </title>
+
+  <script type="text/javascript">
+    var clickTag  = "https://cancerassociatedlems.com/test/";
+  </script>
+
+  <script src="https://s0.2mdn.net/ads/studio/Enabler.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+  <style>
+    :root {
+      --green:#8EBE4E;
+      --purple:#44264A;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      cursor: pointer;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    #banner {
+      position: relative;
+      width:  728px;
+      height: 90px;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      background: var(--green);
+    }
+    .frame {
+      position: absolute;
+      top: 0; left: 0;
+      width: 728px; height: 90px;
+      overflow: hidden;
+      z-index: 10;
+      opacity: 0;
+      visibility: hidden;
+    }
+    .frame img {
+      position: absolute;
+      display: block;
+    }
+
+    /* ---------- Frame 1 : Stone-cold truth in [rock] ---------- */
+    #f1-headline { left: 203px;   top: 31px; width: 212px; height: 27px; }
+    #f1-rock     { left: 420px;   top: 9px;  width: 105px; height: 81px; }
+    #f1-legal    { left: 622px;   top: 70px; width: 82px;  height: 8px;  opacity: 0; visibility: hidden; }
+
+    /* ---------- Frame 2 : NCCN Guidelines recommend… ---------- */
+    #f2 { background: var(--purple); }
+    #f2-text { left: 158px; top: 15px; width: 412px; height: 59px; }
+
+    /* ---------- Frame 3 : VGCC-Ab testing… ---------- */
+    #f3 { background: var(--green); }
+    #f3-text { left: 89px; top: 15px; width: 550px; height: 60px; }
+
+    /* ---------- Frame 4 : Have you ordered a VGCC-Ab test… ---------- */
+    #f4-headline { left: 146px; top: 15px; width: 437px; height: 60px; }
+    #f4-legal    { left: 631px; top: 20px; width: 83px;  height: 52px; opacity: 0; visibility: hidden; }
+
+    /* ---------- Frame 5 : Don’t wait / Order a test today (end card) ---------- */
+    #f5-purple   { position: absolute; left: 219px; top: 0; width: 160px; height: 91px; background: var(--purple); }
+    #f5-dontwait { left: 78px;  top: 31px; width: 119px; height: 28px; }
+    #f5-cta      { left: 236px; top: 10px; width: 128px; height: 70px; opacity: 0; visibility: hidden; }
+    #f5-small    { position: absolute; left: 0; top: 0; width: 728px; height: 90px; opacity: 0; visibility: hidden; }
+    #f5-reference { left: 455px; top: 9px;  width: 255px; height: 58px; }
+    #f5-copyright { left: 455px; top: 73px; width: 234px; height: 8px;  }
+
+    #bg-exit {
+      position: absolute;
+      top: 0; left: 0;
+      width: 728px; height: 90px;
+      z-index: 100;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="banner">
+
+    <!-- Frame 1 -->
+    <div class="frame" id="f1">
+      <img id="f1-headline" src="assets/f1_headline.svg" alt="Stone-cold truth in">
+      <img id="f1-rock"     src="assets/f1_rock.png"     alt="SCLC rock">
+      <img id="f1-legal"    src="assets/sclc_legal.svg"    alt="SCLC=small cell lung cancer.">
+    </div>
+
+    <!-- Frame 2 -->
+    <div class="frame" id="f2">
+      <img id="f2-text" src="assets/f2_text.svg" alt="NCCN Clinical Practice Guidelines in Oncology (NCCN Guidelines) recommend…">
+    </div>
+
+    <!-- Frame 3 -->
+    <div class="frame" id="f3">
+      <img id="f3-text" src="assets/f3_text.svg" alt="VGCC-Ab testing, preferably in consultation with neurology, in SCLC and suspected neurologic paraneoplastic syndrome">
+    </div>
+
+    <!-- Frame 4 -->
+    <div class="frame" id="f4">
+      <img id="f4-headline" src="assets/f4_headline.svg" alt="Have you ordered a VGCC-Ab test to confirm Cancer-Associated LEMS in patients with SCLC?">
+      <img id="f4-legal"    src="assets/lems_sclc_vgcc_legal.svg"    alt="LEMS, SCLC, VGCC-Ab definitions">
+    </div>
+
+    <!-- Frame 5 (end card) -->
+    <div class="frame" id="f5">
+      <div id="f5-purple"></div>
+      <img id="f5-dontwait" src="assets/f5_dontwait.svg" alt="Don’t wait">
+      <img id="f5-cta"      src="assets/f5_cta.svg"      alt="Order a test today">
+      <div id="f5-small">
+        <img id="f5-reference" src="assets/f5_reference.svg" alt="NCCN reference">
+        <img id="f5-copyright" src="assets/f5_copyright.svg" alt="© 2026 Catalyst Pharmaceuticals, Inc.">
+      </div>
+    </div>
+
+    <div id="bg-exit" onclick="exitHandler()"></div>
+  </div>
+<script type="text/javascript">
+
+    // GCM click handlers — must use Enabler.exit() per GCM spec; do not use addEventListener
+    function exitHandler()  { if (typeof Enabler !== 'undefined' && Enabler.isInitialized()) { Enabler.exit("clickTag",  clickTag); } else { window.open(clickTag, '_blank'); } }
+
+    function animationSequence() {
+      const tl = gsap.timeline({
+        delay:0.5,
+        defaults: {ease:"power1.out",duration:0.2}
+    });
+
+      /* ---------- FRAME 1 ---------- */
+      tl.addLabel("frame1")
+        .set("#f1", { autoAlpha: 1 })
+        // headline drops in from above, rock follows with the same move
+        .from("#f1-headline", { y: -130, ease: "back.inOut(1.5)" })
+        .from("#f1-rock",     { y: -130, ease: "back.inOut(1.5)" })
+        .to("#f1-legal", { autoAlpha: 1 })
+        // hold 3s, remove the small text, then headline + rock exit down together
+        .to("#f1-legal", { autoAlpha: 0 }, "+=3")
+        .to(["#f1-headline", "#f1-rock"], { y: 130, ease: "back.inOut(1.5)" })
+        .set("#f1", { autoAlpha: 0 });
+
+      /* ---------- FRAME 2 ---------- */
+      tl.addLabel("frame2")
+        .to("#f2", { autoAlpha: 1, duration: 0.5 })           // purple bg fade in
+        .fromTo("#f2-text", { autoAlpha: 0, scale: 0.8 }, { autoAlpha: 1, scale: 1 })
+        // hold 3s then reverse: text out, bg out
+        .to("#f2-text", { autoAlpha: 0, scale: 0.8 }, "+=3")
+        .to("#f2", { autoAlpha: 0, duration: 0.5 });
+
+      /* ---------- FRAME 3 (same sequence as frame 2) ---------- */
+      tl.addLabel("frame3")
+        .to("#f3", { autoAlpha: 1, duration: 0.5 })
+        .fromTo("#f3-text", { autoAlpha: 0, scale: 0.8 }, { autoAlpha: 1, scale: 1 })
+        .to("#f3-text", { autoAlpha: 0, scale: 0.8 }, "+=3")
+        .to("#f3", { autoAlpha: 0, duration: 0.5 });
+
+      /* ---------- FRAME 4 ---------- */
+      tl.addLabel("frame4")
+        .set("#f4", { autoAlpha: 1 })
+        .fromTo("#f4-headline", { autoAlpha: 0, scale: 0.8 }, { autoAlpha: 1, scale: 1 })
+        .to("#f4-legal", { autoAlpha: 1 })                    // small text after headline completes
+        .to("#f4", { autoAlpha: 0 }, "+=3");                  // hold 3s then transition out
+
+      /* ---------- FRAME 5 (end card, stays up) ---------- */
+      tl.addLabel("frame5")
+        .set("#f5", { autoAlpha: 1 })
+        .from("#f5-dontwait", { x: -250 })                    // in from the left
+        .from("#f5-purple",   { yPercent: -101 })             // purple block in vertically
+        .to("#f5-cta",   { autoAlpha: 1 })                    // white text inside purple
+        .to("#f5-small", { autoAlpha: 1 });                   // small text on the right
+
+      return tl;
+    }
+
+
+    var mainTimeline = gsap.timeline({ paused: true });
+
+    // Build master timeline
+    function buildTimeline() {
+      mainTimeline.add(animationSequence());
+      mainTimeline.play();
+    }
+
+
+    // Wait for GCM Enabler to initialise before starting the animation
+    function init() { buildTimeline(); }
+    if (typeof Enabler !== 'undefined' && Enabler.isInitialized()) { init(); }
+    else if (typeof Enabler !== 'undefined') { Enabler.addEventListener(studio.events.StudioEvent.INIT, init); }
+    else { setTimeout(init, 100); }
+  </script>
+
+  <script src="debug-panel.js"></script>
+</body>
+</html>

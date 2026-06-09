@@ -1,0 +1,209 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="ad.size"         content="width=728,height=90">
+  <meta name="veeva-code"      content="CAL-0136">
+  <meta name="expiration-date" content="01/01/2028">
+  <title> </title>
+
+  <script type="text/javascript">
+    var clickTag  = "https://cancerassociatedlems.com/test/";
+  </script>
+
+  <script src="https://s0.2mdn.net/ads/studio/Enabler.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+  <style>
+    :root {
+      --green:#8EBE4E;
+      --purple:#44264A;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      cursor: pointer;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    #banner {
+      position: relative;
+      width:  728px;
+      height: 90px;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      background: var(--green);
+    }
+    .frame {
+      position: absolute;
+      top: 0; left: 0;
+      width: 728px; height: 90px;
+      overflow: hidden;
+      z-index: 10;
+      opacity: 0;
+      visibility: hidden;
+    }
+    .frame img {
+      position: absolute;
+      display: block;
+    }
+
+    /* ---------- Frames 1+2 : shared scene (woman photo zoom bridges the two) ---------- */
+    /* visible from load so the banner opens on the woman + purple bg */
+    #t12 { background: var(--purple); opacity: 1; visibility: visible; }
+    #t12-photo { left: 0; top: 0; width: 315px; height: 90px; }
+    /* soft-edged purple cover on the right of the photo (frame 1 look) */
+    #t1-cover  { position: absolute; left: 267px; top: -20px; width: 481px; height: 130px;
+                 background: var(--purple); filter: blur(18px); }
+    #t1-text   { left: 321px; top: 32px; width: 304px; height: 26px; opacity: 0; visibility: hidden; }
+    #t1-legal  { left: 632px; top: 68px; width: 82px;  height: 8px;  opacity: 0; visibility: hidden; }
+    /* frame 2 layers */
+    /* full-width so scaleX can sweep it left to cover the woman */
+    #t2-green  { position: absolute; left: 0; top: 0; width: 728px; height: 90px;
+                 background: var(--green); opacity: 0; visibility: hidden; }
+    #t2-text   { left: 286px; top: 33px; width: 412px; height: 26px; opacity: 0; visibility: hidden; }
+    #t2-legal  { left: 571px; top: 71px; width: 129px; height: 8px;  opacity: 0; visibility: hidden; }
+
+    /* ---------- Frame 3 : The most common antibody-mediated… ---------- */
+    #t3 { background: var(--green); }
+    #t3-headline { left: 139px; top: 15px; width: 450px; height: 60px; }
+    #t3-refs     { left: 598px; top: 61px; width: 117px; height: 19px; opacity: 0; visibility: hidden; }
+
+    /* ---------- Frame 4 : Order a VGCC-Ab test / Leave no stone unturned (end card) ---------- */
+    #t4 { background: var(--green); }
+    #t4-purple    { position: absolute; left: 0; top: 0; width: 319px; height: 91px; background: var(--purple); }
+    #t4-whitetext { left: 61px;  top: 15px; width: 196px; height: 60px; opacity: 0; visibility: hidden; }
+    #t4-rock      { left: 330px; top: 16px; width: 126px; height: 65px; }
+    #t4-righttext { left: 461px; top: 23px; width: 238px; height: 34px; opacity: 0; visibility: hidden; }
+    #t4-small     { position: absolute; left: 0; top: 0; width: 728px; height: 90px; opacity: 0; visibility: hidden; }
+    #t4-legal     { left: 504px; top: 63px; width: 147px; height: 8px; }
+    #t4-copyright { left: 461px; top: 74px; width: 234px; height: 8px; }
+
+    #bg-exit {
+      position: absolute;
+      top: 0; left: 0;
+      width: 728px; height: 90px;
+      z-index: 100;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="banner">
+
+    <!-- Frames 1+2 : shared scene -->
+    <div class="frame" id="t12">
+      <img id="t12-photo" src="assets/t1_photo.png" alt="Woman resting in bed">
+      <div id="t1-cover"></div>
+      <img id="t1-text"  src="assets/t1_text.svg"  alt="SCLC with weakness and fatigue?">
+      <img id="t1-legal" src="assets/sclc_legal.svg" alt="SCLC=small cell lung cancer.">
+      <div id="t2-green"></div>
+      <img id="t2-text"  src="assets/t2_text.svg"  alt="It may be Cancer-Associated LEMS with SCLC">
+      <img id="t2-legal" src="assets/lems_myasthenic_syndrome.svg" alt="LEMS=Lambert-Eaton myasthenic syndrome.">
+    </div>
+
+    <!-- Frame 3 -->
+    <div class="frame" id="t3">
+      <img id="t3-headline" src="assets/t3_headline.svg" alt="The most common antibody-mediated neurologic paraneoplastic syndrome in SCLC">
+      <img id="t3-refs"     src="assets/t3_refs.svg"     alt="Reference: Gandhi L, et al. J Natl Compr Canc Netw. 2006;4(6):631-638.">
+    </div>
+
+    <!-- Frame 4 (end card) -->
+    <div class="frame" id="t4">
+      <div id="t4-purple"></div>
+      <img id="t4-whitetext" src="assets/t4_whitetext.svg" alt="Order a VGCC-Ab test, both P/Q and N types">
+      <img id="t4-rock"      src="assets/t4_rock.png"      alt="Boulder">
+      <img id="t4-righttext" src="assets/t4_righttext.svg" alt="Leave no stone unturned">
+      <div id="t4-small">
+        <img id="t4-legal"     src="assets/vgcc_ab_legal.svg"     alt="VGCC-Ab=voltage-gated calcium channel antibody.">
+        <img id="t4-copyright" src="assets/t4_copyright.svg" alt="© 2026 Catalyst Pharmaceuticals, Inc. All Rights Reserved. CAL-0136-1 June 2026">
+      </div>
+    </div>
+
+    <div id="bg-exit" onclick="exitHandler()"></div>
+  </div>
+<script type="text/javascript">
+
+    // GCM click handlers — must use Enabler.exit() per GCM spec; do not use addEventListener
+    function exitHandler()  { if (typeof Enabler !== 'undefined' && Enabler.isInitialized()) { Enabler.exit("clickTag",  clickTag); } else { window.open(clickTag, '_blank'); } }
+
+    function animationSequence() {
+      const tl = gsap.timeline({
+        delay:0.5,
+        defaults: {ease:"power1.out",duration:0.2}
+    });
+
+      /* ---------- FRAME 1 ---------- */
+      tl.addLabel("frame1")
+        .set("#t12", { autoAlpha: 1 })
+        .fromTo("#t1-text",  { autoAlpha: 0, scale: 0.8 }, { autoAlpha: 1, scale: 1 })
+        .to("#t1-legal", { autoAlpha: 1 })
+        // hold 3s then fade out frame-1 text before transition
+        .to(["#t1-text", "#t1-legal"], { autoAlpha: 0 }, "+=3");
+
+      /* ---------- FRAME 1 -> 2 transition + FRAME 2 ---------- */
+      // frame2 label lands at ~t=3.6 (after 0.2+0.2+3+0.2s above)
+      tl.addLabel("frame2")
+        // pin green to right side (scaleX 0.6456 from right = 470px visible of 728px total)
+        // then fade it in — zoom is still running in the background
+        .set("#t2-green", { scaleX: 470/728, transformOrigin: "right center" })
+        .to("#t2-green", { autoAlpha: 1, duration: 1, ease: "power1.inOut" })
+        // frame-2 text appears once the zoom completes (frame1+0.5+4.6 = frame1+5.1)
+        .fromTo("#t2-text", { autoAlpha: 0, scale: 0.8 }, { autoAlpha: 1, scale: 1 }, "frame1+=5.1")
+        .to("#t2-legal", { autoAlpha: 1 })
+        // after 3s hold, green sweeps left to fill the full frame, hiding the woman
+        .to("#t2-green", { scaleX: 1, duration: 0.5, ease: "power2.inOut" }, "+=3")
+        .set("#t12", { autoAlpha: 0 });  // instant hide once green covers everything
+
+      // Zoom placed last with an absolute position so it doesn't disturb the sequential
+      // cursor for the hold above. Starts 0.5s into frame 1, runs 4.6s so it completes
+      // 0.5s after the green bg is fully visible (green done at ~t=4.6, zoom done at ~t=5.1).
+      tl.to("#t12-photo", { scale: 1.49, transformOrigin: "183px 15px", duration: 4.6, ease: "power1.inOut" }, "frame1+=0.5");
+
+      /* ---------- FRAME 3 ---------- */
+      tl.addLabel("frame3")
+        .to("#t3", { autoAlpha: 1, duration: 0.5 })
+        .fromTo("#t3-headline", { autoAlpha: 0, scale: 0.8 }, { autoAlpha: 1, scale: 1 })
+        .to("#t3-refs", { autoAlpha: 1 })
+        // hold 3s then reverse: text + refs out, bg out
+        .to("#t3-headline", { autoAlpha: 0, scale: 0.8 }, "+=3")
+        .to("#t3-refs", { autoAlpha: 0 }, "<")
+        .to("#t3", { autoAlpha: 0, duration: 0.5 });
+
+      /* ---------- FRAME 4 (end card, stays up) ---------- */
+      tl.addLabel("frame4")
+        .set("#t4", { autoAlpha: 1 })
+        .from("#t4-purple", { yPercent: -101 })               // purple bg in from above
+        .to("#t4-whitetext", { autoAlpha: 1 })                // white text on purple
+        .from("#t4-rock", { y: -130, ease: "back.inOut(1.5)" })  // rock drops in
+        .to("#t4-righttext", { autoAlpha: 1 })                // text on the right fades in
+        .to("#t4-small", { autoAlpha: 1 });                   // bottom small text
+
+      return tl;
+    }
+
+
+    var mainTimeline = gsap.timeline({ paused: true });
+
+    // Build master timeline
+    function buildTimeline() {
+      mainTimeline.add(animationSequence());
+      mainTimeline.play();
+    }
+
+
+    // Wait for GCM Enabler to initialise before starting the animation
+    function init() { buildTimeline(); }
+    if (typeof Enabler !== 'undefined' && Enabler.isInitialized()) { init(); }
+    else if (typeof Enabler !== 'undefined') { Enabler.addEventListener(studio.events.StudioEvent.INIT, init); }
+    else { setTimeout(init, 100); }
+  </script>
+
+  <script src="debug-panel.js"></script>
+</body>
+</html>
