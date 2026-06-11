@@ -108,15 +108,16 @@
     </div>
 
     <div class="frame" id="frame3">
-      <img src="img/unturned/300x250_unturned_frame3_txt1.svg" id="frame3txt" style="margin:auto;transform:translate3d(0px,-300px,0);opacity:0">
-      <div style="position: absolute; bottom: 5px; width: 100%; text-align: center;" id="legal3"><img src="img/unturned/300x250_unturned_legal3.svg" style="display: inline-block;"></div>
+      <img src="img/unturned/300x250_unturned_frame3_txt1.svg" id="frame3txt" style="margin:auto;opacity:0; transform:translateY(40px)">
+      <div style="position: absolute; bottom: 5px; width: 100%; text-align: center; opacity:0" id="legal3">
+        <img src="img/unturned/300x250_unturned_legal3.svg" style="display: inline-block;"></div>
     </div>
 
     <div id="frame4" class="frame flex">
       <img src="img/unturned/300x250_unturned_frame4_txt1.svg" style="opacity: 0; transform:translateY(10px)">
       <div class="bar">
-        <img src="img/unturned/boulder.png" alt="">
-        <img src="img/unturned/300x250_unturned_frame4_txt2.svg">
+        <img src="img/unturned/boulder.png" style="transform: translateY(3px)">
+        <img src="img/unturned/300x250_unturned_frame4_txt2.svg" style="transform: translateY(3px)">
       </div>
       <img src="img/unturned/300x250_unturned_legal4.svg" id="legal4" style="opacity:0">
     </div>
@@ -151,13 +152,13 @@
       //frame 3
       tl.to("#frame3",{opacity:1});
       tl.set("#frame2 .bar",{scale:1});
-      tl.to("#frame3txt",{y:50,opacity:1,duration:1,ease: "back.inOut(1.5)"});
+      tl.fromTo("#frame3txt",{autoAlpha:0,scale:0.4},{autoAlpha:1,scale:1,duration:0.8,ease:"back.inOut(1.5)"});
       tl.to("#legal3",{opacity:1});
-      tl.to("#frame3txt",{y:300,opacity:0,duration:1,ease: "back.inOut(1.5)"},"+=2");
+      tl.to("#frame3txt",{autoAlpha:0,scale:0.8,duration:0.5,ease:"power2.in"},"+=2");
       tl.to("#legal3",{opacity:0},"<");
 
       //frame 4
-      tl.to("#frame4",{opacity:1});
+      tl.to("#frame4",{opacity:1},"+=0.4");
       tl.to("#frame4 img:first-child",{opacity:1,duration:0.5});
       tl.to("#frame4 .bar",{x:0,duration:0.5,ease:"power4.inOut"});
       tl.to("#frame4 .bar img",{opacity:1},"+=0.2");
