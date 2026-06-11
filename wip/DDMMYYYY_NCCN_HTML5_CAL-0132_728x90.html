@@ -141,12 +141,12 @@
       tl.addLabel("frame1")
         .set("#f1", { autoAlpha: 1 })
         // headline drops in from above, rock follows with the same move
-        .from("#f1-headline", { y: -130, ease: "back.inOut(1.5)" })
-        .from("#f1-rock",     { y: -130, ease: "back.inOut(1.5)" })
+        .from("#f1-headline", { y: -130, duration:0.8, ease: "back.inOut(1.5)" })
+        .from("#f1-rock",     { y: -130, duration:0.8, ease: "back.inOut(1.5)" })
         .to("#f1-legal", { autoAlpha: 1 })
         // hold 3s, remove the small text, then headline + rock exit down together
         .to("#f1-legal", { autoAlpha: 0 }, "+=3")
-        .to(["#f1-headline", "#f1-rock"], { y: 130, ease: "back.inOut(1.5)" })
+        .to(["#f1-headline", "#f1-rock"], { y: 130, duration:0.8, ease: "back.inOut(1.5)" })
         .set("#f1", { autoAlpha: 0 });
 
       /* ---------- FRAME 2 ---------- */
@@ -174,9 +174,9 @@
       /* ---------- FRAME 5 (end card, stays up) ---------- */
       tl.addLabel("frame5")
         .set("#f5", { autoAlpha: 1 })
-        .from("#f5-dontwait", { x: -250 })                    // in from the left
-        .from("#f5-purple",   { yPercent: -101 })             // purple block in vertically
-        .to("#f5-cta",   { autoAlpha: 1 })                    // white text inside purple
+        .from("#f5-dontwait", { x: -250, duration:0.8,ease: "back.inOut(1.5)" })  // in from the left
+        .from("#f5-purple",   { yPercent: -101, ease: "power4.out" })             // purple block in vertically
+        .to("#f5-cta",   { autoAlpha: 1 },"+=0.2")             // white text inside purple
         .to("#f5-small", { autoAlpha: 1 });                   // small text on the right
 
       return tl;

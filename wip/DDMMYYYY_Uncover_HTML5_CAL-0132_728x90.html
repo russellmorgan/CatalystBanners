@@ -162,18 +162,18 @@
       tl.addLabel("frame1")
         .set("#u1", { autoAlpha: 1 })
         // headline drops in from above, rock follows with the same move
-        .from("#u1-headline", { y: -130, ease: "back.inOut(1.5)" })
-        .from("#u1-rock",     { y: -130, ease: "back.inOut(1.5)" })
+        .from("#u1-headline", { y: -130, duration:0.8, ease: "back.inOut(1.5)" })
+        .from("#u1-rock",     { y: -130, duration:0.8, ease: "back.inOut(1.5)" })
         .to("#u1-legal", { autoAlpha: 1 })
         // hold 3s, remove the small text, then headline + rock exit down together
         .to("#u1-legal", { autoAlpha: 0 }, "+=3")
-        .to(["#u1-headline", "#u1-rock"], { y: 130, ease: "back.inOut(1.5)" })
+        .to(["#u1-headline", "#u1-rock"], { y: 130, duration:0.8, ease: "back.inOut(1.5)" })
         .set("#u1", { autoAlpha: 0 });
 
       /* ---------- FRAME 2 ---------- */
       tl.addLabel("frame2")
         .to("#u2", { autoAlpha: 1, duration: 0.5 })           // photo/purple bg fade in
-        .from("#u2-lefttext",   { x: -250 })                  // left text in from the left
+        .from("#u2-lefttext",   { x: -250, duration:0.8, ease: "back.inOut(1.5)" })                  // left text in from the left
         .from("#u2-greenblock", { yPercent: -101 })           // green block in from above
         .to("#u2-purpletext", { autoAlpha: 1 })               // purple text on green block
         .to("#u2-small",      { autoAlpha: 1 })               // small text on the right
@@ -192,17 +192,17 @@
       /* ---------- FRAME 4 ---------- */
       tl.addLabel("frame4")
         .set("#u4", { autoAlpha: 1 })
-        .from("#u4-rock", { y: -130, ease: "back.inOut(1.5)" })   // rock drops in
-        .fromTo("#u4-headline", { autoAlpha: 0, scale: 0.8 }, { autoAlpha: 1, scale: 1 })
+        .from("#u4-rock", { y: -130, duration:0.8, ease: "back.inOut(1.5)" })   // rock drops in
+        .from("#u4-headline", { y: -130, duration:0.8, ease: "back.inOut(1.5)" },"-=0.4")
         .to("#u4-small", { autoAlpha: 1 })                        // small text on the right
         .to("#u4", { autoAlpha: 0 }, "+=3");                      // hold 3s then transition out
 
       /* ---------- FRAME 5 (end card, stays up) ---------- */
       tl.addLabel("frame5")
         .set("#u5", { autoAlpha: 1 })
-        .from("#u5-rock", { y: -130, ease: "back.inOut(1.5)" })   // rock drops in
-        .to("#u5-text", { autoAlpha: 1 })                         // "Change the course"
-        .from("#u5-purple", { scaleY: 0, transformOrigin: "center top" })  // purple expands down
+        .from("#u5-rock", { y: -130, duration:0.8, ease: "back.inOut(1.5)" })   // rock drops in
+        .fromTo("#u5-text", { autoAlpha: 0, duration:0.8, y: -130 }, { autoAlpha: 1, duration:0.8, y: 0, ease: "back.inOut(1.5)" })  // "Change the course"
+        .from("#u5-purple", { scaleY: 0, transformOrigin: "center top", ease: "power1.inOut" },"+=0.1")  // purple expands down
         .to("#u5-cta",       { autoAlpha: 1 })                    // white text inside purple
         .to("#u5-copyright", { autoAlpha: 1 });                   // small text on the right
 
