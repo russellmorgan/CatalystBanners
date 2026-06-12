@@ -75,12 +75,12 @@
     }
     #frame1 {
       margin-top: 26px;
-      height: 241px;
+      height: 254px;
       text-align: center;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: space-between;
+      justify-content: space-around;
       overflow: visible;
       opacity:1;
     }
@@ -94,6 +94,7 @@
       align-items: center;
       justify-content: flex-start;
       width: 100%;
+      margin-top:34px;
     }
     #frame4content {
       display: flex;
@@ -106,11 +107,11 @@
 </head>
 
 <body>
-  <div id="banner">
+  <div id="banner">  
     <div class="frame" id="frame1">
       <img src="img/uncover/300x250_uncover_frame1_txt1.svg" id="f1-headline" style="opacity: 0;">
-      <img src="img/SCLC_Rock.png" alt="rock" id="rock" style="transform: translateY(-150%);">
-      <img src="img/uncover/legal1.svg" id="f1-legal" style="opacity: 0;">
+      <img src="img/SCLC_Rock.png" alt="rock" id="rock" style="transform: scale(1.12) translateY(-150%);">
+      <img src="img/uncover/legal1.svg" id="f1-legal" style="opacity: 0; transform:translateY(-5px)">
     </div>
 
     <div class="frame flex" id="frame2">
@@ -120,33 +121,33 @@
           <img src="img/uncover/300x250_uncover_frame2_txt2.svg">
         </div>
         <img src="img/uncover/300x250_uncover_frame2_txt3.svg" id="frame2_txt2">
-        <img src="img/uncover/legal2.svg" id="legal2">
+        <img src="img/uncover/legal2.svg" id="legal2" style="margin-top:10px">
       </div>
     </div>
 
     <div class="frame" id="frame3">
-      <img src="img/uncover/300x250_uncover_frame3_txt1.svg" id="frame_txt1" style="transform: translate3d(45px, -336px, 0)">
+      <img src="img/uncover/300x250_uncover_frame3_txt1.svg" id="frame_txt1" style="transform: translate3d(64px, -336px, 0)">
       <div style="position:absolute;bottom:10px; text-align: center; width:100%;opacity:0" id="legal3"><img src="img/uncover/legal3.svg" style="display: inline-block;"></div>
     </div>
 
     <div class="frame flex" id="frame4">
       <div id="frame4content">
-        <img src="img/uncover/boulder_frame4.png" id="boulder4" style="transform: translateY(-224px);">
-        <img src="img/uncover/300x250_uncover_frame4_txt1.svg" id="frame4_txt1" style="margin-top:26px">
+        <img src="img/uncover/boulder_frame4.png" id="boulder4" style="transform: translateY(-230px);">
+        <img src="img/uncover/300x250_uncover_frame4_txt1.svg" id="frame4_txt1" style="margin-top:23px">
       </div>
       <img src="img/uncover/legal4.svg" id="frame4legal" style="opacity: 0;">
     </div>
 
-    <div class="frame flex" id="frame5" style="justify-content: flex-start;">
-      <img src="img/uncover/boulder_frame5.png" id="boulder5" style="transform:translateY(-224px)">
-      <img src="img/uncover/300x250_uncover_frame5_txt1.svg" id="frame5text">
-      <div class="bar purple"><img src="img/uncover/300x250_uncover_frame5_txt2.svg" alt=""></div>
-      <div id="frame5legal" style="opacity: 0; position:absolute;bottom:5px;width:100%;text-align: center;">
+    <div class="frame flex" id="frame5" style="justify-content: flex-start;margin-top:15px">
+      <img src="img/uncover/boulder_frame5.png" id="boulder5" style="transform:translateY(-200px)">
+      <img src="img/uncover/300x250_uncover_frame5_txt1.svg" id="frame5text" style="transform:translateY(5px)">
+      <div class="bar purple"><img src="img/uncover/300x250_uncover_frame5_txt2.svg" style="transform:translateY(1px)"></div>
+      <div id="frame5legal" style="opacity: 0; position:absolute;bottom:23px;width:100%;text-align: center;">
         <img src="img/uncover/legal5.svg" style="display: inline-block;">
       </div>
     </div>
 
-    <div id="bg-exit" onclick="exitHandler()" style="position:absolute;top:0;left:0;width:336px;height:280px;z-index:100;"></div>
+    <div id="bg-exit" onclick="exitHandler()"></div>
   </div>
 <script type="text/javascript">
 
@@ -160,9 +161,9 @@
     });
       //frame 1
       tl.to("#f1-headline",{opacity:1,duration:0.25});
-      tl.to("#rock",{y:13,duration:0.8,ease: "back.inOut(1.5)"},"+=0.25");
+      tl.to("#rock",{y:12,duration:0.8,ease: "back.inOut(1.5)"},"+=0.25");
       tl.to("#f1-legal",{opacity:1});
-      tl.to("#rock",{y:280,opacity:0,duration:0.8,ease: "back.inOut(1.5)"},"+=2");
+      tl.to("#rock",{y:250,opacity:0,duration:0.8,ease: "back.inOut(1.5)"},"+=2");
       tl.to("#f1-legal",{opacity:0},"<");
       tl.to("#f1-headline",{opacity:0,duration:0.2},"<");
 
@@ -178,28 +179,28 @@
       //frame 3
       tl.to("#frame2",{opacity:0,duration:0.25},"+=5");
       tl.to("#frame3",{opacity:1});
-      tl.to("#frame_txt1",{y:56, duration:0.8,ease: "back.inOut(1.5)"});
+      tl.to("#frame_txt1",{y:66, duration:0.8,ease: "back.inOut(1.5)"});
       tl.to("#legal3",{opacity:1});
-      tl.to("#frame_txt1",{y:280, opacity:0, duration:0.8,ease: "back.inOut(1.5)"},"+=3");
+      tl.to("#frame_txt1",{y:250, opacity:0, duration:0.8,ease: "back.inOut(1.5)"},"+=3");
       tl.to("#legal3",{opacity:0},"<");
 
       //frame 4
       tl.to("#frame3",{opacity:0},"+=0.2");
       tl.to("#frame4",{opacity:1});
-      tl.to("#boulder4",{y:22, duration:0.8,ease: "back.inOut(1.5)"});
+      tl.to("#boulder4",{y:20, duration:0.8,ease: "back.inOut(1.5)"});
       tl.from("#frame4_txt1",{opacity:0},"+=0.2");
       tl.set("#frame4legal",{opacity:1});
 
       //frame 5
       tl.to("#frame4",{opacity:0},"+=3");
       tl.to("#frame5",{opacity:1});
-      tl.to("#boulder5",{y:"+=224", duration:0.8,ease: "back.inOut(1.5)"})
+      tl.to("#boulder5",{y:"+=200", duration:0.8,ease: "back.inOut(1.5)"})
       tl.from("#frame5text",{opacity:0});
       tl.to("#frame5 .bar",{x:0,duration:0.5,ease: "power4.out"},"+=0.5");
       tl.to("#frame5 .bar img",{opacity:1},"+=0.2");
       tl.to("#frame5legal",{opacity:1});
 
-      return tl;
+      return tl;  
     }
 
 
@@ -220,5 +221,6 @@
   </script>
 
   <script src="debug-panel.js"></script>
+  <script src="webdesignhelpers.js"></script>
 </body>
 </html>
