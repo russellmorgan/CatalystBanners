@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="ad.size"         content="width=300,height=600">
+  <meta name="veeva-code"      content="CAL-0137">
+  <meta name="expiration-date" content="01/01/2028">
+  <title> </title>
+
+  <script type="text/javascript">
+    var clickTag  = "https://cancerassociatedlems.com/test/";
+  </script>
+
+  <script src="https://s0.2mdn.net/ads/studio/Enabler.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+  <style>
+    :root {
+      --green:#8EBE4E;
+      --purple:#44264A;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      cursor: pointer;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    #banner {
+      position: relative;
+      width:  300px;
+      height: 600px;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      background: var(--green);
+    }
+    .frame {
+      position: absolute;
+      top: 0; left: 0;
+      width: 300px; height: 600px;
+      overflow: hidden;
+      z-index: 10;
+      opacity:0;
+    }
+    .frame.flex {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-around;
+    }
+    .frame img {
+      display: block;
+      border: 0px solid red; /* debug img sizes when needed */
+    }
+    .bar {
+      display:flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      background:var(--purple);
+      width: 100%;
+      padding: 18px 0px;
+    }
+    .bar img {
+      opacity:0;
+    }
+    #frame1 {
+      margin-top: 80px;
+      height:500px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      overflow: visible;
+      opacity:1;
+    }
+    #frame2 {
+      background: var(--purple);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-around;
+      opacity:0;
+    }
+    #frame2content {
+      height: 283px;
+      width: 0px;
+      border-top: 5px solid var(--green);
+      border-bottom: 5px solid var(--green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #frame4 {
+      justify-content: space-between;
+    }
+    #frame4content {
+      height: 321px;
+      width: 0px;
+      margin-top:140px;
+      border-top: 5px solid var(--purple);
+      border-bottom: 5px solid var(--purple);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #frame4legal {
+      margin-bottom: 22px;
+    }
+    #frame5 {
+      justify-content: flex-start;
+    }
+    #frame5text {
+      margin-top: 170px;
+      margin-bottom: 5px;
+    }
+    #frame5legal {
+      margin-top: auto;
+      margin-bottom: 18px;
+      align-self: flex-start;
+      margin-left: 23px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="banner">
+    <div class="frame" id="frame1">
+      <img src="img/300x250-frame1_txt1.svg" id="f1-headline" style="width:270px; opacity: 0;">
+      <img src="img/SCLC_Rock.png" alt="rock" id="rock" style="width:281px; transform: translateY(-250%);">
+      <img src="img/300x250-frame1_legal.svg" id="f1-legal" style="width:100px; opacity:0">
+    </div>
+
+    <div class="frame" id="frame2">
+      <div id="frame2content"><img src="img/300x600_frame2_txt1.svg" alt=""></div>
+    </div>
+
+    <div class="frame" id="frame3"><img src="img/300x600_frame3_txt1.svg" alt="" style="transform: translate3d(44px, -400px, 0)"></div>
+
+    <div class="frame flex" id="frame4">
+      <div id="frame4content">
+        <img src="img/300x600_frame4_txt1.svg" style="opacity:0">
+      </div>
+      <img src="img/300x250-frame4_legal.svg" id="frame4legal" style="width:240px; opacity: 0;">
+    </div>
+
+    <div class="frame flex" id="frame5">
+      <img src="img/300x250-frame5_txt1.svg" style="width:210px; opacity: 0;" id="frame5text">
+      <div class="bar" style="transform: translate3d(-300px, 0px, 0);">
+        <img src="img/300x600_frame5_cta.svg">
+      </div>
+      <div id="frame5legal"  style="opacity: 0">
+        <img src="img/300x250-frame5_legal.svg" style="width:256px;">
+        <img src="img/300x250-copyright.svg" style="width:234px; margin-top:9px">
+      </div>
+    </div>
+
+    <div id="bg-exit" onclick="exitHandler()"></div>
+  </div>
+<script type="text/javascript">
+
+    // GCM click handlers — must use Enabler.exit() per GCM spec; do not use addEventListener
+    function exitHandler()  { if (typeof Enabler !== 'undefined' && Enabler.isInitialized()) { Enabler.exit("clickTag",  clickTag); } else { window.open(clickTag, '_blank'); } }
+
+    function animationSequence() {
+      const tl = gsap.timeline({
+        delay:0.5,
+        defaults: {ease:"power1.out",duration:0.2}
+    });
+      //frame 1
+      tl.to("#f1-headline",{opacity:1,duration:0.25});
+      tl.to("#rock",{y:12,duration:0.8,ease: "back.inOut(1.5)"},"+=0.25");
+      tl.to("#f1-legal",{opacity:1},"+=0.2");
+      tl.to("#rock",{y:600,opacity:0,duration:0.8,ease: "back.inOut(1.5)"},"+=2");
+      tl.to("#f1-legal",{opacity:0},"<");
+      tl.to("#f1-headline",{opacity:0,duration:0.2},"<");
+
+      //frame 2
+      tl.to("#frame2",{opacity:1,duration:0.25,ease: "power1.out"});
+      tl.to("#frame1",{opacity:0});
+      tl.to("#frame2content",{width:255,duration:0.5,ease: "power4.out"});
+      tl.from("#frame2content img",{opacity:0});
+
+      //frame 3
+      tl.to("#frame2",{opacity:0,duration:0.25},"+=5");
+      tl.to("#frame3",{opacity:1});
+      tl.to("#frame3 img",{y:105, duration:0.8,ease: "back.inOut(1.5)"});
+      tl.to("#frame3 img",{y:650, opacity:0, duration:0.8,ease: "back.inOut(1.5)"},"+=5");
+
+      //frame 4
+      tl.to("#frame3",{opacity:0},"+=0.2");
+      tl.to("#frame4",{opacity:1});
+      tl.to("#frame4content",{width:255,duration:0.5,ease: "power4.out"});
+      tl.to("#frame4content img",{opacity:1});
+      tl.set("#frame4legal",{opacity:1},"<");
+
+      //frame 5
+      tl.to("#frame4",{opacity:0},"+=5");
+      tl.to("#frame5",{opacity:1});
+      tl.to("#frame5text",{opacity:1});
+      tl.to("#frame5 .bar",{x:0,duration:0.5,ease: "power4.out"});
+      tl.to("#frame5 .bar img",{opacity:1},"+=0.2");
+      tl.to("#frame5legal",{opacity:1});
+
+      return tl;
+    }
+
+
+    var mainTimeline = gsap.timeline({ paused: true });
+
+    // Build master timeline
+    function buildTimeline() {
+      mainTimeline.add(animationSequence());
+      mainTimeline.play();
+    }
+
+
+    // Wait for GCM Enabler to initialise before starting the animation
+    function init() { buildTimeline(); }
+    if (typeof Enabler !== 'undefined' && Enabler.isInitialized()) { init(); }
+    else if (typeof Enabler !== 'undefined') { Enabler.addEventListener(studio.events.StudioEvent.INIT, init); }
+    else { setTimeout(init, 100); }
+  </script>
+
+  <script src="debug-panel.js"></script>
+  <script src="webdesignhelpers.js"></script>
+</body>
+</html>
