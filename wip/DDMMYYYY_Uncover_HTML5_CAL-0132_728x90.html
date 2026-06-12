@@ -50,23 +50,28 @@
     .frame img {
       position: absolute;
       display: block;
+      /* border:1px solid red */
     }
 
     /* ---------- Frame 1 : Hard-hitting fact in [rock] ---------- */
-    #u1-headline { left: 198px; top: 29px; width: 216px; height: 32px; }
+    #u1-headline { left: 198px; top: 28px; width: 219px; height: 34px; }
     #u1-rock     { left: 421px; top: 9px;  width: 105px; height: 81px; }
     #u1-legal    { left: 622px; top: 70px; width: 82px;  height: 8px;  opacity: 0; visibility: hidden; }
 
     /* ---------- Frame 2 : >90% claims analysis (photo bg) ---------- */
     #u2 { background: var(--purple); }
     #u2-photo      { left: 0; top: 0; width: 728px; height: 728px; overflow:hidden }
-    #u2-lefttext   { left: 36px;  top: 26px; width: 164px; height: 64px; }
+    #u2-lefttext   { left: 29px;  top: 16px; width: 164px; height: 64px; }
     #u2-greenblock { position: absolute; left: 195px; top: 0; width: 291px; height: 90px; background: var(--green); }
-    #u2-purpletext { left: 206px; top: 12px; width: 267px; height: 73px; opacity: 0; visibility: hidden; }
-    #u2-small      { position: absolute; left: 0; top: 0; width: 728px; height: 90px; opacity: 0; visibility: hidden; }
-    #u2-lems       { left: 505px; top: 7px;  width: 137px; height: 16px; }
-    #u2-asterisk   { left: 505px; top: 20px; width: 216px; height: 56px; }
-    #u2-reference  { left: 508px; top: 73px; width: 185px; height: 16px; }
+    #u2-purpletext { left: 206px; top: 8px; width: 267px; height: 73px; opacity: 0; visibility: hidden; }
+    #u2-small {
+      position: absolute; left: 505px; top: 0;
+      width: 223px; height: 90px;
+      display: flex; flex-direction: column; justify-content: space-between;
+      padding: 7px 3px 5px;
+      opacity: 0; visibility: hidden;
+    }
+    #u2-small img { position: static; }
 
     /* ---------- Frame 3 : It can be treatable… ---------- */
     #u3 { background: var(--green); }
@@ -77,15 +82,14 @@
     #u4-rock     { left: 7px;   top: 13px; width: 143px; height: 74px; }
     #u4-headline { left: 145px; top: 14px; width: 447px; height: 63px; }
     #u4-small    { position: absolute; left: 0; top: 0; width: 728px; height: 90px; opacity: 0; visibility: hidden; }
-    #u4-legal     { left: 619px; top: 25px; width: 75px; height: 19px; }
-    #u4-reference { left: 619px; top: 50px; width: 97px; height: 19px; }
+    #u4-reference { left: 619px; top: 23px;  }
 
     /* ---------- Frame 5 : Change the course / Order a test today (end card) ---------- */
     #u5-purple    { position: absolute; left: 399px; top: 0; width: 160px; height: 91px; background: var(--purple); }
-    #u5-rock      { left: 62px;  top: 0;    width: 161px; height: 90px;}
-    #u5-text      { left: 198px; top: 31px; width: 180px; height: 28px; opacity: 0; visibility: hidden; }
-    #u5-cta       { left: 422px; top: 9px; width: 128px; height: 70px; opacity: 0; visibility: hidden; }
-    #u5-copyright { left: 582px; top: 58px; width: 125px; height: 19px; opacity: 0; visibility: hidden; }
+    #u5-rock      { left: 58px;  top: 0;    width: 161px; height: 90px;}
+    #u5-text      { left: 198px; top: 31px; width: 182px; height: 35px; opacity: 0; visibility: hidden; }
+    #u5-cta       { left: 420px; top: 7px; width: 128px; height: 70px; opacity: 0; visibility: hidden; }
+    #u5-copyright { left: 582px; top: 56px; width: 125px; height: 19px; opacity: 0; visibility: hidden; }
 
     #bg-exit {
       position: absolute;
@@ -114,9 +118,7 @@
       <div id="u2-greenblock"></div>
       <img id="u2-purpletext" src="assets/u2_purpletext.svg" alt="&gt;90% of Cancer-Associated LEMS with SCLC cases may not receive a LEMS diagnosis">
       <div id="u2-small">
-        <img id="u2-lems"      src="assets/lems_myasthenic_syndrome.svg"      alt="LEMS=Lambert-Eaton myasthenic syndrome.">
-        <img id="u2-asterisk"  src="assets/u2_asterisk.png"  alt="Study methodology footnote">
-        <img id="u2-reference" src="assets/u2_reference.png" alt="Reference: Drapkin BJ, et al. Front Oncol. 2025;15:1650373.">
+        <img id="u2-lems"  src="assets/legal2_uncover_728x90.svg"      alt="LEMS=Lambert-Eaton myasthenic syndrome.">
       </div>
     </div>
 
@@ -131,7 +133,6 @@
       <img id="u4-rock"     src="assets/u4_rock.png"     alt="Boulder">
       <img id="u4-headline" src="assets/u4_headline.svg" alt="A VGCC-Ab test can help uncover a Cancer-Associated LEMS with SCLC diagnosis">
       <div id="u4-small">
-        <img id="u4-legal"     src="assets/vgcc_ab_legal.svg"     alt="VGCC-Ab=voltage-gated calcium channel antibody.">
         <img id="u4-reference" src="assets/u4_reference.svg" alt="Reference: Kesner VG, et al. Neurol Clin. 2018;36(2):379-394.">
       </div>
     </div>
@@ -227,5 +228,6 @@
   </script>
 
   <script src="debug-panel.js"></script>
+  <script src="webdesignhelpers.js"></script>
 </body>
 </html>
