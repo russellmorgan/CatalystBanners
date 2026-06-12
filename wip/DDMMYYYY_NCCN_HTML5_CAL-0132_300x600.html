@@ -63,19 +63,19 @@
       justify-content: center;
       background:var(--purple);
       width: 100%;
-      padding: 18px 0px;
+      padding: 10px 0px;
     }
     .bar img {
       opacity:0;
     }
     #frame1 {
-      margin-top: 80px;
-      height:500px;
+      margin-top: 121px;
+      height:459px;
       text-align: center;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: space-between;
+      justify-content: flex-start;
       overflow: visible;
       opacity:1;
     }
@@ -116,8 +116,8 @@
       justify-content: flex-start;
     }
     #frame5text {
-      margin-top: 170px;
-      margin-bottom: 5px;
+      margin-top: 164px;
+      margin-bottom: 24px;
     }
     #frame5legal {
       margin-top: auto;
@@ -131,9 +131,9 @@
 <body>
   <div id="banner">
     <div class="frame" id="frame1">
-      <img src="img/300x250-frame1_txt1.svg" id="f1-headline" style="width:270px; opacity: 0;">
-      <img src="img/SCLC_Rock.png" alt="rock" id="rock" style="width:281px; transform: translateY(-250%);">
-      <img src="img/300x250-frame1_legal.svg" id="f1-legal" style="width:100px; opacity:0">
+      <img src="img/300x600-frame1_txt1.svg" id="f1-headline" style="opacity: 0;">
+      <img src="img/SCLC_Rock.png" alt="rock" id="rock" style="width:281px; margin-top:12px; transform: translateY(-250%);">
+      <img src="img/300x250-frame1_legal.svg" id="f1-legal" style="width:100px; opacity:0; margin-top:auto">
     </div>
 
     <div class="frame" id="frame2">
@@ -150,7 +150,7 @@
     </div>
 
     <div class="frame flex" id="frame5">
-      <img src="img/300x250-frame5_txt1.svg" style="width:210px; opacity: 0;" id="frame5text">
+      <img src="img/300x600_frame5_txt1.svg" style="opacity: 0;" id="frame5text">
       <div class="bar" style="transform: translate3d(-300px, 0px, 0);">
         <img src="img/300x600_frame5_cta.svg">
       </div>
