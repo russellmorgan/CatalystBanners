@@ -155,7 +155,7 @@
         .fromTo("#t2-text", { autoAlpha: 0, y: -130 }, { autoAlpha: 1, y: 0, duration: 0.8, ease: "back.inOut(1.5)" }, "frame1+=5.1")
         .to("#t2-legal", { autoAlpha: 1 })
         // fade text out just before the green sweep
-        .to(["#t2-text", "#t2-legal"], { autoAlpha: 0, duration: 0.3 }, "+=2.7")
+        .to(["#t2-text", "#t2-legal"], { autoAlpha: 0, duration: 0.3 }, "+=3.7")
         // after 3s hold, green sweeps left to fill the full frame, hiding the woman
         .to("#t2-green", { scaleX: 1, duration: 0.5, ease: "power2.inOut" })
         .set("#t12", { autoAlpha: 0 });  // instant hide once green covers everything
