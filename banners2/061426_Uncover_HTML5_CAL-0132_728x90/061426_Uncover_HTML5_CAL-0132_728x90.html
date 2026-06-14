@@ -1,0 +1,233 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="ad.size"         content="width=728,height=90">
+  <meta name="veeva-code"      content="CAL-0140">
+  <meta name="expiration-date" content="01/01/2028">
+  <title> </title>
+
+  <script type="text/javascript">
+    var clickTag  = "https://cancerassociatedlems.com/test/";
+  </script>
+
+  <script src="https://s0.2mdn.net/ads/studio/Enabler.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+  <style>
+    :root {
+      --green:#8EBE4E;
+      --purple:#44264A;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      cursor: pointer;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    #banner {
+      position: relative;
+      width:  728px;
+      height: 90px;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      background: var(--green);
+    }
+    .frame {
+      position: absolute;
+      top: 0; left: 0;
+      width: 728px; height: 90px;
+      overflow: hidden;
+      z-index: 10;
+      opacity: 0;
+      visibility: hidden;
+    }
+    .frame img {
+      position: absolute;
+      display: block;
+      /* border:1px solid red */
+    }
+
+    /* ---------- Frame 1 : Hard-hitting fact in [rock] ---------- */
+    #u1-headline { left: 198px; top: 28px; width: 219px; height: 34px; }
+    #u1-rock     { left: 421px; top: 9px;  width: 105px; height: 81px; }
+    #u1-legal    { left: 622px; top: 70px; width: 82px;  height: 8px;  opacity: 0; visibility: hidden; }
+
+    /* ---------- Frame 2 : >90% claims analysis (photo bg) ---------- */
+    #u2 { background: var(--purple); }
+    #u2-photo      { left: 0; top: 0; width: 728px; height: 728px; overflow:hidden }
+    #u2-lefttext   { left: 29px;  top: 16px; width: 164px; height: 64px; }
+    #u2-greenblock { position: absolute; left: 195px; top: 0; width: 291px; height: 90px; background: var(--green); }
+    #u2-purpletext { left: 206px; top: 8px; width: 267px; height: 73px; opacity: 0; visibility: hidden; }
+    #u2-small {
+      position: absolute; left: 505px; top: 0;
+      width: 223px; height: 90px;
+      display: flex; flex-direction: column; justify-content: space-between;
+      padding: 7px 3px 5px;
+      opacity: 0; visibility: hidden;
+    }
+    #u2-small img { position: static; }
+
+    /* ---------- Frame 3 : It can be treatable… ---------- */
+    #u3 { background: var(--green); }
+    #u3-headline { left: 61px;  top: 30px; width: 507px; height: 31px; }
+    #u3-refs     { left: 629px; top: 20px; width: 84px;  height: 51px; opacity: 0; visibility: hidden; }
+
+    /* ---------- Frame 4 : A VGCC-Ab test can help uncover… ---------- */
+    #u4-rock     { left: 7px;   top: 13px; width: 143px; height: 74px; }
+    #u4-headline { left: 145px; top: 17px; width: 447px; height: 63px; }
+    #u4-small    { position: absolute; left: 0; top: 0; width: 728px; height: 90px; opacity: 0; visibility: hidden; }
+    #u4-reference { left: 619px; top: 23px;  }
+
+    /* ---------- Frame 5 : Change the course / Order a test today (end card) ---------- */
+    #u5-purple    { position: absolute; left: 399px; top: 0; width: 160px; height: 91px; background: var(--purple); }
+    #u5-rock      { left: 58px;  top: 0;    width: 161px; height: 90px;}
+    #u5-text      { left: 198px; top: 31px; width: 182px; height: 35px; opacity: 0; visibility: hidden; }
+    #u5-cta       { left: 420px; top: 7px; width: 128px; height: 70px; opacity: 0; visibility: hidden; }
+    #u5-copyright { left: 582px; top: 56px; width: 125px; height: 19px; opacity: 0; visibility: hidden; }
+
+    #bg-exit {
+      position: absolute;
+      top: 0; left: 0;
+      width: 728px; height: 90px;
+      z-index: 100;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="banner">
+
+    <!-- Frame 1 -->
+    <div class="frame" id="u1">
+      <img id="u1-headline" src="img/u1_headline.svg" alt="Hard-hitting fact in">
+      <img id="u1-rock"     src="img/u1_rock.png"     alt="SCLC rock">
+      <img id="u1-legal"    src="img/sclc_legal.svg"    alt="SCLC=small cell lung cancer.">
+    </div>
+
+    <!-- Frame 2 -->
+    <div class="frame" id="u2">
+      <img id="u2-photo"    src="img/boulders_anim.gif"    alt="">
+      <img id="u2-lefttext" src="img/u2_lefttext.svg" alt="A retrospective claims analysis suggests:">
+      <div id="u2-greenblock"></div>
+      <img id="u2-purpletext" src="img/u2_purpletext.svg" alt="&gt;90% of Cancer-Associated LEMS with SCLC cases may not receive a LEMS diagnosis">
+      <div id="u2-small">
+        <img id="u2-lems"  src="img/legal2_uncover_728x90.svg"      alt="LEMS=Lambert-Eaton myasthenic syndrome.">
+      </div>
+    </div>
+
+    <!-- Frame 3 -->
+    <div class="frame" id="u3">
+      <img id="u3-headline" src="img/u3_headline.svg" alt="It can be treatable…but challenging to identify">
+      <img id="u3-refs"     src="img/u3_refs.svg"     alt="References">
+    </div>
+
+    <!-- Frame 4 -->
+    <div class="frame" id="u4">
+      <img id="u4-rock"     src="img/u4_rock.png"     alt="Boulder">
+      <img id="u4-headline" src="img/u4_headline.svg" alt="A VGCC-Ab test can help uncover a Cancer-Associated LEMS with SCLC diagnosis">
+      <div id="u4-small">
+        <img id="u4-reference" src="img/u4_reference.svg" alt="Reference: Kesner VG, et al. Neurol Clin. 2018;36(2):379-394.">
+      </div>
+    </div>
+
+    <!-- Frame 5 (end card) -->
+    <div class="frame" id="u5">
+      <div id="u5-purple"></div>
+      <img id="u5-rock"      src="img/u5_rock.png"      alt="Boulder">
+      <img id="u5-text"      src="img/u5_text.svg"      alt="Change the course">
+      <img id="u5-cta"       src="img/f5_cta.svg"       alt="Order a test today">
+      <img id="u5-copyright" src="img/u5_copyright.svg" alt="© 2026 Catalyst Pharmaceuticals, Inc.">
+    </div>
+
+    <div id="bg-exit" onclick="exitHandler()"></div>
+  </div>
+<script type="text/javascript">
+
+    // GCM click handlers — must use Enabler.exit() per GCM spec; do not use addEventListener
+    function exitHandler()  { if (typeof Enabler !== 'undefined' && Enabler.isInitialized()) { Enabler.exit("clickTag",  clickTag); } else { window.open(clickTag, '_blank'); } }
+
+    function animationSequence() {
+      const tl = gsap.timeline({
+        delay:0.5,
+        defaults: {ease:"power1.out",duration:0.2}
+    });
+
+      /* ---------- FRAME 1 ---------- */
+      tl.addLabel("frame1")
+        .set("#u1", { autoAlpha: 1 })
+        // headline drops in from above, rock follows with the same move
+        .from("#u1-headline", { y: -130, duration:0.8, ease: "back.inOut(1.5)" })
+        .from("#u1-rock",     { y: -130, duration:0.8, ease: "back.inOut(1.5)" })
+        .to("#u1-legal", { autoAlpha: 1 })
+        // hold 3s, remove the small text, then headline + rock exit down together
+        .to("#u1-legal", { autoAlpha: 0 }, "+=3")
+        .to(["#u1-headline", "#u1-rock"], { y: 130, duration:0.8, ease: "back.inOut(1.5)" })
+        .set("#u1", { autoAlpha: 0 });
+
+      /* ---------- FRAME 2 ---------- */
+      tl.addLabel("frame2")
+        .to("#u2", { autoAlpha: 1, duration: 0.5 })           // photo/purple bg fade in
+        .from("#u2-lefttext",   { x: -250, duration:0.8, ease: "back.inOut(1.5)" })                  // left text in from the left
+        .from("#u2-greenblock", { yPercent: -101 })           // green block in from above
+        .to("#u2-purpletext", { autoAlpha: 1 })               // purple text on green block
+        .to("#u2-small",      { autoAlpha: 1 })               // small text on the right
+        .to("#u2", { autoAlpha: 0, duration: 0.5 }, "+=3");   // hold 3s then frame out
+
+      /* ---------- FRAME 3 ---------- */
+      tl.addLabel("frame3")
+        .to("#u3", { autoAlpha: 1, duration: 0.5 })
+        .fromTo("#u3-headline", { autoAlpha: 0, scale: 0.8 }, { autoAlpha: 1, scale: 1 })
+        .to("#u3-refs", { autoAlpha: 1 })
+        // hold 3s then reverse: text + refs out, bg out
+        .to("#u3-headline", { autoAlpha: 0, scale: 0.8 }, "+=3")
+        .to("#u3-refs", { autoAlpha: 0 }, "<")
+        .to("#u3", { autoAlpha: 0, duration: 0.5 });
+
+      /* ---------- FRAME 4 ---------- */
+      tl.addLabel("frame4")
+        .set("#u4", { autoAlpha: 1 })
+        .from("#u4-rock", { y: -130, duration:0.8, ease: "back.inOut(1.5)" })   // rock drops in
+        .from("#u4-headline", { y: -130, duration:0.8, ease: "back.inOut(1.5)" },"-=0.4")
+        .to("#u4-small", { autoAlpha: 1 })                        // small text on the right
+        .to("#u4", { autoAlpha: 0 }, "+=3");                      // hold 3s then transition out
+
+      /* ---------- FRAME 5 (end card, stays up) ---------- */
+      tl.addLabel("frame5")
+        .set("#u5", { autoAlpha: 1 })
+        .from("#u5-rock", { y: -130, duration:0.8, ease: "back.inOut(1.5)" })   // rock drops in
+        .fromTo("#u5-text", { autoAlpha: 0, duration:0.8, y: -130 }, { autoAlpha: 1, duration:0.8, y: 0, ease: "back.inOut(1.5)" })  // "Change the course"
+        .from("#u5-purple", { scaleY: 0, transformOrigin: "center top", ease: "power1.inOut" },"+=0.1")  // purple expands down
+        .to("#u5-cta",       { autoAlpha: 1 })                    // white text inside purple
+        .to("#u5-copyright", { autoAlpha: 1 });                   // small text on the right
+
+      return tl;
+    }
+
+
+    var mainTimeline = gsap.timeline({ paused: true });
+
+    // Build master timeline
+    function buildTimeline() {
+      mainTimeline.add(animationSequence());
+      mainTimeline.play();
+    }
+
+
+    // Wait for GCM Enabler to initialise before starting the animation
+    function init() { buildTimeline(); }
+    if (typeof Enabler !== 'undefined' && Enabler.isInitialized()) { init(); }
+    else if (typeof Enabler !== 'undefined') { Enabler.addEventListener(studio.events.StudioEvent.INIT, init); }
+    else { setTimeout(init, 100); }
+  </script>
+
+  <script src="debug-panel.js"></script>
+  <script src="webdesignhelpers.js"></script>
+</body>
+</html>
