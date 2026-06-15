@@ -109,7 +109,7 @@
 
     <div id="frame2" class="frame flex" style="justify-content: flex-end;padding-bottom:14px">
       <div class="bar" style="margin-bottom:47px">
-        <img src="img/300x600_frame2_txt1.svg" alt="">
+        <img src="img/300x600_frame2_txt1.svg" style="transform:translateY(-2px)">
       </div>
       <img src="img/300x250_unturned_legal2.svg" id="legal2" style="opacity:0">
     </div>
@@ -124,7 +124,7 @@
       <img src="img/300x600_frame4_txt1.svg" style="margin-top:91px; opacity: 0;">
       <div class="bar endframe" style="margin-top:27px">
         <img src="img/boulder.png" style="width:135px; height:69px; object-fit:cover">
-        <img src="img/300x600_frame4_cta.svg" style="margin-top:-7px">
+        <img src="img/300x600_frame4_cta.svg">
       </div>
       <img src="img/300x250_unturned_legal4.svg" id="legal4" style="opacity:0; margin-top:auto">
     </div>
@@ -161,7 +161,7 @@
       tl.set("#frame2 .bar",{scale:1});
       tl.fromTo("#frame3txt",{autoAlpha:0,scale:0.4},{autoAlpha:1,scale:1,duration:0.8,ease:"back.inOut(1.5)"});
       tl.to("#legal3",{opacity:1});
-      tl.to("#frame3txt",{autoAlpha:0,scale:0.8,duration:0.5,ease:"power2.in"},"+=2");
+      tl.to("#frame3txt",{autoAlpha:0,scale:0.8,duration:0.5,ease:"power2.in"},"+=4");
       tl.to("#legal3",{opacity:0},"<");
 
       //frame 4
