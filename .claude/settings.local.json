@@ -13,7 +13,11 @@
       "Bash(Select-Object Name)",
       "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\Russell\\\\Documents\\\\GitHub\\\\CatalystBanners\" -Recurse -Include \"*.html\")",
       "Bash(Select-Object -ExpandProperty FullName)",
-      "Bash(grep -vE \"^\\\\s*$\")"
+      "Bash(grep -vE \"^\\\\s*$\")",
+      "Read(//Users/morgan/.claude/plugins/cache/**)",
+      "Read(//Users/morgan/.claude/plugins/**)",
+      "Read(//Users/morgan/.claude/**)",
+      "Bash(xargs -I{} echo {})"
     ]
   },
   "skillOverrides": {
