@@ -181,7 +181,11 @@
                 </div>
                 <div class="slide-content">
                     <div class="color-block init" id="frame3">
-                        <img src="img/wide/slide3txt.svg" />
+                        <div class="slide3txt-wrap" style="position:relative; width:608.784px; height:29.997px;">
+                            <img src="img/wide/slide3txt.svg" class="slide3-line" id="slide3-line1" style="position:absolute; inset:0; width:100%; height:100%; opacity:0; clip-path: inset(0 72.6% 0 0);" />
+                            <img src="img/wide/slide3txt.svg" class="slide3-line" id="slide3-line2" style="position:absolute; inset:0; width:100%; height:100%; opacity:0; clip-path: inset(0 32.9% 0 27.4%);" />
+                            <img src="img/wide/slide3txt.svg" class="slide3-line" id="slide3-line3" style="position:absolute; inset:0; width:100%; height:100%; opacity:0; clip-path: inset(0 0% 0 67.1%);" />
+                        </div>
                     </div>
                 </div>
                 <div class="slide-content">
@@ -325,11 +329,15 @@
                     ease: "power1.out",
                 });
                 tl.to(
+                    "#slide3-line1, #slide3-line2, #slide3-line3",
+                    { opacity: 1, duration: 0.4, stagger: 0.8, ease: "power1.out" },
+                );
+                tl.to(
                     "#frame3",
                     { height: 600, duration: 0.5, ease: "power1.in" },
-                    "+=2",
+                    "+=1",
                 );
-                tl.to("#frame3 > img:nth-child(1)", {
+                tl.to(".slide3txt-wrap", {
                     opacity: 0,
                     duration: 0.5,
                     ease: "power1.inOut",
@@ -380,19 +388,19 @@
                 tl.set(
                     ".legal img:nth-child(2)",
                     { display: "inline-block" },
-                    11.5,
+                    12.5,
                 );
-                tl.set(".legal img:nth-child(2)", { display: "none" }, 14.5);
+                tl.set(".legal img:nth-child(2)", { display: "none" }, 15.5);
                 tl.set(
                     ".legal img:nth-child(3)",
                     { display: "inline-block" },
-                    15.5,
+                    16.5,
                 );
-                tl.set(".legal img:nth-child(3)", { display: "none" }, 19);
+                tl.set(".legal img:nth-child(3)", { display: "none" }, 20);
                 tl.set(
                     ".legal img:nth-child(4)",
                     { display: "inline-block" },
-                    21.5,
+                    22.5,
                 );
                 return tl;
             }
