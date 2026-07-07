@@ -20,7 +20,8 @@
       "Bash(xargs -I{} echo {})",
       "Bash(cp \"C:\\\\Users\\\\Russell\\\\Documents\\\\GitHub\\\\CatalystBanners\\\\banners3\\\\070626_Catalyst-Approach_HTML5_CAL-0145-1_300x250\\\\img\\\\slide3txt.svg\" .)",
       "Bash(python -m http.server 8791)",
-      "Bash(curl -sI http://localhost:8791/inspect.html)"
+      "Bash(curl -sI http://localhost:8791/inspect.html)",
+      "Bash(node .claude/skills/impeccable/scripts/load-context.mjs)"
     ]
   },
   "skillOverrides": {
@@ -29,5 +30,21 @@
   "enabledPlugins": {
     "gsap-skills@gsap-skills": true,
     "impeccable@claude-plugins-official": true
-  }
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PROJECT_DIR}/.claude/skills/impeccable/scripts/hook.mjs\"",
+            "timeout": 5,
+            "statusMessage": "Checking UI changes"
+          }
+        ]
+      }
+    ]
+  },
+  "description": "Impeccable design detector: runs after Edit/Write/MultiEdit on UI files and surfaces findings as system reminders."
 }
