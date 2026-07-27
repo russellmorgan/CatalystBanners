@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Glyph Forge — font → SVG outlines</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/opentype.js/1.3.4/opentype.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<style>
+  :root{
+    --ink:#14101a; --panel:#1e1826; --panel2:#241d2e; --line:#352a45;
+    --text:#ece6f2; --muted:#9a8fab; --accent:#b98cff; --brand:#44264a;
+    --ok:#7fdca4; --warn:#ffb26b; --err:#ff7a8a;
+    --mono:ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
+    --sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--ink);color:var(--text);font-family:var(--sans);
+    background-image:radial-gradient(circle at 15% -10%,#2a1c3a 0,transparent 45%);}
+  a{color:var(--accent)}
+  .wrap{max-width:none;margin:0 auto;padding:28px 32px 64px}
+  header{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;
+    border-bottom:1px solid var(--line);padding-bottom:16px;margin-bottom:22px}
+  header h1{font-size:19px;margin:0;letter-spacing:.14em;text-transform:uppercase;font-weight:600}
+  header .dot{color:var(--accent)}
+  header .sub{font-family:var(--mono);font-size:12px;color:var(--muted)}
+  .grid{display:grid;grid-template-columns:340px 1fr;gap:24px;align-items:start}
+  @media(max-width:820px){.grid{grid-template-columns:1fr}}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px}
+  .card + .card{margin-top:18px}
+  label{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--muted);margin:0 0 7px}
+  .field + .field{margin-top:16px}
+  input[type=text],textarea,input[type=number],select{width:100%;background:var(--ink);
+    border:1px solid var(--line);color:var(--text);border-radius:7px;padding:10px 11px;
+    font-family:var(--mono);font-size:14px}
+  select{cursor:pointer}
+  textarea{resize:vertical;min-height:64px;line-height:1.4}
+  input:focus,textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(185,140,255,.15)}
+  .drop{border:1.5px dashed var(--line);border-radius:9px;padding:22px 14px;text-align:center;
+    cursor:pointer;transition:.15s;background:var(--panel2)}
+  .drop:hover,.drop.hot{border-color:var(--accent);background:#2a2138}
+  .drop b{display:block;font-family:var(--mono);font-size:13px;margin-bottom:4px}
+  .drop small{color:var(--muted);font-size:11.5px}
+  .fontstat{margin-top:10px;font-family:var(--mono);font-size:12px;padding:8px 10px;border-radius:7px}
+  .fontstat.ok{background:rgba(127,220,164,.1);color:var(--ok);border:1px solid rgba(127,220,164,.25)}
+  .fontstat.err{background:rgba(255,122,138,.1);color:var(--err);border:1px solid rgba(255,122,138,.25)}
+  .row{display:flex;gap:10px}
+  .row .field{flex:1}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+  .chip{font-family:var(--mono);font-size:11px;padding:5px 9px;border-radius:6px;cursor:pointer;
+    background:var(--panel2);border:1px solid var(--line);color:var(--muted)}
+  .chip:hover{border-color:var(--accent);color:var(--text)}
+  .colorrow{display:flex;gap:10px;align-items:center}
+  input[type=color]{width:44px;height:40px;padding:0;border:1px solid var(--line);border-radius:7px;background:var(--ink);cursor:pointer}
+  .toggle{display:flex;align-items:center;gap:9px;cursor:pointer;font-size:13px;color:var(--text);font-family:var(--sans)}
+  .toggle input{accent-color:var(--accent);width:16px;height:16px}
+  .toggle small{color:var(--muted);font-size:11.5px}
+  .btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+  button.act{font-family:var(--mono);font-size:12.5px;letter-spacing:.05em;padding:10px 15px;border-radius:7px;
+    border:1px solid var(--accent);background:var(--accent);color:#1a1022;cursor:pointer;font-weight:600}
+  button.act:hover{filter:brightness(1.08)}
+  button.ghost{background:transparent;color:var(--accent)}
+  button.act:disabled{opacity:.4;cursor:not-allowed}
+  .previewhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+  .previewhead .n{font-family:var(--mono);font-size:12px;color:var(--muted)}
+  .specimens{display:flex;flex-wrap:wrap;gap:12px;align-content:flex-start;
+    resize:vertical;overflow:auto;min-height:220px;height:460px;max-height:2400px;
+    border:1px solid var(--line);border-radius:9px;padding:14px;background:#181320}
+  .specimens.single{justify-content:center;align-content:center}
+  .specimens.single .spec{width:100%;background:transparent;border:none}
+  .specimens.single .box{width:100%;min-height:200px}
+  .specimens.single .box svg{max-width:100%;max-height:calc(100% - 4px)}
+  .spec{background:var(--panel2);border:1px solid var(--line);border-radius:9px;padding:14px;
+    display:flex;flex-direction:column;align-items:center;gap:9px;min-width:82px}
+  .spec .box{background:
+      linear-gradient(45deg,#1a1422 25%,transparent 25%),
+      linear-gradient(-45deg,#1a1422 25%,transparent 25%),
+      linear-gradient(45deg,transparent 75%,#1a1422 75%),
+      linear-gradient(-45deg,transparent 75%,#1a1422 75%);
+    background-size:12px 12px;background-position:0 0,0 6px,6px -6px,-6px 0;
+    background-color:#221a2e;border-radius:6px;padding:10px;display:flex;align-items:center;justify-content:center;
+    min-width:88px;min-height:88px}
+  .spec .box svg{display:block;max-width:200px;max-height:180px;filter:drop-shadow(2px 3px 4px rgba(0,0,0,.4))}
+  .spec .cap{font-family:var(--mono);font-size:11px;color:var(--muted);display:flex;gap:8px;align-items:center}
+  .spec .cap b{color:var(--text)}
+  .spec .dl{font-family:var(--mono);font-size:10px;color:var(--accent);cursor:pointer;border:none;background:none;padding:0}
+  .empty{color:var(--muted);font-family:var(--mono);font-size:13px;padding:40px 0;text-align:center}
+  .code{margin-top:18px}
+  .code textarea{min-height:120px;font-size:12px;color:var(--muted)}
+  .hint{font-family:var(--mono);font-size:11.5px;color:var(--muted);line-height:1.6;margin-top:14px}
+  .hint code{color:var(--accent);background:var(--ink);padding:1px 5px;border-radius:4px}
+  .toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--accent);
+    color:#1a1022;font-family:var(--mono);font-size:12.5px;padding:9px 16px;border-radius:8px;
+    opacity:0;transition:.2s;pointer-events:none;font-weight:600}
+  .toast.show{opacity:1}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Glyph Forge<span class="dot"> ●</span></h1>
+    <span class="sub">custom font → tight SVG outlines · on-demand</span>
+  </header>
+
+  <div class="grid">
+    <!-- CONTROLS -->
+    <div>
+      <div class="card">
+        <label>1 · Font file</label>
+        <div class="drop" id="drop">
+          <b id="dropTitle">Drop font or click</b>
+          <small>.otf · .ttf · .woff  (woff2 not supported)</small>
+        </div>
+        <input type="file" id="file" accept=".otf,.ttf,.woff" style="display:none">
+        <div id="fontstat"></div>
+      </div>
+
+      <div class="card">
+        <label>2 · Text</label>
+        <div class="field">
+          <textarea id="text" placeholder="Type anything…">Handgloves</textarea>
+          <div class="chips">
+            <span class="chip" data-set="ABCDEFGHIJKLMNOPQRSTUVWXYZ">A–Z</span>
+            <span class="chip" data-set="abcdefghijklmnopqrstuvwxyz">a–z</span>
+            <span class="chip" data-set="0123456789">0–9</span>
+            <span class="chip" data-set="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789">All</span>
+            <span class="chip" data-set=".,;:!?&@#$%()-–—/'&quot;">Punct.</span>
+          </div>
+        </div>
+        <div class="row" style="margin-top:16px">
+          <div class="field"><label>Size (px)</label><input type="number" id="size" value="200" min="4" max="2000"></div>
+          <div class="field"><label>Line height</label><input type="number" id="lh" value="1.2" min="0.5" max="4" step="0.05"></div>
+          <div class="field">
+            <label>Fill</label>
+            <div class="colorrow">
+              <input type="color" id="color" value="#44264a">
+              <input type="text" id="hex" value="#44264a">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <label>3 · Output</label>
+        <div class="field" style="margin-bottom:14px">
+          <label>Alignment <small style="text-transform:none;letter-spacing:0">(multi-line)</small></label>
+          <select id="align"><option value="left">Left</option><option value="center">Center</option></select>
+        </div>
+        <label class="toggle" style="margin-bottom:12px">
+          <input type="checkbox" id="perChar" checked>
+          <span>One SVG per character <small>(the alphabet, on demand)</small></span>
+        </label>
+        <label class="toggle" style="margin-bottom:16px">
+          <input type="checkbox" id="cc">
+          <span>fill="currentColor" <small>(re-tint via CSS later)</small></span>
+        </label>
+        <label class="toggle" style="margin-bottom:12px">
+          <input type="checkbox" id="simplify" checked>
+          <span>Simplify outlines <small>(strip redundant points — many fonts over-trace curves)</small></span>
+        </label>
+        <div class="field" style="margin-bottom:16px">
+          <label>Simplify tolerance (px)</label>
+          <input type="number" id="tolerance" value="0.35" min="0" max="10" step="0.05">
+        </div>
+        <div class="btnrow">
+          <button class="act" id="gen" disabled>Generate</button>
+          <button class="act ghost" id="zip" disabled>Download all (.zip)</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PREVIEW -->
+    <div class="card">
+      <div class="previewhead">
+        <label style="margin:0">Specimens</label>
+        <span class="n" id="count"></span>
+      </div>
+      <div class="specimens" id="specimens">
+        <div class="empty">Load a font, then Generate.</div>
+      </div>
+
+      <div class="code" id="codewrap" style="display:none">
+        <label>SVG source <span style="color:var(--accent);cursor:pointer" id="copyAll">[copy first]</span></label>
+        <textarea id="code" readonly></textarea>
+      </div>
+
+      <div class="hint">
+        <b style="color:var(--text)">Finding your activated Adobe font on disk:</b><br>
+        Windows → <code>%APPDATA%\Adobe\CoreSync\plugins\livetype\r\</code><br>
+        macOS → <code>~/Library/Application Support/Adobe/CoreSync/plugins/livetype/.r/</code><br>
+        Files have scrambled names but are plain .otf. Drop them here one at a time — the loader reports the real family name so you can tell which is which. (Use only fonts your Adobe license covers; keep outputs as artwork, don't redistribute the font.)<br><br>
+        <b style="color:var(--text)">CSS drop shadow:</b> use <code>filter: drop-shadow(2px 3px 4px rgba(0,0,0,.4))</code> — it hugs the glyph outline. Avoid <code>box-shadow</code> (shadows the square bounding box). Stays crisp at any scale; pairs with the currentColor trick.
+      </div>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+let font=null, results=[];
+const $=id=>document.getElementById(id);
+const toast=m=>{const t=$('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1600)};
+
+// ---- font loading ----
+const drop=$('drop'), fileInput=$('file');
+drop.onclick=()=>fileInput.click();
+['dragover','dragenter'].forEach(e=>drop.addEventListener(e,ev=>{ev.preventDefault();drop.classList.add('hot')}));
+['dragleave','drop'].forEach(e=>drop.addEventListener(e,ev=>{ev.preventDefault();drop.classList.remove('hot')}));
+drop.addEventListener('drop',ev=>{if(ev.dataTransfer.files[0])loadFont(ev.dataTransfer.files[0])});
+fileInput.onchange=e=>{if(e.target.files[0])loadFont(e.target.files[0])};
+
+function loadFont(f){
+  const stat=$('fontstat');
+  if(/\.woff2$/i.test(f.name)){stat.className='fontstat err';stat.textContent='✕ woff2 not supported — need .otf / .ttf / .woff';return}
+  const r=new FileReader();
+  r.onload=()=>{
+    try{
+      font=opentype.parse(r.result);
+      const name=font.names.fullName?Object.values(font.names.fullName)[0]:f.name;
+      stat.className='fontstat ok';
+      stat.textContent='✓ '+name;
+      $('dropTitle').textContent=f.name;
+      $('gen').disabled=false;
+      generate();
+    }catch(err){
+      font=null;$('gen').disabled=true;
+      stat.className='fontstat err';stat.textContent='✕ could not parse this file';
+    }
+  };
+  r.readAsArrayBuffer(f);
+}
+
+// ---- controls ----
+document.querySelectorAll('.chip').forEach(c=>c.onclick=()=>{$('text').value=c.dataset.set;if(font)generate()});
+$('color').oninput=e=>{$('hex').value=e.target.value;if(font)generate()};
+$('hex').oninput=e=>{if(/^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test(e.target.value)){$('color').value=e.target.value;if(font)generate()}};
+['text','size','lh','align','perChar','cc','simplify','tolerance'].forEach(id=>$(id).addEventListener('input',()=>{if(font)generate()}));
+$('align').addEventListener('change',()=>{if(font)generate()});
+$('gen').onclick=generate;
+$('zip').onclick=downloadZip;
+$('copyAll').onclick=()=>{$('code').select();document.execCommand('copy');toast('Copied first SVG')};
+
+// ---- path simplification: fonts (esp. hand-lettered/traced ones) often store curves
+// as thousands of near-collinear points instead of proper Beziers. opentype.js's
+// toPathData() just serializes whatever points the font has — it doesn't simplify.
+// Ramer-Douglas-Peucker collapses redundant points on the straight (M/L) runs while
+// leaving any genuine curve commands (Q/C) untouched.
+function perpDist(pt,a,b){
+  const dx=b[0]-a[0],dy=b[1]-a[1];
+  const len2=dx*dx+dy*dy;
+  if(len2===0)return Math.hypot(pt[0]-a[0],pt[1]-a[1]);
+  const t=((pt[0]-a[0])*dx+(pt[1]-a[1])*dy)/len2;
+  const px=a[0]+t*dx,py=a[1]+t*dy;
+  return Math.hypot(pt[0]-px,pt[1]-py);
+}
+function rdp(points,epsilon){
+  if(points.length<3)return points;
+  let maxDist=0,idx=0;
+  const first=points[0],last=points[points.length-1];
+  for(let i=1;i<points.length-1;i++){
+    const d=perpDist(points[i],first,last);
+    if(d>maxDist){maxDist=d;idx=i}
+  }
+  if(maxDist>epsilon){
+    const left=rdp(points.slice(0,idx+1),epsilon);
+    const right=rdp(points.slice(idx),epsilon);
+    return left.slice(0,-1).concat(right);
+  }
+  return [first,last];
+}
+// mutates path.commands in place, simplifying consecutive M/L runs per subpath
+function simplifyPath(path,tolerance){
+  if(!tolerance)return;
+  const cmds=path.commands;
+  const out=[];
+  let poly=[];
+  function flush(){
+    if(poly.length>2){
+      const simplified=rdp(poly,tolerance);
+      for(let i=1;i<simplified.length;i++)out.push({type:'L',x:simplified[i][0],y:simplified[i][1]});
+    }else if(poly.length===2){
+      out.push({type:'L',x:poly[1][0],y:poly[1][1]});
+    }
+    poly=[];
+  }
+  for(const c of cmds){
+    if(c.type==='M'){flush();out.push(c);poly=[[c.x,c.y]]}
+    else if(c.type==='L'){poly.push([c.x,c.y])}
+    else if(c.type==='Z'){flush();out.push(c)}
+    else{flush();out.push(c);poly=[[c.x,c.y]]} // Q/C: leave real curves alone
+  }
+  flush();
+  path.commands=out;
+}
+
+// ---- core: build tight SVG for a string ----
+function buildSVG(str,size,fill){
+  const path=font.getPath(str,0,0,size);
+  const bb=path.getBoundingBox();
+  const w=bb.x2-bb.x1, h=bb.y2-bb.y1;
+  if(!isFinite(w)||!isFinite(h)||w<=0||h<=0){
+    // blank glyph (e.g. space) → use advance width
+    const adv=font.getAdvanceWidth(str,size)||size*0.3;
+    return {svg:`<svg xmlns="http://www.w3.org/2000/svg" width="${r3(adv)}" height="${r3(size)}" viewBox="0 0 ${r3(adv)} ${r3(size)}"></svg>`,w:adv,h:size};
+  }
+  const p=font.getPath(str,-bb.x1,-bb.y1,size);
+  const rawLen=p.toPathData(3).length;
+  if($('simplify').checked)simplifyPath(p,parseFloat($('tolerance').value)||0);
+  const d=p.toPathData(3);
+  const W=r3(w),H=r3(h);
+  const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}"><path d="${d}" fill="${fill}"/></svg>`;
+  return {svg,w,h,rawLen,simpLen:d.length};
+}
+const r3=n=>Math.round(n*1000)/1000;
+
+// ---- multi-line tight SVG ----
+function buildMultiline(str,size,fill,lineHeight,align){
+  const lines=str.split('\n');
+  const gap=size*lineHeight;
+  // pass 1: measure each non-empty line
+  const info=lines.map((line,i)=>{
+    if(!line.length)return {empty:true};
+    const bb=font.getPath(line,0,0,size).getBoundingBox();
+    return {line,i,x1:bb.x1,width:bb.x2-bb.x1};
+  });
+  const widths=info.filter(o=>!o.empty).map(o=>o.width);
+  const maxW=widths.length?Math.max(...widths):0;
+  if(maxW<=0){const b=buildSVG(' ',size,fill);return b;}
+  // pass 2: place with alignment, tight vertical crop
+  const paths=[];let minY=Infinity,maxY=-Infinity;
+  info.forEach(o=>{
+    if(o.empty)return;
+    const xoff=(align==='center'?(maxW-o.width)/2:0)-o.x1;
+    const p=font.getPath(o.line,xoff,o.i*gap,size);
+    const bb=p.getBoundingBox();
+    minY=Math.min(minY,bb.y1);maxY=Math.max(maxY,bb.y2);
+    paths.push(p);
+  });
+  const w=maxW,h=maxY-minY,W=r3(w),H=r3(h);
+  const doSimplify=$('simplify').checked, tol=parseFloat($('tolerance').value)||0;
+  let rawLen=0,simpLen=0;
+  const body=paths.map(p=>{
+    rawLen+=p.toPathData(3).length;
+    if(doSimplify)simplifyPath(p,tol);
+    const d=p.toPathData(3);
+    simpLen+=d.length;
+    return `<path d="${d}"/>`;
+  }).join('');
+  const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}"><g fill="${fill}" transform="translate(0,${r3(-minY)})">${body}</g></svg>`;
+  return {svg,w,h,rawLen,simpLen};
+}
+
+function fileNameFor(ch){
+  if(/[A-Z]/.test(ch))return 'upper_'+ch;
+  if(/[a-z]/.test(ch))return 'lower_'+ch;
+  if(/[0-9]/.test(ch))return 'num_'+ch;
+  if(ch===' ')return 'space';
+  return 'u'+ch.codePointAt(0).toString(16).toUpperCase();
+}
+
+function generate(){
+  if(!font)return;
+  const raw=$('text').value;
+  const size=Math.max(4,parseFloat($('size').value)||200);
+  const lineHeight=Math.max(0.5,parseFloat($('lh').value)||1.2);
+  const align=$('align').value;
+  const fill=$('cc').checked?'currentColor':($('hex').value||'#000');
+  const perChar=$('perChar').checked;
+  results=[];
+  const cont=$('specimens');cont.innerHTML='';
+
+  if(perChar){
+    const chars=[...raw].filter(c=>c!=='\n');
+    const seen=new Set();
+    chars.forEach(ch=>{
+      const key=fileNameFor(ch);
+      if(seen.has(key))return; seen.add(key);
+      const {svg,w,h,rawLen,simpLen}=buildSVG(ch,size,fill);
+      results.push({name:key+'.svg',svg,ch,w,h,rawLen,simpLen});
+    });
+  }else{
+    const {svg,w,h,rawLen,simpLen}=buildMultiline(raw,size,fill,lineHeight,align);
+    results.push({name:'text.svg',svg,ch:raw,w,h,rawLen,simpLen});
+  }
+  cont.classList.toggle('single',!perChar);
+
+  if(!results.length){cont.innerHTML='<div class="empty">Nothing to render.</div>';$('count').textContent='';$('zip').disabled=true;return}
+
+  results.forEach((res,i)=>{
+    const el=document.createElement('div');el.className='spec';
+    const pct=res.rawLen?Math.round((1-res.simpLen/res.rawLen)*100):0;
+    const sizeNote=$('simplify').checked&&res.rawLen?` <span style="color:var(--ok)">-${pct}%</span>`:'';
+    el.innerHTML=`<div class="box">${res.svg}</div>
+      <div class="cap"><b>${res.perChar||res.ch.length===1?escapeHtml(res.ch):'string'}</b>${r3(res.w)}×${r3(res.h)}${sizeNote}</div>
+      <button class="dl" data-i="${i}">↓ svg</button>`;
+    cont.appendChild(el);
+  });
+  cont.querySelectorAll('.dl').forEach(b=>b.onclick=()=>downloadOne(results[b.dataset.i]));
+
+  const totalRaw=results.reduce((s,r)=>s+(r.rawLen||0),0);
+  const totalSimp=results.reduce((s,r)=>s+(r.simpLen||0),0);
+  const pctAll=totalRaw?Math.round((1-totalSimp/totalRaw)*100):0;
+  $('count').textContent=results.length+(perChar?' glyphs':' file')+($('simplify').checked&&totalRaw?` · path data -${pctAll}% (${(totalRaw/1024).toFixed(0)}kb → ${(totalSimp/1024).toFixed(0)}kb)`:'');
+  $('zip').disabled=!perChar||results.length<2;
+  $('codewrap').style.display='block';
+  $('code').value=results[0].svg;
+}
+
+const escapeHtml=s=>s.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+
+function downloadOne(res){
+  const blob=new Blob([res.svg],{type:'image/svg+xml'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=res.name;a.click();
+  URL.revokeObjectURL(a.href);
+}
+async function downloadZip(){
+  if(!results.length)return;
+  const zip=new JSZip();
+  results.forEach(r=>zip.file(r.name,r.svg));
+  const blob=await zip.generateAsync({type:'blob'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='glyphs.zip';a.click();
+  URL.revokeObjectURL(a.href);toast('Zipped '+results.length+' files');
+}
+</script>
+</body>
+</html>
