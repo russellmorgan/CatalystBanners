@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Catalyst HTML5 Banners — Archive</title>
+        <style>
+            :root {
+                --paper: oklch(0.965 0.006 255);
+                --surface: oklch(0.995 0.002 255);
+                --ink: oklch(0.29 0.02 262);
+                --muted: oklch(0.52 0.015 262);
+                --label: oklch(0.46 0.02 262);
+                --border: oklch(0.9 0.008 262);
+                --border-strong: oklch(0.82 0.015 262);
+                --accent-border: oklch(0.72 0.09 274);
+                --accent: oklch(0.5 0.16 274); /* HTML5: interactive deliverable */
+                --accent-wash: oklch(0.955 0.03 274);
+                --static: oklch(0.5 0.1 66); /* Static: flat image asset */
+                --static-wash: oklch(0.955 0.032 72);
+                --focus: oklch(0.62 0.17 274);
+                --text-title: 1.125rem;
+                --text-link: 0.875rem;
+                --text-label: 0.6875rem;
+                --space-2xs: 0.25rem;
+                --space-xs: 0.5rem;
+                --space-sm: 0.75rem;
+                --space-md: 1rem;
+                --space-lg: 1.5rem;
+                --space-xl: 2.5rem;
+                --space-section: 3.5rem;
+            }
+            * {
+                box-sizing: border-box;
+            }
+            body {
+                font-family:
+                    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                    "Helvetica Neue", Arial, sans-serif;
+                max-width: 1400px;
+                margin: var(--space-xl) auto;
+                padding: var(--space-lg);
+                background-color: var(--paper);
+                color: var(--ink);
+                font-kerning: normal;
+                -webkit-font-smoothing: antialiased;
+                text-rendering: optimizeLegibility;
+            }
+            /* Cards within a row are one campaign phase: tight, equal gaps. */
+            .cards-container {
+                display: flex;
+                flex-wrap: wrap;
+                gap: var(--space-lg);
+                align-items: start;
+            }
+            /* Between phases: generous separation so batches read as distinct. */
+            .cards-container + .cards-container {
+                margin-top: var(--space-section);
+            }
+            .card {
+                flex: 1 1 320px;
+                max-width: 460px;
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: 8px;
+                padding: var(--space-xs) var(--space-lg) var(--space-lg);
+                transition: border-color 0.2s ease;
+            }
+            /* Closed cards sit flat; hover firms the edge. */
+            .card:not([open]):hover {
+                border-color: var(--border-strong);
+            }
+            /* Open card is the active one: it carries an accent frame. */
+            .card[open] {
+                border-color: var(--accent-border);
+            }
+            summary {
+                list-style: none;
+                cursor: pointer;
+                user-select: none;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: var(--space-sm);
+                margin: 0 calc(-1 * var(--space-sm));
+                padding: var(--space-md) var(--space-sm);
+                font-size: var(--text-title);
+                font-weight: 700;
+                line-height: 1.2;
+                letter-spacing: -0.01em;
+                color: var(--ink);
+                border-radius: 6px;
+            }
+            summary::-webkit-details-marker {
+                display: none;
+            }
+            summary::after {
+                content: "";
+                width: 8px;
+                height: 8px;
+                border-right: 2px solid var(--muted);
+                border-bottom: 2px solid var(--muted);
+                transform: rotate(45deg);
+                transition: transform 0.25s ease;
+                flex: none;
+                margin-right: 4px;
+            }
+            .card[open] summary::after {
+                transform: rotate(-135deg);
+            }
+            summary:hover {
+                background: var(--accent-wash);
+            }
+            summary:focus-visible {
+                outline: 2px solid var(--focus);
+                outline-offset: 2px;
+            }
+            .card[open] summary {
+                background: var(--accent-wash);
+                border-bottom: 1px solid var(--accent-border);
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
+                margin-bottom: var(--space-xs);
+            }
+            ul {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+            li {
+                margin: var(--space-2xs) 0;
+            }
+            .group-label {
+                margin: var(--space-md) 0 var(--space-2xs);
+                font-size: var(--text-label);
+                font-weight: 700;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+                color: var(--label);
+            }
+            .group-label:first-child {
+                margin-top: var(--space-2xs);
+            }
+            .group-label--html5 {
+                color: var(--accent);
+            }
+            .group-label--static {
+                color: var(--static);
+            }
+            a {
+                color: var(--accent);
+                text-decoration: none;
+                font-size: var(--text-link);
+                font-variant-numeric: tabular-nums;
+                line-height: 1.4;
+                padding: var(--space-xs) var(--space-sm);
+                border-radius: 5px;
+                transition: background-color 0.15s ease;
+                display: block;
+            }
+            a:hover {
+                background-color: var(--accent-wash);
+                text-decoration: underline;
+            }
+            /* Category by file type: HTML5 banners (indigo) vs static assets (bronze). */
+            a[href$=".png"] {
+                color: var(--static);
+            }
+            a[href$=".png"]:hover {
+                background-color: var(--static-wash);
+            }
+            a:focus-visible {
+                outline: 2px solid var(--focus);
+                outline-offset: 1px;
+            }
+            /* Progressive enhancement: animate open/close where supported (Chrome). */
+            @media (prefers-reduced-motion: no-preference) {
+                :root {
+                    interpolate-size: allow-keywords;
+                }
+                .card::details-content {
+                    height: 0;
+                    overflow: hidden;
+                    transition:
+                        height 0.3s ease,
+                        content-visibility 0.3s allow-discrete;
+                }
+                .card[open]::details-content {
+                    height: auto;
+                }
+            }
+            @media (max-width: 768px) {
+                .card {
+                    flex-basis: 100%;
+                    max-width: none;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <p><a href="index.html" style="display:inline-block">&larr; Back to current banners</a></p>
+        <div class="cards-container">
+            <details class="card">
+                <summary>Approach Texas Oncology</summary>
+                <ul>
+                    <li class="group-label group-label--html5">HTML5 Banners</li>
+                    <li>
+                        <a href="banners3/070626_Catalyst-Approach_HTML5_CAL-0145-1_300x250/070626_Catalyst-Approach_HTML5_CAL-0145-1_300x250.html">300x250 Approach Texas Oncology</a>
+                    </li>
+                    <li>
+                        <a href="banners3/070626_Catalyst-Approach_HTML5_CAL-0145-1_336x280/070626_Catalyst-Approach_HTML5_CAL-0145-1_336x280.html">336x280 Approach Texas Oncology</a>
+                    </li>
+                    <li>
+                        <a href="banners3/070626_Catalyst-Approach_HTML5_CAL-0145-1_300x600/070626_Catalyst-Approach_HTML5_CAL-0145-1_300x600.html">300x600 Approach Texas Oncology</a>
+                    </li>
+                    <li>
+                        <a href="banners3/070626_Catalyst-Approach_HTML5_CAL-0145-1_728x90/070626_Catalyst-Approach_HTML5_CAL-0145-1_728x90.html">728x90 Approach Texas Oncology</a>
+                    </li>
+                    <li class="group-label group-label--static">Static Assets</li>
+                    <li>
+                        <a href="banners3/statics/300x50_Approach_Mobile2.png">300x50 Approach Texas Oncology</a>
+                    </li>
+                    <li>
+                        <a href="banners3/statics/320x50_Approach_Mobile.png">320x50 Approach Texas Oncology</a>
+                    </li>
+                    <li>
+                        <a href="banners3/statics/300x250_Approach_Static.png">300x250 Approach Texas Oncology</a>
+                    </li>
+                    <li>
+                        <a href="banners3/statics/336x280_Approach_Static.png">336x280 Approach Texas Oncology</a>
+                    </li>
+                    <li>
+                        <a href="banners3/statics/728x90_Approach_Static.png">728x90 Approach Texas Oncology</a>
+                    </li>
+                    <li>
+                        <a href="banners3/statics/300x600_Approach_Static.png">300x600 Approach Texas Oncology</a>
+                    </li>
+                </ul>
+            </details>
+            <details class="card">
+                <summary>ION Fall</summary>
+                <ul>
+                    <li class="group-label group-label--html5">HTML5 Banners</li>
+                    <li>
+                        <a href="banners4/070626_Catalyst-Approach_HTML5_CAL-0161-1_300x250/070626_Catalyst-Approach_HTML5_CAL-0161-1_300x250.html">300x250 ION Fall</a>
+                    </li>
+                    <li>
+                        <a href="banners4/070626_Catalyst-Approach_HTML5_CAL-0161-1_336x280/070626_Catalyst-Approach_HTML5_CAL-0161-1_336x280.html">336x280 ION Fall</a>
+                    </li>
+                    <li>
+                        <a href="banners4/070626_Catalyst-Approach_HTML5_CAL-0161-1_300x600/070626_Catalyst-Approach_HTML5_CAL-0161-1_300x600.html">300x600 ION Fall</a>
+                    </li>
+                    <li>
+                        <a href="banners4/070626_Catalyst-Approach_HTML5_CAL-0161-1_728x90/070626_Catalyst-Approach_HTML5_CAL-0161-1_728x90.html">728x90 ION Fall</a>
+                    </li>
+                    <li class="group-label group-label--static">Static Assets</li>
+                    <li>
+                        <a href="banners4/statics/300x50_Approach_Mobile_2.png">300x50 ION Fall</a>
+                    </li>
+                    <li>
+                        <a href="banners4/statics/320x50_Approach_Mobile.png">320x50 ION Fall</a>
+                    </li>
+                    <li>
+                        <a href="banners4/statics/300x250_Approach_Static.png">300x250 ION Fall</a>
+                    </li>
+                    <li>
+                        <a href="banners4/statics/336x280_Approach_Static.png">336x280 ION Fall</a>
+                    </li>
+                    <li>
+                        <a href="banners4/statics/728x90_Approach_Static.png">728x90 ION Fall</a>
+                    </li>
+                    <li>
+                        <a href="banners4/statics/300x600_Approach_Static.png">300x600 ION Fall</a>
+                    </li>
+                </ul>
+            </details>
+        </div>
+        <div class="cards-container">
+            <details class="card">
+                <summary>NCCN</summary>
+                <ul>
+                    <li class="group-label group-label--html5">HTML5 Banners</li>
+                    <li>
+                        <a href="banners2/061426_NCCN_HTML5_CAL-0137_300x250/061426_NCCN_HTML5_CAL-0137_300x250.html">300x250 NCCN</a>
+                    </li>
+                    <li>
+                        <a href="banners2/061426_NCCN_HTML5_CAL-0137_336x280/061426_NCCN_HTML5_CAL-0137_336x280.html">336x280 NCCN</a>
+                    </li>
+                    <li>
+                        <a href="banners2/061426_NCCN_HTML5_CAL-0137_300x600/061426_NCCN_HTML5_CAL-0137_300x600.html">300x600 NCCN</a>
+                    </li>
+                    <li>
+                        <a href="banners2/061426_NCCN_HTML5_CAL-0137_728x90/061426_NCCN_HTML5_CAL-0137_728x90.html">728x90 NCCN</a>
+                    </li>
+                    <li class="group-label group-label--static">Static Assets</li>
+                    <li>
+                        <a href="banners2/statics/300x50_NCCN_Mobile%202.png">300x50 NCCN</a>
+                    </li>
+                    <li>
+                        <a href="banners2/statics/320x50_NCCN_Mobile.png">320x50 NCCN</a>
+                    </li>
+                    <li>
+                        <a href="banners2/statics/300x250_NCCN_Static.png">300x250 NCCN</a>
+                    </li>
+                    <li>
+                        <a href="banners2/statics/336x280_NCCN_Static.png">336x280 NCCN</a>
+                    </li>
+                    <li>
+                        <a href="banners2/statics/728x90_NCCN_Static.png">728x90 NCCN</a>
+                    </li>
+                    <li>
+                        <a href="banners2/statics/300x600_NCCN_Static.png">300x600 NCCN</a>
+                    </li>
+                </ul>
+            </details>
+            <details class="card">
+                <summary>Unturned</summary>
+                <ul>
+                    <li class="group-label group-label--html5">HTML5 Banners</li>
+                    <li>
+                        <a href="banners2/061426_Unturned_HTML5_CAL-0135_300x250/061426_Unturned_HTML5_CAL-0135_300x250.html">300x250 Unturned</a>
+                    </li>
+                    <li>
+                        <a href="banners2/061426_Unturned_HTML5_CAL-0135_336x280/061426_Unturned_HTML5_CAL-0135_336x280.html">336x280 Unturned</a>
+                    </li>
+                    <li>
+                        <a href="banners2/061426_Unturned_HTML5_CAL-0135_300x600/061426_Unturned_HTML5_CAL-0135_300x600.html">300x600 Unturned</a>
+                    </li>
+                    <li>
+                        <a href="banners2/061426_Unturned_HTML5_CAL-0135_728x90/061426_Unturned_HTML5_CAL-0135_728x90.html">728x90 Unturned</a>
+                    </li>
+                    <li class="group-label group-label--static">Static Assets</li>
+                    <li>
+                        <a href="banners2/statics/300x50_Unturned%20Mobile%202.png">300x50 Unturned</a>
+                    </li>
+                    <li>
+                        <a href="banners2/statics/320x50_Unturned_Mobile.png">320x50 Unturned</a>
+                    </li>
+                    <li>
+                        <a href="banners2/statics/300x250_Unturned_Static.png">300x250 Unturned</a>
+                    </li>
+                    <li>
+                        <a href="banners2/statics/336x280_Unturned_Static.png">336x280 Unturned</a>
+                    </li>
+                    <li>
+                        <a href="banners2/statics/728x90_Unturned_Static.png">728x90 Unturned</a>
+                    </li>
+                    <li>
+                        <a href="banners2/statics/300x600_Unturned_Static.png">300x600 Unturned</a>
+                    </li>
+                </ul>
+            </details>
+            <details class="card">
+                <summary>Uncover</summary>
+                <ul>
+                    <li class="group-label group-label--html5">HTML5 Banners</li>
+                    <li><a href="banners2/061426_Uncover_HTML5_CAL-0139_300x250/061426_Uncover_HTML5_CAL-0139_300x250.html">300x250 Uncover</a></li>
+                    <li><a href="banners2/061426_Uncover_HTML5_CAL-0139_336x280/061426_Uncover_HTML5_CAL-0139_336x280.html">336x280 Uncover</a></li>
+                    <li><a href="banners2/061426_Uncover_HTML5_CAL-0139_300x600/061426_Uncover_HTML5_CAL-0139_300x600.html">300x600 Uncover</a></li>
+                    <li><a href="banners2/061426_Uncover_HTML5_CAL-0139_728x90/061426_Uncover_HTML5_CAL-0139_728x90.html">728x90 Uncover</a></li>
+                    <li class="group-label group-label--static">Static Assets</li>
+                    <li>
+                        <a href="banners2/statics/300x50_Uncover_Mobile%202.png">300x50 Uncover</a>
+                    </li>
+                    <li>
+                        <a href="banners2/statics/320x50_Uncover_Mobile.png">320x50 Uncover</a>
+                    </li>
+                    <li>
+                        <a href="banners2/statics/300x250_Uncover_Static.png">300x250 Uncover</a>
+                    </li>
+                    <li>
+                        <a href="banners2/statics/336x280_Uncover_Static.png">336x280 Uncover</a>
+                    </li>
+                    <li>
+                        <a href="banners2/statics/728x90_Uncover_Static.png">728x90 Uncover</a>
+                    </li>
+                    <li>
+                        <a href="banners2/statics/300x600_Uncover_Static.png">300x600 Uncover</a>
+                    </li>
+                </ul>
+            </details>
+        </div>
+        <div class="cards-container">
+            <details class="card">
+                <summary>&ldquo;Approach&rdquo;</summary>
+                <ul>
+                    <li class="group-label group-label--html5">HTML5 Banners</li>
+                    <li>
+                        <a href="banners/052126_Catalyst-Approach_HTML5_CAL-0132_300x250/052126_Catalyst-Approach_HTML5_CAL-0132_300x250.html">300x250 Approach</a>
+                    </li>
+                    <li>
+                        <a href="banners/052126_Catalyst-Approach_HTML5_CAL-0132_336x280/052126_Catalyst-Approach_HTML5_CAL-0132_336x280.html">336x280 Approach</a>
+                    </li>
+                    <li>
+                        <a href="banners/052126_Catalyst-Approach_HTML5_CAL-0132_300x600/052126_Catalyst-Approach_HTML5_CAL-0132_300x600.html">300x600 Approach</a>
+                    </li>
+                    <li>
+                        <a href="banners/052126_Catalyst-Approach_HTML5_CAL-0132_728x90/052126_Catalyst-Approach_HTML5_CAL-0132_728x90.html">728x90 Approach</a>
+                    </li>
+                    <li class="group-label group-label--static">Static Assets</li>
+                    <li>
+                        <a href="statics/052126_Catalyst-Approach_Static_CAL-0132_300x50.png">300x50 Approach</a>
+                    </li>
+                    <li>
+                        <a href="statics/052126_Catalyst-Approach_Static_CAL-0132_320x50.png">320x50 Approach</a>
+                    </li>
+                    <li>
+                        <a href="statics/052126_Catalyst-Approach_Static_CAL-0132_300x250.png">300x250 Approach</a>
+                    </li>
+                    <li>
+                        <a href="statics/052126_Catalyst-Approach_Static_CAL-0132_336x280.png">336x280 Approach</a>
+                    </li>
+                    <li>
+                        <a href="statics/052126_Catalyst-Approach_Static_CAL-0132_728x90.png">728x90 Approach</a>
+                    </li>
+                    <li>
+                        <a href="statics/052126_Catalyst-Approach_Static_CAL-0132_300x600.png">300x600 Approach</a>
+                    </li>
+                </ul>
+            </details>
+            <details class="card">
+                <summary>&ldquo;Hiding&rdquo;</summary>
+                <ul>
+                    <li class="group-label group-label--html5">HTML5 Banners</li>
+                    <li>
+                        <a href="banners/052126_Catalyst-Hiding_HTML5_CAL-0133_300x250/052126_Catalyst-Hiding_HTML5_CAL-0133_300x250.html">300x250 Hiding</a>
+                    </li>
+                    <li>
+                        <a href="banners/052126_Catalyst-Hiding_HTML5_CAL-0133_336x280/052126_Catalyst-Hiding_HTML5_CAL-0133_336x280.html">336x280 Hiding</a>
+                    </li>
+                    <li>
+                        <a href="banners/052126_Catalyst-Hiding_HTML5_CAL-0134_300x600/052126_Catalyst-Hiding_HTML5_CAL-0134_300x600.html">300x600 Hiding</a>
+                    </li>
+                    <li>
+                        <a href="banners/052126_Catalyst-Hiding_HTML5_CAL-0135_728x90/052126_Catalyst-Hiding_HTML5_CAL-0135_728x90.html">728x90 Hiding</a>
+                    </li>
+                    <li class="group-label group-label--static">Static Assets</li>
+                    <li>
+                        <a href="statics/052126_Catalyst-Hiding_Static_CAL-0133_300x50.png">300x50 Hiding</a>
+                    </li>
+                    <li>
+                        <a href="statics/052126_Catalyst-Hiding_Static_CAL-0133_320x50.png">320x50 Hiding</a>
+                    </li>
+                    <li>
+                        <a href="statics/052126_Catalyst-Hiding_Static_CAL-0133_300x250.png">300x250 Hiding</a>
+                    </li>
+                    <li>
+                        <a href="statics/052126_Catalyst-Hiding_Static_CAL-0133_336x280.png">336x280 Hiding</a>
+                    </li>
+                    <li>
+                        <a href="statics/052126_Catalyst-Hiding_Static_CAL-0133_728x90.png">728x90 Hiding</a>
+                    </li>
+                    <li>
+                        <a href="statics/052126_Catalyst-Hiding_Static_CAL-0133_300x600.png">300x600 Hiding</a>
+                    </li>
+                </ul>
+            </details>
+        </div>
+    </body>
+</html>
