@@ -1,0 +1,2 @@
+Use this command:
+python3 -m http.server 7000
