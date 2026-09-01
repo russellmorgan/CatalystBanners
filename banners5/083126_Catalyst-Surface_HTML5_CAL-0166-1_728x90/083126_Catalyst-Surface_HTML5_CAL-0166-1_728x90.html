@@ -61,11 +61,15 @@
 
     #bg-exit { position: absolute; inset: 0; z-index: 1000; }
 
-    /* start hidden in CSS so the (highest z-index) end-card layers don't flash
-       before GSAP loads and runs its opening gsap.set() */
+    /* CSS owns the frame-1 starting state so nothing flashes before the JS
+       timeline runs: fade-in layers start hidden, and the wide colour panels
+       start collapsed to one edge (the timeline only tweens from here). */
     #f1head, #f1foot,
     #f2rock, #f2purple, #f2head,
     #f3purple, #f3head, #f3green, #f3rock, #f3cta, #f3foot { opacity: 0; }
+
+    #f1green  { transform: scaleX(0.6456); transform-origin: 100% 50%; }
+    #f3purple { transform: scaleX(0.6456); transform-origin: 100% 50%; }
 
     #f1green, #f2rock, #f2purple, #f3purple, #f3green { will-change: transform; }
   </style>
@@ -100,16 +104,17 @@
     else { window.open(clickTag, '_blank'); }
   }
 
-  function animationSequence() {
-    // hidden until their step; reveals use set()+to() (no immediateRender:false, no "+=" tween values)
-    gsap.set(['#f1head', '#f1foot',
-              '#f2rock', '#f2purple', '#f2head',
-              '#f3purple', '#f3head', '#f3green', '#f3rock', '#f3cta', '#f3foot'], { opacity: 0 });
-    // panels that start life collapsed to one side and open across the width
-    gsap.set('#f1green',  { scaleX: 0.6456, transformOrigin: '100% 50%' });  // visible from t=0 — green panel on the right
-    gsap.set('#f3purple', { scaleX: 0.6456, transformOrigin: '100% 50%' });
-
-    const tl = gsap.timeline();
+  // Steps are added to the paused master timeline; nothing renders until play().
+  function animationSequence(tl) {
+    // CSS owns the initial state (hidden layers + collapsed panels) and that state
+    // IS the timeline at time 0, so the first tick can never contradict what the
+    // browser has already painted.
+    //
+    // Every reveal is set() + to(). from()/fromTo() are deliberately avoided: they
+    // default to immediateRender:true, so their "from" values are written to the DOM
+    // the moment the timeline is built. The build waits on the Enabler INIT event,
+    // which lands ~1s after the banner has painted — so an immediate render there
+    // reads as a blink.
 
     // FRAME 1 — woman + green bar already on screen (no entrance); copy fades in; then green expands left
     tl.to(['#f1head', '#f1foot'], { opacity: 1, duration: 0.40, ease: 'power1.out' }, 0.3);
@@ -134,13 +139,13 @@
     tl.to('#f3green', { x: 0, duration: 0.50, ease: 'power2.out' });
     tl.to('#f3rock', { opacity: 1, duration: 0.35, ease: 'power1.out' }, '+=0.05');
     tl.to(['#f3cta', '#f3foot'], { opacity: 1, duration: 0.35, ease: 'power1.out' }, '+=0.10');
-
-    return tl;
   }
 
+  // Assembled while paused (a paused ancestor also keeps zero-duration steps from
+  // rendering during the build), then played.
   var mainTimeline = gsap.timeline({ paused: true });
   function buildTimeline() {
-    mainTimeline.add(animationSequence());
+    animationSequence(mainTimeline);
     mainTimeline.play();
     window.mainTimeline = mainTimeline;
   }

@@ -41,8 +41,11 @@
     .txt { position: absolute; inset: 0; width: 336px; height: 280px; }
 
     /* ---- Frame 1 ---- */
+    /* the photo is on screen from the first paint — that is also the timeline's
+       time-0 state, so the first tick has nothing to change here */
     #f1photo { position: absolute; top: 0; left: 0; width: 336px; height: 280px;
-               object-fit: cover; object-position: 50% 0; z-index: 10; }
+               object-fit: cover; object-position: 50% 0; z-index: 10;
+               transform-origin: 50% 45%; }
     #f1bar   { position: absolute; left: 0; top: 174px; width: 336px; height: 65px;
                background: #8EBE4E; z-index: 20; }
     #f1legal { position: absolute; left: 0; top: 239px; width: 336px; height: 41px;
@@ -69,11 +72,15 @@
 
     #bg-exit { position: absolute; inset: 0; z-index: 1000; }
 
-    /* start hidden in CSS so the (highest z-index) end-card layers don't flash
-       before GSAP loads and runs its opening gsap.set() */
+    /* CSS owns the frame-1 starting state so nothing flashes before the JS
+       timeline runs: fade-in layers start hidden, and the full-frame colour
+       blocks start collapsed to a bar (the timeline only tweens from here). */
     #f1bar, #f1head, #f1legal, #f1foot,
     #f2bg, #f2rock, #f2bar, #f2head,
     #f3bg, #f3head, #f3foot, #f3band, #f3cta, #f3rock { opacity: 0; }
+
+    #f2bg { transform: scaleY(0.38); transform-origin: 50% 100%; }
+    #f3bg { transform: scaleY(0.28); transform-origin: 50% 75%; }
 
     #f1photo, #f1bar, #f2rock, #f2bar, #f2bg, #f3bg, #f3band { will-change: transform; }
   </style>
@@ -111,24 +118,21 @@
   }
 
   // Frame animations — timing/easing carried over from the CAL-0161 "Approach" set
-  function animationSequence() {
-    // everything past the frame-1 photo starts hidden; each step reveals its own layer
-    gsap.set(['#f1bar', '#f1head', '#f1legal', '#f1foot',
-              '#f2bg', '#f2rock', '#f2bar', '#f2head',
-              '#f3bg', '#f3head', '#f3foot', '#f3band', '#f3cta', '#f3rock'], { opacity: 0 });
-    // collapsed to a bar via scaleY (transform, not layout); each opens by scaling to 1
-    gsap.set('#f2bg', { scaleY: 0.38, transformOrigin: '50% 100%' });  // bottom-anchored, sits over the frame-1 green bar
-    gsap.set('#f3bg', { scaleY: 0.28, transformOrigin: '50% 75%' });   // sits over the frame-2 purple bar
+  // Steps are added to the paused master timeline; nothing renders until play().
+  function animationSequence(tl) {
+    // CSS owns the initial state (hidden layers + colour blocks collapsed to a bar
+    // via scaleY) and that state IS the timeline at time 0, so the first tick can
+    // never contradict what the browser has already painted.
+    //
+    // Every reveal is set() + to(). from()/fromTo() are deliberately avoided: they
+    // default to immediateRender:true, so their "from" values are written to the DOM
+    // the moment the timeline is built. The build waits on the Enabler INIT event,
+    // which lands ~1s after the banner has painted — so an immediate render there
+    // reads as a blink.
 
-    const tl = gsap.timeline();
-
-    // NOTE: reveals use set()+to() (never fromTo with immediateRender:false, and no
-    // relative "+=" tween values) so scrubbing the timeline back and forth stays reliable.
-
-    // FRAME 1 — photo fades in and slowly scales up (1 -> 1.2) for the whole frame;
-    //           green bar slides in from the left; then the copy appears
-    tl.fromTo('#f1photo', { opacity: 0 }, { opacity: 1, duration: 0.4, ease: 'power1.out' }, 0);
-    tl.fromTo('#f1photo', { scale: 1 }, { scale: 1.2, duration: 4.5, ease: 'none', transformOrigin: '50% 45%' }, 0.2);
+    // FRAME 1 — photo is on screen from the start and slowly scales up (1 -> 1.2)
+    //           for the whole frame; green bar slides in from the left; then the copy appears
+    tl.to('#f1photo', { scale: 1.2, duration: 4.5, ease: 'none' }, 0.2);
     tl.set('#f1bar', { opacity: 1, xPercent: -110 }, 0.5);
     tl.to('#f1bar', { xPercent: 0, duration: 0.55, ease: 'power2.out' }, 0.5);
     tl.to('#f1head', { opacity: 1, duration: 0.35, ease: 'power1.out' }, 1.15);
@@ -139,7 +143,8 @@
     tl.to('#f2bg',  { scaleY: 1, duration: 0.55, ease: 'power2.inOut' }, 4.7);
 
     // FRAME 2 — rock drops from top; purple bar slides in from the left; then the headline fades in
-    tl.fromTo('#f2rock', { opacity: 1, y: -300 }, { y: 0, duration: 0.50, ease: 'back.out(0.8)' }, 5.25);
+    tl.set('#f2rock', { opacity: 1, y: -300 }, 5.25);
+    tl.to('#f2rock', { y: 0, duration: 0.50, ease: 'back.out(0.8)' }, 5.25);
     tl.to('#f2rock', { y: 6, duration: 0.08, yoyo: true, repeat: 1, ease: 'power2.out' }, 5.67);
     tl.set('#f2bar', { opacity: 1, x: -336 }, 5.35);
     tl.to('#f2bar', { x: 0, duration: 0.50, ease: 'power2.out' }, 5.35);
@@ -157,12 +162,13 @@
     tl.to('#f3rock', { opacity: 1, duration: 0.4, ease: 'power1.out' }, '+=0.1');
     tl.to('#f3cta',  { opacity: 1, duration: 0.35, ease: 'power1.out' }, '+=0.15');
 
-    return tl;
   }
 
+  // Assembled while paused (a paused ancestor also keeps zero-duration steps from
+  // rendering during the build), then played.
   var mainTimeline = gsap.timeline({ paused: true });
   function buildTimeline() {
-    mainTimeline.add(animationSequence());
+    animationSequence(mainTimeline);
     mainTimeline.play();
     window.mainTimeline = mainTimeline;
   }
