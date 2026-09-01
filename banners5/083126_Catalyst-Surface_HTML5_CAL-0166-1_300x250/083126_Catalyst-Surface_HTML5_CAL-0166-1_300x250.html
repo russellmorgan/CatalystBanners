@@ -51,14 +51,15 @@
     #f1foot  { z-index: 25; }
 
     /* ---- Frame 2 ---- */
-    #f2bg   { position: absolute; left: 0; width: 300px; background: #8EBE4E; z-index: 30; }
+    /* full-frame block; the "bar opens" transition scales it on Y (compositor-only) */
+    #f2bg   { position: absolute; left: 0; top: 0; width: 300px; height: 250px; background: #8EBE4E; z-index: 30; }
     #f2rock { position: absolute; top: 16px; left: 88px; width: 124px; z-index: 40; }
     #f2bar  { position: absolute; left: 0; top: 127px; width: 300px; height: 79px;
               background: #44264A; z-index: 50; }
     #f2head { z-index: 55; }
 
     /* ---- Frame 3 ---- */
-    #f3bg   { position: absolute; left: 0; width: 300px; background: #44264A; z-index: 60; }
+    #f3bg   { position: absolute; left: 0; top: 0; width: 300px; height: 250px; background: #44264A; z-index: 60; }
     #f3head { z-index: 70; }
     #f3foot { z-index: 70; }
     #f3band { position: absolute; left: 0; top: 100px; width: 300px; height: 79px;
@@ -68,7 +69,7 @@
 
     #bg-exit { position: absolute; inset: 0; z-index: 1000; }
 
-    #f1photo, #f2rock, #f3rock, #f2bg, #f3bg, #f1bar, #f3band { will-change: transform; }
+    #f1photo, #f1bar, #f2rock, #f2bar, #f2bg, #f3bg, #f3band { will-change: transform; }
   </style>
 </head>
 
@@ -109,8 +110,9 @@
     gsap.set(['#f1bar', '#f1head', '#f1legal', '#f1foot',
               '#f2bg', '#f2rock', '#f2bar', '#f2head',
               '#f3bg', '#f3head', '#f3foot', '#f3band', '#f3cta', '#f3rock'], { opacity: 0 });
-    gsap.set('#f2bg', { top: 150, height: 100 });   // sits over the frame-1 green bar
-    gsap.set('#f3bg', { top: 127, height: 79 });    // sits over the frame-2 purple bar
+    // collapsed to a bar via scaleY (transform, not layout); each opens by scaling to 1
+    gsap.set('#f2bg', { scaleY: 0.40, transformOrigin: '50% 100%' });  // bottom-anchored, sits over the frame-1 green bar
+    gsap.set('#f3bg', { scaleY: 0.32, transformOrigin: '50% 74%' });   // sits over the frame-2 purple bar
 
     const tl = gsap.timeline();
 
@@ -128,7 +130,7 @@
 
     // TRANSITION 1 — green bar opens to clear the screen
     tl.set('#f2bg', { opacity: 1 }, 4.7);
-    tl.to('#f2bg',  { top: 0, height: 250, duration: 0.55, ease: 'power2.inOut' }, 4.7);
+    tl.to('#f2bg',  { scaleY: 1, duration: 0.55, ease: 'power2.inOut' }, 4.7);
 
     // FRAME 2 — rock drops from top; purple bar slides in from the left; then the headline fades in
     tl.fromTo('#f2rock', { opacity: 1, y: -300 }, { y: 0, duration: 0.50, ease: 'back.out(0.8)' }, 5.25);
@@ -140,7 +142,7 @@
     // TRANSITION 2 — rock fades out (after a 3s hold), then the purple bar opens to clear the screen
     tl.to('#f2rock', { opacity: 0, duration: 0.30, ease: 'power1.out' }, '+=3');
     tl.set('#f3bg', { opacity: 1 });
-    tl.to('#f3bg',  { top: 0, height: 250, duration: 0.55, ease: 'power2.inOut' });
+    tl.to('#f3bg',  { scaleY: 1, duration: 0.55, ease: 'power2.inOut' });
 
     // FRAME 3 — headline + legal fade in; green bar slides in from the left; then its contents appear in sequence
     tl.to(['#f3head', '#f3foot'], { opacity: 1, duration: 0.35, ease: 'power1.out' });
