@@ -41,12 +41,10 @@
     .txt { position: absolute; inset: 0; width: 300px; height: 600px; }
 
     /* ---- Frame 1 ---- */
-    /* photo occupies the top region only (per Figma); green bar + legal cover below it */
-    #f1photo { position: absolute; top: 0; left: 0; width: 300px; height: 373px; z-index: 10; }
+    /* full-frame photo (Figma crop); the green bar sits on it, the legal line sits on its dark base */
+    #f1photo { position: absolute; top: 0; left: 0; width: 300px; height: 600px; z-index: 10; }
     #f1bar   { position: absolute; left: 0; top: 373px; width: 300px; height: 151px;
                background: #8EBE4E; z-index: 20; }
-    #f1legal { position: absolute; left: 0; top: 524px; width: 300px; height: 76px;
-               background: #0E151B; z-index: 23; }
     #f1head  { z-index: 25; }
     #f1foot  { z-index: 25; }
 
@@ -78,7 +76,6 @@
     <img id="f1photo" src="img/f1-photo.jpg" alt="">
     <div id="f1bar"></div>
     <img id="f1head" class="txt" src="img/f1-head.png" alt="Is Cancer-Associated LEMS weighing down your patients with SCLC?">
-    <div id="f1legal"></div>
     <img id="f1foot" class="txt" src="img/f1-foot.svg" alt="LEMS=Lambert-Eaton myasthenic syndrome; SCLC=small cell lung cancer.">
 
     <div id="f2bg"></div>
@@ -107,7 +104,7 @@
   // Frame animations — timing/easing carried over from the CAL-0161 "Approach" set
   function animationSequence() {
     // everything past the frame-1 photo starts hidden; each step reveals its own layer
-    gsap.set(['#f1bar', '#f1head', '#f1legal', '#f1foot',
+    gsap.set(['#f1bar', '#f1head', '#f1foot',
               '#f2bg', '#f2rock', '#f2bar', '#f2head',
               '#f3bg', '#f3head', '#f3foot', '#f3band', '#f3cta', '#f3rock'], { opacity: 0 });
     // collapsed to a bar via scaleY (transform, not layout); each opens by scaling to 1
@@ -126,7 +123,7 @@
     tl.set('#f1bar', { opacity: 1, xPercent: -110 }, 0.5);
     tl.to('#f1bar', { xPercent: 0, duration: 0.55, ease: 'power2.out' }, 0.5);
     tl.to('#f1head', { opacity: 1, duration: 0.35, ease: 'power1.out' }, 1.15);
-    tl.to(['#f1legal', '#f1foot'], { opacity: 1, duration: 0.30, ease: 'power1.out' }, 1.45);
+    tl.to('#f1foot', { opacity: 1, duration: 0.30, ease: 'power1.out' }, 1.45);
 
     // TRANSITION 1 — green bar opens to clear the screen
     tl.set('#f2bg', { opacity: 1 }, 4.7);
