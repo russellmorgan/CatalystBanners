@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="ad.size"         content="width=336,height=280">
+  <meta name="veeva-code"      content="CAL-0168-1">
+  <meta name="expiration-date" content="09/30/2027">
+  <title> </title>
+
+  <script type="text/javascript">
+    var clickTag = "https://www.onclive.com/view/experts-bridge-oncology-and-neurology-to-catch-lems-earlier-in-sclc-with-misty-d-shields-md-phd-triparna-sen-md-phd-ms-and-ditte-primdahl-md";
+  </script>
+
+  <script src="https://s0.2mdn.net/ads/studio/Enabler.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      cursor: pointer;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    #banner {
+      position: relative;
+      width:  336px;
+      height: 280px;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      background: #44264A;
+    }
+
+    #banner img { display: block; }
+
+    /* frame-1 copy has no flat-fill reference in Figma, so those two layers are
+       exported at full frame size and position themselves. */
+    .txt { position: absolute; inset: 0; width: 336px; height: 280px; }
+
+    /* ---- Frame 1 ---- */
+    /* photo and purple panel are both on screen from the first paint — that is
+       also the timeline's time-0 state, so the first tick has nothing to change.
+       They double as the static fallback if the Enabler or CDN never arrives. */
+    #f1photo  { position: absolute; top: 0; left: 0; width: 336px; height: 280px;
+                object-fit: cover; object-position: 50% 50%; z-index: 10;
+                transform-origin: 50% 50%; }
+    #f1purple { position: absolute; top: 0; left: 0; width: 336px; height: 280px;
+                background: #44264A; z-index: 20; }
+    #f1head   { z-index: 25; }
+    #f1foot   { z-index: 25; }
+
+    /* ---- Frame 2 ---- */
+    /* the icon is split in two: the green disc is a plain div so it can expand
+       into the frame-3 background, and the purple glyph is its own SVG on top. */
+    #f2circle { position: absolute; left: 123px; top: 37px; width: 90px; height: 90px;
+                background: #8EBE4E; border-radius: 50%; z-index: 30;
+                transform-origin: 50% 50%; }
+    #f2glyph  { position: absolute; left: 123px; top: 37px; width: 90px; height: 90px; z-index: 40; }
+    #f2head   { position: absolute; left: 29.38px; top: 151.01px; width: 277px; z-index: 40; }
+
+    /* ---- Frame 3 ---- */
+    /* no background block of its own: the expanded green disc IS the frame-3 field */
+    #f3head   { position: absolute; left: 45.49px;  top: 42.32px;  width: 246px; z-index: 60; }
+    #f3chev   { position: absolute; left: 270px;    top: 194px;    width: 13px;  z-index: 60; }
+    #f3foot   { position: absolute; left: 104.11px; top: 244.95px; width: 129px; z-index: 60; }
+    #f3legal  { position: absolute; left: 42.75px;  top: 257.95px; width: 252px; z-index: 60; }
+
+    #bg-exit { position: absolute; inset: 0; z-index: 1000; }
+
+    /* CSS owns the frame-1 starting state so nothing flashes before the JS
+       timeline runs: fade-in layers start hidden, and the purple panel starts
+       collapsed to the right edge (the timeline only tweens from here). */
+    #f1head, #f1foot,
+    #f2circle, #f2glyph, #f2head,
+    #f3head, #f3chev, #f3foot, #f3legal { opacity: 0; }
+
+    /* collapsed to x 168..336 — the frame-1 purple panel over the right half.
+       scaleX 168/336 = 0.5 anchored to the right edge. */
+    #f1purple { transform: scaleX(0.5); transform-origin: 100% 50%; }
+
+    #f1photo, #f1purple, #f2circle { will-change: transform; }
+  </style>
+</head>
+
+<body>
+  <div id="banner">
+    <img id="f1photo" src="img/f1-photo.jpg" alt="">
+    <div id="f1purple"></div>
+    <img id="f1head" class="txt" src="img/f1-head.png" alt="Is your SCLC patient having trouble moving?">
+    <img id="f1foot" class="txt" src="img/f1-foot.svg" alt="SCLC=small cell lung cancer.">
+
+    <div id="f2circle"></div>
+    <img id="f2glyph" src="img/f2-glyph.svg" alt="">
+    <img id="f2head" src="img/f2-head.png" alt="It may not be SCLC disease progression or treatment-related effects">
+
+    <img id="f3head" src="img/f3-head.png" alt="Watch experts discuss how earlier recognition of Cancer-Associated LEMS in SCLC can make a difference">
+    <img id="f3chev" src="img/f3-chev.svg" alt="">
+    <img id="f3foot" src="img/f3-foot.svg" alt="LEMS=Lambert-Eaton myasthenic syndrome.">
+    <img id="f3legal" src="img/f3-legal.svg" alt="© 2026 Catalyst Pharmaceuticals, Inc. All Rights Reserved. CAL-0168-1 September 2026">
+
+    <div id="bg-exit" onclick="exitHandler()"></div>
+  </div>
+
+<script type="text/javascript">
+
+  // GCM click handler — must use Enabler.exit() per GCM spec; do not use addEventListener
+  function exitHandler() {
+    if (typeof Enabler !== 'undefined' && Enabler.isInitialized()) { Enabler.exit("clickTag", clickTag); }
+    else { window.open(clickTag, '_blank'); }
+  }
+
+  // Frame animations — background first, then the type, as in the CAL-0166/CAL-0167 sets.
+  // Steps are added to the paused master timeline; nothing renders until play().
+  function animationSequence(tl) {
+    // CSS owns the initial state (hidden layers + the purple panel collapsed over
+    // the right half) and that state IS the timeline at time 0, so the first tick
+    // can never contradict what the browser has already painted.
+    //
+    // Every reveal is set() + to(). from()/fromTo() are deliberately avoided: they
+    // default to immediateRender:true, so their "from" values are written to the DOM
+    // the moment the timeline is built. The build waits on the Enabler INIT event,
+    // which lands ~1s after the banner has painted — so an immediate render there
+    // reads as a blink.
+
+    // FRAME 1 — photo is on screen from the start and slowly scales up (1 -> 1.14);
+    //           the copy fades in beside it
+    tl.to('#f1photo', { scale: 1.14, duration: 3.9, ease: 'none' }, 0.2);
+    tl.to(['#f1head', '#f1foot'], { opacity: 1, duration: 0.40, ease: 'power1.out' }, 0.4);
+
+    // TRANSITION 1 — the purple panel expands left across the photo to wipe frame 1
+    tl.to('#f1purple', { scaleX: 1, duration: 0.55, ease: 'power2.inOut' }, 3.9);
+    tl.to(['#f1head', '#f1foot'], { opacity: 0, duration: 0.30, ease: 'power1.out' }, 3.9);
+
+    // FRAME 2 — the green disc pops in, the glyph settles into it, then the copy
+    tl.set('#f2circle', { opacity: 1, scale: 0.4 }, 4.55);
+    tl.to('#f2circle', { scale: 1, duration: 0.50, ease: 'back.out(1.6)' }, 4.55);
+    tl.to('#f2glyph', { opacity: 1, duration: 0.30, ease: 'power1.out' }, 4.9);
+    tl.to('#f2head', { opacity: 1, duration: 0.40, ease: 'power1.out' }, 5.15);
+
+    // TRANSITION 2 — after a 3s hold the glyph and copy clear, then the green disc
+    // opens out to fill the frame; that expanded disc becomes the frame-3 field
+    tl.to(['#f2glyph', '#f2head'], { opacity: 0, duration: 0.30, ease: 'power1.out' }, '+=3');
+    tl.to('#f2circle', { scale: 6.1, duration: 0.70, ease: 'power2.inOut' }, '-=0.05');
+
+    // FRAME 3 — headline first, then the legal lines
+    tl.to(['#f3head', '#f3chev'], { opacity: 1, duration: 0.35, ease: 'power1.out' }, '+=0.05');
+    tl.to(['#f3foot', '#f3legal'], { opacity: 1, duration: 0.35, ease: 'power1.out' }, '+=0.10');
+
+  }
+
+  // Assembled while paused (a paused ancestor also keeps zero-duration steps from
+  // rendering during the build), then played.
+  var mainTimeline = gsap.timeline({ paused: true });
+  function buildTimeline() {
+    animationSequence(mainTimeline);
+    mainTimeline.play();
+    window.mainTimeline = mainTimeline;
+  }
+
+  // Wait for GCM Enabler to initialise before starting the animation
+  function init() { buildTimeline(); }
+  if (typeof Enabler !== 'undefined' && Enabler.isInitialized()) { init(); }
+  else if (typeof Enabler !== 'undefined') { Enabler.addEventListener(studio.events.StudioEvent.INIT, init); }
+  else { setTimeout(init, 100); }
+</script>
+
+<!-- review only — remove this tag before GCM handoff -->
+<script src="debug-panel.js"></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="15" height="20" viewBox="0 0 15 20" fill="none">
+<g id="300x600_Waddle_Frame 3">
+<g id="Group 14676">
+<g id="Group 14670">
+<mask id="mask0_1_2" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="15" height="20">
+<path id="Rectangle 5117" d="M0 0H14.3V19.8H0V0Z" fill="black" />
+</mask>
+<g mask="url(#mask0_1_2)">
+<path id="Path 17" d="M5.1 19.8C5.4 19.8 5.9 19.6 6.1 19.4L14.1 10.3C14.3 10.1 14.3 9.7 14.1 9.5L6.1 0.4C5.9 0.2 5.4 0 5.1 0H0.3C0 0 -0.1 0.2 0.1 0.4L8.2 9.5C8.4 9.7 8.4 10.1 8.2 10.3L0.1 19.4C-0.1 19.6 0 19.8 0.3 19.8H5.1Z" fill="#44264A" />
+</g>
+</g>
+</g>
+</g>
+</svg>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="ad.size"         content="width=300,height=600">
+  <meta name="veeva-code"      content="CAL-0169-1">
+  <meta name="expiration-date" content="09/30/2027">
+  <title> </title>
+
+  <script type="text/javascript">
+    var clickTag = "https://www.onclive.com/view/experts-bridge-oncology-and-neurology-to-catch-lems-earlier-in-sclc-with-misty-d-shields-md-phd-triparna-sen-md-phd-ms-and-ditte-primdahl-md";
+  </script>
+
+  <script src="https://s0.2mdn.net/ads/studio/Enabler.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      cursor: pointer;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    #banner {
+      position: relative;
+      width:  300px;
+      height: 600px;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      background: #101820;
+    }
+
+    #banner img { display: block; }
+
+    /* Every art layer is placed at its exact Figma frame offset. Widths are the
+       art's natural size; the 2x PNGs are downscaled by the width alone. */
+
+    /* ---- Frame 1 ---- */
+    /* the photo is on screen from the first paint — that is also the timeline's
+       time-0 state, so the first tick has nothing to change here. It doubles as
+       the static fallback if the Enabler or the CDN never arrives.
+       Frames 1 and 2 are the same shot at two crops, so instead of swapping
+       images the photo scales continuously into the frame-2 framing. The origin
+       below is the fixed point that makes that scale land on Figma's crop. */
+    #f1photo { position: absolute; top: 0; left: 0; width: 300px; height: 600px;
+               z-index: 10; transform-origin: 57.67% 46.66%; }
+    #f1head  { position: absolute; left: 33.53px;  top: 377.69px; width: 233px; z-index: 25; }
+    #f1foot  { position: absolute; left: 107.63px; top: 570.95px; width: 91px;  z-index: 25; }
+
+    /* ---- Frame 2 ---- */
+    /* the green bar wipes in over the frame-1 copy, then opens out to become the
+       frame-3/4 field — so there is only ever this one green block. */
+    /* full-frame block: its collapsed state below IS the frame-2 bar, and it
+       expands to full to become the frame-3/4 field */
+    #f2bar   { position: absolute; left: 0; top: 0; width: 300px; height: 600px;
+               background: #8EBE4E; z-index: 30; }
+    #f2head  { position: absolute; left: 31.62px; top: 398.01px; width: 238px; z-index: 40; }
+    #f2foot  { position: absolute; left: 85.11px; top: 570.95px; width: 137px; z-index: 40; }
+
+    /* ---- Frame 3 ---- */
+    #f3rock  { position: absolute; left: 40px;    top: 120px;    width: 220px; z-index: 50; }
+    #f3head  { position: absolute; left: 80.62px; top: 267.69px; width: 139px; z-index: 50; }
+
+    /* ---- Frame 4 ---- */
+    #f4rock  { position: absolute; left: 40px;    top: 106px;    width: 220px; z-index: 50; }
+    #f4head  { position: absolute; left: 43.47px; top: 267.69px; width: 215px; z-index: 50; }
+    #f4chev  { position: absolute; left: 220px;   top: 405px;    width: 15px;  z-index: 50; }
+    #f4legal { position: absolute; left: 23.5px;  top: 570px;    width: 253px; z-index: 50; }
+
+    #bg-exit { position: absolute; inset: 0; z-index: 1000; }
+
+    /* CSS owns the frame-1 starting state so nothing flashes before the JS
+       timeline runs: fade-in layers start hidden, and the green bar starts
+       collapsed off the left edge (the timeline only tweens from here). */
+    #f1head, #f1foot,
+    #f2bar, #f2head, #f2foot,
+    #f3rock, #f3head,
+    #f4rock, #f4head, #f4chev, #f4legal { opacity: 0; }
+
+    /* the bar's frame-3 state: scaleY 151/600 = 0.251667 about y = 498.44px (83.07%)
+       maps 0..600 onto exactly 373..524, its frame-2 position. */
+    #f2bar { transform: scaleY(0.251667); transform-origin: 50% 83.07%; }
+
+    #f1photo, #f2bar, #f3rock, #f4rock { will-change: transform; }
+  </style>
+</head>
+
+<body>
+  <div id="banner">
+    <img id="f1photo" src="img/f1-photo.jpg" alt="">
+    <img id="f1head" src="img/f1-head.png" alt="Are your patients with SCLC...">
+    <img id="f1foot" src="img/f1-foot.svg" alt="SCLC=small cell lung cancer.">
+
+    <div id="f2bar"></div>
+    <img id="f2head" src="img/f2-head.png" alt="Carrying the burden of Cancer-Associated LEMS with SCLC?">
+    <img id="f2foot" src="img/f2-foot.svg" alt="LEMS=Lambert-Eaton myasthenic syndrome.">
+
+    <img id="f3rock" src="img/f3-rock.png" alt="">
+    <img id="f3head" src="img/f3-head.png" alt="Earlier recognition can make a difference">
+
+    <img id="f4rock" src="img/f4-rock.png" alt="">
+    <img id="f4head" src="img/f4-head.png" alt="Learn more about the symptoms from leaders in the field">
+    <img id="f4chev" src="img/f4-chev.svg" alt="">
+    <img id="f4legal" src="img/f4-legal.svg" alt="© 2026 Catalyst Pharmaceuticals, Inc. All Rights Reserved. CAL-0169-1 September 2026">
+
+    <div id="bg-exit" onclick="exitHandler()"></div>
+  </div>
+
+<script type="text/javascript">
+
+  // GCM click handler — must use Enabler.exit() per GCM spec; do not use addEventListener
+  function exitHandler() {
+    if (typeof Enabler !== 'undefined' && Enabler.isInitialized()) { Enabler.exit("clickTag", clickTag); }
+    else { window.open(clickTag, '_blank'); }
+  }
+
+  // Four-frame flow — background first, then the type, as in the CAL-0166/0167/0168 sets.
+  // Steps are added to the paused master timeline; nothing renders until play().
+  function animationSequence(tl) {
+    // CSS owns the initial state (hidden layers + the green bar collapsed onto its
+    // frame-2 position) and that state IS the timeline at time 0, so the first tick
+    // can never contradict what the browser has already painted.
+    //
+    // Every reveal is set() + to(). from()/fromTo() are deliberately avoided: they
+    // default to immediateRender:true, so their "from" values are written to the DOM
+    // the moment the timeline is built. The build waits on the Enabler INIT event,
+    // which lands ~1s after the banner has painted — so an immediate render there
+    // reads as a blink.
+
+    // FRAME 1 — the woman slowly grows on screen; the copy fades in over her.
+    // The zoom runs continuously through frames 1 and 2, landing on Figma's
+    // frame-2 crop, so the two frames share one shot with no visible swap.
+    tl.to('#f1photo', { scale: 1.3843, duration: 6.8, ease: 'none' }, 0.2);
+    tl.to(['#f1head', '#f1foot'], { opacity: 1, duration: 0.40, ease: 'power1.out' }, 0.4);
+
+    // TRANSITION 1 — the green bar wipes in from the left and covers the frame-1 copy
+    tl.set('#f2bar', { opacity: 1, xPercent: -110 }, 3.6);
+    tl.to('#f2bar', { xPercent: 0, duration: 0.55, ease: 'power2.out' }, 3.6);
+    tl.to(['#f1head', '#f1foot'], { opacity: 0, duration: 0.30, ease: 'power1.out' }, 3.6);
+
+    // FRAME 2 — the new copy fades in on the bar
+    tl.to(['#f2head', '#f2foot'], { opacity: 1, duration: 0.40, ease: 'power1.out' }, 4.25);
+
+    // TRANSITION 2 — the frame-2 bar opens out to clear the screen; that expanded
+    // bar becomes the green field that frames 3 and 4 both sit on
+    tl.to(['#f2head', '#f2foot'], { opacity: 0, duration: 0.30, ease: 'power1.out' }, 7.2);
+    tl.to('#f2bar', { scaleY: 1, duration: 0.55, ease: 'power2.inOut' }, 7.35);
+
+    // FRAME 3 — the rock drops in from the top, then the copy
+    tl.set('#f3rock', { opacity: 1, y: -400 }, 7.9);
+    tl.to('#f3rock', { y: 0, duration: 0.55, ease: 'back.out(0.8)' }, 7.9);
+    tl.to('#f3rock', { y: 6, duration: 0.08, yoyo: true, repeat: 1, ease: 'power2.out' }, 8.37);
+    tl.to('#f3head', { opacity: 1, duration: 0.35, ease: 'power1.out' }, 8.5);
+
+    // TRANSITION 3 — frame 3 clears, then the warning-sign rock drops in its place
+    tl.to(['#f3rock', '#f3head'], { opacity: 0, duration: 0.30, ease: 'power1.out' }, 11.3);
+    tl.set('#f4rock', { opacity: 1, y: -400 }, 11.7);
+    tl.to('#f4rock', { y: 0, duration: 0.55, ease: 'back.out(0.8)' }, 11.7);
+    tl.to('#f4rock', { y: 6, duration: 0.08, yoyo: true, repeat: 1, ease: 'power2.out' }, 12.17);
+
+    // FRAME 4 — headline, then the legal line
+    tl.to(['#f4head', '#f4chev'], { opacity: 1, duration: 0.35, ease: 'power1.out' }, 12.3);
+    tl.to('#f4legal', { opacity: 1, duration: 0.35, ease: 'power1.out' }, 12.6);
+
+  }
+
+  // Assembled while paused (a paused ancestor also keeps zero-duration steps from
+  // rendering during the build), then played.
+  var mainTimeline = gsap.timeline({ paused: true });
+  function buildTimeline() {
+    animationSequence(mainTimeline);
+    mainTimeline.play();
+    window.mainTimeline = mainTimeline;
+  }
+
+  // Wait for GCM Enabler to initialise before starting the animation
+  function init() { buildTimeline(); }
+  if (typeof Enabler !== 'undefined' && Enabler.isInitialized()) { init(); }
+  else if (typeof Enabler !== 'undefined') { Enabler.addEventListener(studio.events.StudioEvent.INIT, init); }
+  else { setTimeout(init, 100); }
+</script>
+
+<!-- review only — remove this tag before GCM handoff -->
+<script src="debug-panel.js"></script>
+</body>
+</html>
