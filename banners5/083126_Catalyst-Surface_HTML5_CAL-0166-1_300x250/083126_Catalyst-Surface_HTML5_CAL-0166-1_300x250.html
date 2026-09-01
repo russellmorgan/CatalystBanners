@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="ad.size"         content="width=300,height=250">
+  <meta name="veeva-code"      content="CAL-0166-1">
+  <meta name="expiration-date" content="08/31/2027">
+  <title> </title>
+
+  <script type="text/javascript">
+    var clickTag = "https://cancerassociatedlems.com/test/";
+  </script>
+
+  <script src="https://s0.2mdn.net/ads/studio/Enabler.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      cursor: pointer;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    #banner {
+      position: relative;
+      width:  300px;
+      height: 250px;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      background: #000000;
+    }
+
+    #banner img { display: block; }
+
+    /* full-frame text layers — the SVG art positions each block itself */
+    .txt { position: absolute; inset: 0; width: 300px; height: 250px; }
+
+    /* ---- Frame 1 ---- */
+    #f1photo { position: absolute; top: 0; left: 0; width: 300px; height: 250px;
+               object-fit: cover; object-position: 50% 0; z-index: 10; }
+    #f1bar   { position: absolute; left: 0; top: 152px; width: 300px; height: 65px;
+               background: #8EBE4E; z-index: 20; }
+    #f1legal { position: absolute; left: 0; top: 217px; width: 300px; height: 33px;
+               background: #0E161C; z-index: 23; }
+    #f1head  { z-index: 25; }
+    #f1foot  { z-index: 25; }
+
+    /* ---- Frame 2 ---- */
+    #f2bg   { position: absolute; left: 0; width: 300px; background: #8EBE4E; z-index: 30; }
+    #f2rock { position: absolute; top: 16px; left: 88px; width: 124px; z-index: 40; }
+    #f2bar  { position: absolute; left: 0; top: 127px; width: 300px; height: 79px;
+              background: #44264A; z-index: 50; }
+    #f2head { z-index: 55; }
+
+    /* ---- Frame 3 ---- */
+    #f3bg   { position: absolute; left: 0; width: 300px; background: #44264A; z-index: 60; }
+    #f3head { z-index: 70; }
+    #f3foot { z-index: 70; }
+    #f3band { position: absolute; left: 0; top: 100px; width: 300px; height: 79px;
+              background: #8EBE4E; z-index: 75; }
+    #f3cta  { z-index: 80; }
+    #f3rock { position: absolute; top: 112px; left: 6px; width: 120px; z-index: 90; }
+
+    #bg-exit { position: absolute; inset: 0; z-index: 1000; }
+
+    #f1photo, #f2rock, #f3rock, #f2bg, #f3bg, #f1bar, #f3band { will-change: transform; }
+  </style>
+</head>
+
+<body>
+  <div id="banner">
+    <img id="f1photo" src="img/f1-photo.jpg" alt="">
+    <div id="f1bar"></div>
+    <img id="f1head" class="txt" src="img/f1-head.png" alt="Is Cancer-Associated LEMS weighing down your patients with SCLC?">
+    <div id="f1legal"></div>
+    <img id="f1foot" class="txt" src="img/f1-foot.svg" alt="LEMS=Lambert-Eaton myasthenic syndrome; SCLC=small cell lung cancer.">
+
+    <div id="f2bg"></div>
+    <img id="f2rock" src="img/f2-rock.png" alt="">
+    <div id="f2bar"></div>
+    <img id="f2head" class="txt" src="img/f2-head.png" alt="Lighten their burden through earlier recognition">
+
+    <div id="f3bg"></div>
+    <img id="f3head" class="txt" src="img/f3-head.png" alt="Look beyond the surface">
+    <img id="f3foot" class="txt" src="img/f3-foot.svg" alt="© 2026 Catalyst Pharmaceuticals, Inc. All Rights Reserved. CAL-0166-1 August 2026">
+    <div id="f3band"></div>
+    <img id="f3cta" class="txt" src="img/f3-cta.png" alt="Uncover more at Booth 219">
+    <img id="f3rock" src="img/f3-rock.png" alt="">
+
+    <div id="bg-exit" onclick="exitHandler()"></div>
+  </div>
+
+<script type="text/javascript">
+
+  // GCM click handler — must use Enabler.exit() per GCM spec; do not use addEventListener
+  function exitHandler() {
+    if (typeof Enabler !== 'undefined' && Enabler.isInitialized()) { Enabler.exit("clickTag", clickTag); }
+    else { window.open(clickTag, '_blank'); }
+  }
+
+  // Frame animations — timing/easing carried over from the CAL-0161 "Approach" set
+  function animationSequence() {
+    // everything past the frame-1 photo starts hidden; each step reveals its own layer
+    gsap.set(['#f1bar', '#f1head', '#f1legal', '#f1foot',
+              '#f2bg', '#f2rock', '#f2bar', '#f2head',
+              '#f3bg', '#f3head', '#f3foot', '#f3band', '#f3cta', '#f3rock'], { opacity: 0 });
+    gsap.set('#f2bg', { top: 150, height: 100 });   // sits over the frame-1 green bar
+    gsap.set('#f3bg', { top: 127, height: 79 });    // sits over the frame-2 purple bar
+
+    const tl = gsap.timeline();
+
+    // NOTE: reveals use set()+to() (never fromTo with immediateRender:false, and no
+    // relative "+=" tween values) so scrubbing the timeline back and forth stays reliable.
+
+    // FRAME 1 — photo fades in and slowly scales up (1 -> 1.2) for the whole frame;
+    //           green bar slides in from the left; then the copy appears
+    tl.fromTo('#f1photo', { opacity: 0 }, { opacity: 1, duration: 0.4, ease: 'power1.out' }, 0);
+    tl.fromTo('#f1photo', { scale: 1 }, { scale: 1.2, duration: 4.5, ease: 'none', transformOrigin: '50% 45%' }, 0.2);
+    tl.set('#f1bar', { opacity: 1, xPercent: -110 }, 0.5);
+    tl.to('#f1bar', { xPercent: 0, duration: 0.55, ease: 'power2.out' }, 0.5);
+    tl.to('#f1head', { opacity: 1, duration: 0.35, ease: 'power1.out' }, 1.15);
+    tl.to(['#f1legal', '#f1foot'], { opacity: 1, duration: 0.30, ease: 'power1.out' }, 1.45);
+
+    // TRANSITION 1 — green bar opens to clear the screen
+    tl.set('#f2bg', { opacity: 1 }, 4.7);
+    tl.to('#f2bg',  { top: 0, height: 250, duration: 0.55, ease: 'power2.inOut' }, 4.7);
+
+    // FRAME 2 — rock drops from top; purple bar slides in from the left; then the headline fades in
+    tl.fromTo('#f2rock', { opacity: 1, y: -300 }, { y: 0, duration: 0.50, ease: 'back.out(0.8)' }, 5.25);
+    tl.to('#f2rock', { y: 6, duration: 0.08, yoyo: true, repeat: 1, ease: 'power2.out' }, 5.67);
+    tl.set('#f2bar', { opacity: 1, x: -300 }, 5.35);
+    tl.to('#f2bar', { x: 0, duration: 0.50, ease: 'power2.out' }, 5.35);
+    tl.to('#f2head', { opacity: 1, duration: 0.35, ease: 'power1.out' }, 5.95);
+
+    // TRANSITION 2 — rock fades out (after a 3s hold), then the purple bar opens to clear the screen
+    tl.to('#f2rock', { opacity: 0, duration: 0.30, ease: 'power1.out' }, '+=3');
+    tl.set('#f3bg', { opacity: 1 });
+    tl.to('#f3bg',  { top: 0, height: 250, duration: 0.55, ease: 'power2.inOut' });
+
+    // FRAME 3 — headline + legal fade in; green bar slides in from the left; then its contents appear in sequence
+    tl.to(['#f3head', '#f3foot'], { opacity: 1, duration: 0.35, ease: 'power1.out' });
+    tl.set('#f3band', { opacity: 1, x: -300 }, '+=0.05');
+    tl.to('#f3band', { x: 0, duration: 0.5, ease: 'power2.out' });
+    tl.to('#f3rock', { opacity: 1, duration: 0.4, ease: 'power1.out' }, '+=0.1');
+    tl.to('#f3cta',  { opacity: 1, duration: 0.35, ease: 'power1.out' }, '+=0.15');
+
+    return tl;
+  }
+
+  var mainTimeline = gsap.timeline({ paused: true });
+  function buildTimeline() {
+    mainTimeline.add(animationSequence());
+    mainTimeline.play();
+    window.mainTimeline = mainTimeline;
+  }
+
+  // Wait for GCM Enabler to initialise before starting the animation
+  function init() { buildTimeline(); }
+  if (typeof Enabler !== 'undefined' && Enabler.isInitialized()) { init(); }
+  else if (typeof Enabler !== 'undefined') { Enabler.addEventListener(studio.events.StudioEvent.INIT, init); }
+  else { setTimeout(init, 100); }
+</script>
+
+<!-- review only — remove this tag before GCM handoff -->
+<script src="debug-panel.js"></script>
+</body>
+</html>
