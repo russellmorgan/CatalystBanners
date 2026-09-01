@@ -69,6 +69,12 @@
 
     #bg-exit { position: absolute; inset: 0; z-index: 1000; }
 
+    /* start hidden in CSS so the (highest z-index) end-card layers don't flash
+       before GSAP loads and runs its opening gsap.set() */
+    #f1bar, #f1head, #f1legal, #f1foot,
+    #f2bg, #f2rock, #f2bar, #f2head,
+    #f3bg, #f3head, #f3foot, #f3band, #f3cta, #f3rock { opacity: 0; }
+
     #f1photo, #f1bar, #f2rock, #f2bar, #f2bg, #f3bg, #f3band { will-change: transform; }
   </style>
 </head>
