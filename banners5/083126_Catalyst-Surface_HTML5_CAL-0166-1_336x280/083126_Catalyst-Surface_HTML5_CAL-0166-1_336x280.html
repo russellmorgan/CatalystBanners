@@ -48,15 +48,14 @@
                transform-origin: 50% 45%; }
     #f1bar   { position: absolute; left: 0; top: 174px; width: 336px; height: 65px;
                background: #8EBE4E; z-index: 20; }
-    #f1legal { position: absolute; left: 0; top: 239px; width: 336px; height: 41px;
-               background: #0E161C; z-index: 23; }
+    /* no dark box under the bar — the dark base is baked into f1-photo.jpg (matches Figma / 300x600) */
     #f1head  { z-index: 25; }
     #f1foot  { z-index: 25; }
 
     /* ---- Frame 2 ---- */
     /* full-frame block; the "bar opens" transition scales it on Y (compositor-only) */
     #f2bg   { position: absolute; left: 0; top: 0; width: 336px; height: 280px; background: #8EBE4E; z-index: 30; }
-    #f2rock { position: absolute; top: 30px; left: 100px; width: 136px; z-index: 40; }
+    #f2rock { position: absolute; top: 53px; left: 97px; width: 138px; z-index: 40; }
     #f2bar  { position: absolute; left: 0; top: 151px; width: 336px; height: 79px;
               background: #44264A; z-index: 50; }
     #f2head { z-index: 55; }
@@ -75,7 +74,7 @@
     /* CSS owns the frame-1 starting state so nothing flashes before the JS
        timeline runs: fade-in layers start hidden, and the full-frame colour
        blocks start collapsed to a bar (the timeline only tweens from here). */
-    #f1bar, #f1head, #f1legal, #f1foot,
+    #f1bar, #f1head, #f1foot,
     #f2bg, #f2rock, #f2bar, #f2head,
     #f3bg, #f3head, #f3foot, #f3band, #f3cta, #f3rock { opacity: 0; }
 
@@ -91,7 +90,6 @@
     <img id="f1photo" src="img/f1-photo.jpg" alt="">
     <div id="f1bar"></div>
     <img id="f1head" class="txt" src="img/f1-head.png" alt="Is Cancer-Associated LEMS weighing down your patients with SCLC?">
-    <div id="f1legal"></div>
     <img id="f1foot" class="txt" src="img/f1-foot.svg" alt="LEMS=Lambert-Eaton myasthenic syndrome; SCLC=small cell lung cancer.">
 
     <div id="f2bg"></div>
@@ -136,7 +134,7 @@
     tl.set('#f1bar', { opacity: 1, xPercent: -110 }, 0.5);
     tl.to('#f1bar', { xPercent: 0, duration: 0.55, ease: 'power2.out' }, 0.5);
     tl.to('#f1head', { opacity: 1, duration: 0.35, ease: 'power1.out' }, 1.15);
-    tl.to(['#f1legal', '#f1foot'], { opacity: 1, duration: 0.30, ease: 'power1.out' }, 1.45);
+    tl.to('#f1foot', { opacity: 1, duration: 0.30, ease: 'power1.out' }, 1.45);
 
     // TRANSITION 1 — green bar opens to clear the screen
     tl.set('#f2bg', { opacity: 1 }, 4.7);
