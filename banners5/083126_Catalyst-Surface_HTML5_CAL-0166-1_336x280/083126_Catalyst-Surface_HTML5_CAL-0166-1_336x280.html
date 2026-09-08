@@ -50,7 +50,7 @@
                background: #8EBE4E; z-index: 20; }
     /* no dark box under the bar — the dark base is baked into f1-photo.jpg (matches Figma / 300x600) */
     #f1head  { z-index: 25; }
-    #f1foot  { z-index: 25; }
+    #f1foot  { z-index: 25; position: relative;top:5px }
 
     /* ---- Frame 2 ---- */
     /* full-frame block; the "bar opens" transition scales it on Y (compositor-only) */
@@ -130,23 +130,23 @@
 
     // FRAME 1 — photo is on screen from the start and slowly scales up (1 -> 1.2)
     //           for the whole frame; green bar slides in from the left; then the copy appears
-    tl.to('#f1photo', { scale: 1.2, duration: 4.5, ease: 'none' }, 0.2);
+    tl.to('#f1photo', { scale: 1.2, duration: 6.5, ease: 'none' }, 0.2);
     tl.set('#f1bar', { opacity: 1, xPercent: -110 }, 0.5);
     tl.to('#f1bar', { xPercent: 0, duration: 0.55, ease: 'power2.out' }, 0.5);
     tl.to('#f1head', { opacity: 1, duration: 0.35, ease: 'power1.out' }, 1.15);
     tl.to('#f1foot', { opacity: 1, duration: 0.30, ease: 'power1.out' }, 1.45);
 
     // TRANSITION 1 — green bar opens to clear the screen
-    tl.set('#f2bg', { opacity: 1 }, 4.7);
-    tl.to('#f2bg',  { scaleY: 1, duration: 0.55, ease: 'power2.inOut' }, 4.7);
+    tl.set('#f2bg', { opacity: 1 }, 6.7);
+    tl.to('#f2bg',  { scaleY: 1, duration: 0.55, ease: 'power2.inOut' }, 6.7);
 
     // FRAME 2 — rock drops from top; purple bar slides in from the left; then the headline fades in
-    tl.set('#f2rock', { opacity: 1, y: -300 }, 5.25);
-    tl.to('#f2rock', { y: 0, duration: 0.50, ease: 'back.out(0.8)' }, 5.25);
-    tl.to('#f2rock', { y: 6, duration: 0.08, yoyo: true, repeat: 1, ease: 'power2.out' }, 5.67);
-    tl.set('#f2bar', { opacity: 1, x: -336 }, 5.35);
-    tl.to('#f2bar', { x: 0, duration: 0.50, ease: 'power2.out' }, 5.35);
-    tl.to('#f2head', { opacity: 1, duration: 0.35, ease: 'power1.out' }, 5.95);
+    tl.set('#f2rock', { opacity: 1, y: -300 }, 7.25);
+    tl.to('#f2rock', { y: 0, duration: 0.50, ease: 'back.out(0.8)' }, 7.25);
+    tl.to('#f2rock', { y: 6, duration: 0.08, yoyo: true, repeat: 1, ease: 'power2.out' }, 7.67);
+    tl.set('#f2bar', { opacity: 1, x: -336 }, 7.35);
+    tl.to('#f2bar', { x: 0, duration: 0.50, ease: 'power2.out' }, 7.35);
+    tl.to('#f2head', { opacity: 1, duration: 0.35, ease: 'power1.out' }, 7.95);
 
     // TRANSITION 2 — rock fades out (after a 3s hold), then the purple bar opens to clear the screen
     tl.to('#f2rock', { opacity: 0, duration: 0.30, ease: 'power1.out' }, '+=3');
@@ -164,7 +164,7 @@
 
   // Assembled while paused (a paused ancestor also keeps zero-duration steps from
   // rendering during the build), then played.
-  var mainTimeline = gsap.timeline({ paused: true });
+  var mainTimeline = gsap.timeline({ paused: true, repeat: 2, repeatDelay: 3 });
   function buildTimeline() {
     animationSequence(mainTimeline);
     mainTimeline.play();

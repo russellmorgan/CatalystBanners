@@ -151,7 +151,7 @@
 
   // Assembled while paused (a paused ancestor also keeps zero-duration steps from
   // rendering during the build), then played.
-  var mainTimeline = gsap.timeline({ paused: true });
+  var mainTimeline = gsap.timeline({ paused: true, repeat: 2, repeatDelay: 3 });
   function buildTimeline() {
     animationSequence(mainTimeline);
     mainTimeline.play();

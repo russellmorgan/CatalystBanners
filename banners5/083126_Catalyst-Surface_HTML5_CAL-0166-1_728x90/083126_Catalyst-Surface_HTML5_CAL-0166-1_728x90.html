@@ -44,7 +44,7 @@
     #f1photo { position: absolute; top: 0; left: 0;   width: 321px; height: 90px; z-index: 10; }
     #f1green { position: absolute; top: 0; left: 0;   width: 728px; height: 90px; background: #8EBE4E; z-index: 20; }
     #f1head  { z-index: 25; }
-    #f1foot  { z-index: 25; }
+    #f1foot  { z-index: 25; position: relative; top: 3px;}
 
     /* ---- Frame 2 ---- */
     #f2rock   { position: absolute; top: 13px; left: 72px; width: 111px; z-index: 50; }
@@ -118,16 +118,16 @@
 
     // FRAME 1 — woman + green bar already on screen (no entrance); copy fades in; then green expands left
     tl.to(['#f1head', '#f1foot'], { opacity: 1, duration: 0.40, ease: 'power1.out' }, 0.3);
-    tl.to('#f1green', { scaleX: 1, duration: 0.55, ease: 'power2.inOut' }, 3.7);
-    tl.to(['#f1head', '#f1foot'], { opacity: 0, duration: 0.30, ease: 'power1.out' }, 3.7);
+    tl.to('#f1green', { scaleX: 1, duration: 0.55, ease: 'power2.inOut' }, 5.7);
+    tl.to(['#f1head', '#f1foot'], { opacity: 0, duration: 0.30, ease: 'power1.out' }, 5.7);
 
     // FRAME 2 — rock drops from top; purple slides in from the right; then the white text fades in
-    tl.set('#f2rock', { opacity: 1, y: -110 }, 4.35);
-    tl.to('#f2rock', { y: 0, duration: 0.50, ease: 'back.out(0.8)' }, 4.35);
-    tl.to('#f2rock', { y: 6, duration: 0.08, yoyo: true, repeat: 1, ease: 'power2.out' }, 4.77);
-    tl.set('#f2purple', { opacity: 1, x: 468 }, 4.95);
-    tl.to('#f2purple', { x: 0, duration: 0.50, ease: 'power2.out' }, 4.95);
-    tl.to('#f2head', { opacity: 1, duration: 0.40, ease: 'power1.out' }, 5.55);
+    tl.set('#f2rock', { opacity: 1, y: -110 }, 6.35);
+    tl.to('#f2rock', { y: 0, duration: 0.50, ease: 'back.out(0.8)' }, 6.35);
+    tl.to('#f2rock', { y: 6, duration: 0.08, yoyo: true, repeat: 1, ease: 'power2.out' }, 6.77);
+    tl.set('#f2purple', { opacity: 1, x: 468 }, 6.95);
+    tl.to('#f2purple', { x: 0, duration: 0.50, ease: 'power2.out' }, 6.95);
+    tl.to('#f2head', { opacity: 1, duration: 0.40, ease: 'power1.out' }, 7.55);
 
     // FRAME 3 — purple expands first; headline fades in; green bar slides in from the right;
     //           once it lands the rock fades in, then the CTA + legal fade in together
@@ -143,7 +143,7 @@
 
   // Assembled while paused (a paused ancestor also keeps zero-duration steps from
   // rendering during the build), then played.
-  var mainTimeline = gsap.timeline({ paused: true });
+  var mainTimeline = gsap.timeline({ paused: true, repeat: 2, repeatDelay: 3 });
   function buildTimeline() {
     animationSequence(mainTimeline);
     mainTimeline.play();
