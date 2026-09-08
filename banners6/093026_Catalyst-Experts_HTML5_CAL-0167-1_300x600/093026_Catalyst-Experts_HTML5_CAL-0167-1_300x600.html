@@ -129,20 +129,20 @@
 
     // FRAME 1 — photo is on screen from the start and slowly scales up (1 -> 1.18)
     //           for the whole frame; green bar slides in from the left; then the copy appears
-    tl.to('#f1photo', { scale: 1.18, duration: 4.5, ease: 'none' }, 0.2);
+    tl.to('#f1photo', { scale: 1.18, duration: 6.5, ease: 'none' }, 0.2);
     tl.set('#f1bar', { opacity: 1, xPercent: -110 }, 0.5);
     tl.to('#f1bar', { xPercent: 0, duration: 0.55, ease: 'power2.out' }, 0.5);
     tl.to('#f1head', { opacity: 1, duration: 0.35, ease: 'power1.out' }, 1.15);
     tl.to('#f1foot', { opacity: 1, duration: 0.30, ease: 'power1.out' }, 1.45);
 
     // TRANSITION 1 — the green bar grows out of itself and covers frame 1
-    tl.set('#f2bg', { opacity: 1 }, 4.7);
-    tl.to('#f2bg',  { scaleY: 1, duration: 0.55, ease: 'power2.inOut' }, 4.7);
+    tl.set('#f2bg', { opacity: 1 }, 6.7);
+    tl.to('#f2bg',  { scaleY: 1, duration: 0.55, ease: 'power2.inOut' }, 6.7);
 
     // FRAME 2 — magnifier icon pops in; then the headline fades in
-    tl.set('#f2icon', { opacity: 1, scale: 0.4 }, 5.25);
-    tl.to('#f2icon', { scale: 1, duration: 0.50, ease: 'back.out(1.6)' }, 5.25);
-    tl.to('#f2head', { opacity: 1, duration: 0.35, ease: 'power1.out' }, 5.85);
+    tl.set('#f2icon', { opacity: 1, scale: 0.4 }, 7.25);
+    tl.to('#f2icon', { scale: 1, duration: 0.50, ease: 'back.out(1.6)' }, 7.25);
+    tl.to('#f2head', { opacity: 1, duration: 0.35, ease: 'power1.out' }, 7.85);
 
     // TRANSITION 2 — frame 3 keeps the same green field, so frame 2's contents
     // simply clear (after a 3s hold) rather than being wiped by a second block
