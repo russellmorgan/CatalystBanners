@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="ad.size"         content="width=300,height=600">
+  <meta name="ad.size"         content="width=300,height=250">
   <meta name="veeva-code"      content="CAL-0166-1">
   <meta name="expiration-date" content="08/31/2027">
   <title> </title>
@@ -29,7 +29,7 @@
     #banner {
       position: relative;
       width:  300px;
-      height: 600px;
+      height: 250px;
       overflow: hidden;
       font-family: Arial, sans-serif;
       background: #000000;
@@ -38,35 +38,36 @@
     #banner img { display: block; }
 
     /* full-frame text layers — the SVG art positions each block itself */
-    .txt { position: absolute; inset: 0; width: 300px; height: 600px; }
+    .txt { position: absolute; inset: 0; width: 300px; height: 250px; }
 
     /* ---- Frame 1 ---- */
-    /* full-frame photo (Figma crop); the green bar sits on it, the legal line sits on its dark base */
     /* the photo is on screen from the first paint — that is also the timeline's
        time-0 state, so the first tick has nothing to change here */
-    #f1photo { position: absolute; top: 0; left: 0; width: 300px; height: 600px; z-index: 10;
+    #f1photo { position: absolute; top: 0; left: 0; width: 300px; height: 250px;
+               object-fit: cover; object-position: 50% 0; z-index: 10;
                transform-origin: 50% 45%; }
-    #f1bar   { position: absolute; left: 0; top: 373px; width: 300px; height: 151px;
+    #f1bar   { position: absolute; left: 0; top: 152px; width: 300px; height: 65px;
                background: #8EBE4E; z-index: 20; }
+    /* no dark box under the bar — the dark base is baked into f1-photo.jpg (matches Figma / 300x600) */
     #f1head  { z-index: 25; }
-    #f1foot  { z-index: 25; position:relative;top:10px }
+    #f1foot  { z-index: 25; }
 
     /* ---- Frame 2 ---- */
     /* full-frame block; the "bar opens" transition scales it on Y (compositor-only) */
-    #f2bg   { position: absolute; left: 0; top: 0; width: 300px; height: 600px; background: #8EBE4E; z-index: 30; }
-    #f2rock { position: absolute; top: 151px; left: 63px; width: 175px; z-index: 40; }
-    #f2bar  { position: absolute; left: 0; top: 283px; width: 300px; height: 173px;
+    #f2bg   { position: absolute; left: 0; top: 0; width: 300px; height: 250px; background: #8EBE4E; z-index: 30; }
+    #f2rock { position: absolute; top: 37px; left: 83px; width: 130px; z-index: 40; }
+    #f2bar  { position: absolute; left: 0; top: 127px; width: 300px; height: 79px;
               background: #44264A; z-index: 50; }
     #f2head { z-index: 55; }
 
     /* ---- Frame 3 ---- */
-    #f3bg   { position: absolute; left: 0; top: 0; width: 300px; height: 600px; background: #44264A; z-index: 60; }
+    #f3bg   { position: absolute; left: 0; top: 0; width: 300px; height: 250px; background: #44264A; z-index: 60; }
     #f3head { z-index: 70; }
     #f3foot { z-index: 70; }
-    #f3band { position: absolute; left: 0; top: 283px; width: 300px; height: 173px;
+    #f3band { position: absolute; left: 0; top: 100px; width: 300px; height: 79px;
               background: #8EBE4E; z-index: 75; }
     #f3cta  { z-index: 80; }
-    #f3rock { position: absolute; top: 288px; left: 78px; width: 145px; z-index: 90; }
+    #f3rock { position: absolute; top: 112px; left: 6px; width: 120px; z-index: 90; }
 
     #bg-exit { position: absolute; inset: 0; z-index: 1000; }
 
@@ -77,8 +78,8 @@
     #f2bg, #f2rock, #f2bar, #f2head,
     #f3bg, #f3head, #f3foot, #f3band, #f3cta, #f3rock { opacity: 0; }
 
-    #f2bg { transform: scaleY(0.38); transform-origin: 50% 100%; }
-    #f3bg { transform: scaleY(0.29); transform-origin: 50% 66%; }
+    #f2bg { transform: scaleY(0.40); transform-origin: 50% 100%; }
+    #f3bg { transform: scaleY(0.32); transform-origin: 50% 74%; }
 
     #f1photo, #f1bar, #f2rock, #f2bar, #f2bg, #f3bg, #f3band { will-change: transform; }
   </style>
@@ -178,6 +179,5 @@
 </script>
 
 <!-- review only — remove this tag before GCM handoff -->
-<script src="debug-panel.js"></script>
 </body>
 </html>
